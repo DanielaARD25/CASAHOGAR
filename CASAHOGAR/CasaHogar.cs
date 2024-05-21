@@ -148,10 +148,45 @@ namespace CASAHOGAR
         #endregion
 
         #region VistaVentas
-        public DataTable VistaVentas()
+        public DataTable VistaVentas(DateTime fecha)
         {
             string conectionString;
-            string Query = "SELECT * FROM vwVentas WITH(NOLOCK)";
+            string Query = "SELECT * FROM vwVentas WHERE CAST([Fecha de Venta] AS DATE) = @Fecha";
+
+            conectionString = Conexion();
+
+            using (SqlConnection connection = new SqlConnection(conectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(Query, connection);
+                command.Parameters.AddWithValue("@Fecha", fecha);
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+
+                DataTable dataTable = new DataTable();
+
+                try
+                {
+                    dataAdapter.Fill(dataTable);
+                    return dataTable;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return null;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+        #endregion
+
+        #region VistaVentasPorDia
+        public DataTable VistaVentasPorDia()
+        {
+            string conectionString;
+            string Query = "SELECT * FROM vwVentasPorDia WITH(NOLOCK)";
 
             conectionString = Conexion();
 

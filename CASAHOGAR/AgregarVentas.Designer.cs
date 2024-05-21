@@ -119,10 +119,12 @@
             // 
             // cbxIdProducto
             // 
+            this.cbxIdProducto.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbxIdProducto.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbxIdProducto.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxIdProducto.FormattingEnabled = true;
             this.cbxIdProducto.Location = new System.Drawing.Point(174, 29);
-            this.cbxIdProducto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbxIdProducto.Margin = new System.Windows.Forms.Padding(4);
             this.cbxIdProducto.Name = "cbxIdProducto";
             this.cbxIdProducto.Size = new System.Drawing.Size(140, 30);
             this.cbxIdProducto.TabIndex = 20;
@@ -130,10 +132,12 @@
             // 
             // cbxNombreProducto
             // 
+            this.cbxNombreProducto.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbxNombreProducto.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbxNombreProducto.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxNombreProducto.FormattingEnabled = true;
             this.cbxNombreProducto.Location = new System.Drawing.Point(174, 83);
-            this.cbxNombreProducto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbxNombreProducto.Margin = new System.Windows.Forms.Padding(4);
             this.cbxNombreProducto.Name = "cbxNombreProducto";
             this.cbxNombreProducto.Size = new System.Drawing.Size(216, 30);
             this.cbxNombreProducto.TabIndex = 21;
@@ -154,7 +158,7 @@
             // 
             this.pictureBox1.Image = global::CASAHOGAR.Properties.Resources.Captura_de_pantalla_2024_05_05_171027;
             this.pictureBox1.Location = new System.Drawing.Point(866, 13);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(60, 61);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -195,7 +199,7 @@
             this.lvRegistroVentas.GridLines = true;
             this.lvRegistroVentas.HideSelection = false;
             this.lvRegistroVentas.Location = new System.Drawing.Point(13, 207);
-            this.lvRegistroVentas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lvRegistroVentas.Margin = new System.Windows.Forms.Padding(4);
             this.lvRegistroVentas.Name = "lvRegistroVentas";
             this.lvRegistroVentas.Size = new System.Drawing.Size(923, 269);
             this.lvRegistroVentas.TabIndex = 101;

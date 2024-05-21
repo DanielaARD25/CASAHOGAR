@@ -188,6 +188,12 @@
     <Compile Include="Ventas.Designer.cs">
       <DependentUpon>Ventas.cs</DependentUpon>
     </Compile>
+    <Compile Include="VentasDia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VentasDia.Designer.cs">
+      <DependentUpon>VentasDia.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AgregarConsumos.resx">
       <DependentUpon>AgregarConsumos.cs</DependentUpon>
     </EmbeddedResource>
@@ -257,6 +263,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ventas.resx">
       <DependentUpon>Ventas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VentasDia.resx">
+      <DependentUpon>VentasDia.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -109,6 +109,8 @@
             // 
             // cbxNombreDonante
             // 
+            this.cbxNombreDonante.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbxNombreDonante.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbxNombreDonante.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxNombreDonante.FormattingEnabled = true;
             this.cbxNombreDonante.Location = new System.Drawing.Point(170, 218);
@@ -119,6 +121,8 @@
             // 
             // cbxIdDonante
             // 
+            this.cbxIdDonante.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbxIdDonante.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbxIdDonante.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxIdDonante.FormattingEnabled = true;
             this.cbxIdDonante.Location = new System.Drawing.Point(170, 182);
