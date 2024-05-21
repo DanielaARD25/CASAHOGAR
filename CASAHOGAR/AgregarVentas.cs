@@ -103,9 +103,28 @@ namespace CASAHOGAR
 
         private void btnSalir_Click_1(object sender, EventArgs e)
         {
-            Ventas ventas = new Ventas();
-            ventas.Show();
-            this.Close();
+            // Verificar si el formulario de ventas ya está abierto
+            bool formularioVentasAbierto = false;
+            foreach (Form formularioAbierto in Application.OpenForms)
+            {
+                if (formularioAbierto is Ventas)
+                {
+                    formularioVentasAbierto = true;
+                    break;
+                }
+            }
+
+            // Si el formulario de ventas ya está abierto, cerrar este formulario
+            if (formularioVentasAbierto)
+            {
+                this.Close();
+            }
+            else // Si el formulario de ventas no está abierto, abrirlo y luego cerrar este formulario
+            {
+                Ventas ventas = new Ventas();
+                ventas.Show();
+                this.Close();
+            }
         }
 
         private void LlenarPrecio()

@@ -1,6 +1,6 @@
 ﻿namespace CASAHOGAR
 {
-    partial class Ventas
+    partial class VentasDia
     {
         /// <summary>
         /// Required designer variable.
@@ -28,130 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dgvVentas = new System.Windows.Forms.DataGridView();
+            this.btnImprimir = new CASAHOGAR.Botones();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.btnMostrar = new CASAHOGAR.Botones();
-            this.btnBuscar = new CASAHOGAR.Botones();
-            this.btnImprimir = new CASAHOGAR.Botones();
             this.btnEliminar = new CASAHOGAR.Botones();
             this.btnSalir = new CASAHOGAR.Botones();
             this.btnAgregar = new CASAHOGAR.Botones();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvVentas)).BeginInit();
+            this.dgvVentas = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVentas)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dgvVentas
-            // 
-            this.dgvVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvVentas.Location = new System.Drawing.Point(51, 84);
-            this.dgvVentas.Margin = new System.Windows.Forms.Padding(2);
-            this.dgvVentas.Name = "dgvVentas";
-            this.dgvVentas.RowHeadersWidth = 62;
-            this.dgvVentas.RowTemplate.Height = 28;
-            this.dgvVentas.Size = new System.Drawing.Size(360, 297);
-            this.dgvVentas.TabIndex = 16;
-            this.dgvVentas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVentas_CellClick);
-            this.dgvVentas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVentas_CellContentClick);
-            this.dgvVentas.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVentas_CellDoubleClick);
-            this.dgvVentas.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVentas_CellEndEdit);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Work Sans SemiBold", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(42, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(147, 54);
-            this.label1.TabIndex = 84;
-            this.label1.Text = "Ventas";
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::CASAHOGAR.Properties.Resources.eliminar;
-            this.pictureBox3.Location = new System.Drawing.Point(500, 218);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(44, 44);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 83;
-            this.pictureBox3.TabStop = false;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(183)))), ((int)(((byte)(48)))));
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(36, 423);
-            this.panel1.TabIndex = 76;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::CASAHOGAR.Properties.Resources.boton_agregar1;
-            this.pictureBox1.Location = new System.Drawing.Point(499, 101);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(44, 44);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 81;
-            this.pictureBox1.TabStop = false;
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Font = new System.Drawing.Font("Work Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.Location = new System.Drawing.Point(156, 56);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(255, 23);
-            this.dateTimePicker1.TabIndex = 86;
-            // 
-            // btnMostrar
-            // 
-            this.btnMostrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(231)))), ((int)(((byte)(231)))));
-            this.btnMostrar.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(231)))), ((int)(((byte)(231)))));
-            this.btnMostrar.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnMostrar.BorderRadius = 20;
-            this.btnMostrar.BorderSize = 0;
-            this.btnMostrar.FlatAppearance.BorderSize = 0;
-            this.btnMostrar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(225)))), ((int)(((byte)(175)))));
-            this.btnMostrar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(225)))), ((int)(((byte)(175)))));
-            this.btnMostrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMostrar.Font = new System.Drawing.Font("Work Sans Medium", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMostrar.ForeColor = System.Drawing.Color.Black;
-            this.btnMostrar.Location = new System.Drawing.Point(514, 50);
-            this.btnMostrar.Name = "btnMostrar";
-            this.btnMostrar.Size = new System.Drawing.Size(123, 36);
-            this.btnMostrar.TabIndex = 90;
-            this.btnMostrar.Text = "Mostrar todo";
-            this.btnMostrar.TextColor = System.Drawing.Color.Black;
-            this.btnMostrar.UseVisualStyleBackColor = false;
-            this.btnMostrar.Click += new System.EventHandler(this.btnMostrar_Click);
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(231)))), ((int)(((byte)(231)))));
-            this.btnBuscar.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(231)))), ((int)(((byte)(231)))));
-            this.btnBuscar.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnBuscar.BorderRadius = 20;
-            this.btnBuscar.BorderSize = 0;
-            this.btnBuscar.FlatAppearance.BorderSize = 0;
-            this.btnBuscar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(225)))), ((int)(((byte)(175)))));
-            this.btnBuscar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(225)))), ((int)(((byte)(175)))));
-            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBuscar.Font = new System.Drawing.Font("Work Sans Medium", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscar.ForeColor = System.Drawing.Color.Black;
-            this.btnBuscar.Location = new System.Drawing.Point(415, 50);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(93, 36);
-            this.btnBuscar.TabIndex = 89;
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.TextColor = System.Drawing.Color.Black;
-            this.btnBuscar.UseVisualStyleBackColor = false;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // btnImprimir
             // 
@@ -166,14 +55,54 @@
             this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImprimir.Font = new System.Drawing.Font("Work Sans Medium", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImprimir.ForeColor = System.Drawing.Color.Black;
-            this.btnImprimir.Location = new System.Drawing.Point(461, 371);
+            this.btnImprimir.Location = new System.Drawing.Point(515, 372);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(83, 40);
-            this.btnImprimir.TabIndex = 85;
+            this.btnImprimir.TabIndex = 99;
             this.btnImprimir.Text = "Imprimir";
             this.btnImprimir.TextColor = System.Drawing.Color.Black;
             this.btnImprimir.UseVisualStyleBackColor = false;
-            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click_1);
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Work Sans SemiBold", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(47, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(282, 54);
+            this.label1.TabIndex = 98;
+            this.label1.Text = "Ventas del Dia";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::CASAHOGAR.Properties.Resources.eliminar;
+            this.pictureBox3.Location = new System.Drawing.Point(288, 368);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(44, 44);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 97;
+            this.pictureBox3.TabStop = false;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(183)))), ((int)(((byte)(48)))));
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(36, 471);
+            this.panel1.TabIndex = 92;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::CASAHOGAR.Properties.Resources.boton_agregar1;
+            this.pictureBox1.Location = new System.Drawing.Point(110, 368);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(44, 44);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 96;
+            this.pictureBox1.TabStop = false;
             // 
             // btnEliminar
             // 
@@ -188,10 +117,10 @@
             this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEliminar.Font = new System.Drawing.Font("Work Sans Medium", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminar.ForeColor = System.Drawing.Color.Black;
-            this.btnEliminar.Location = new System.Drawing.Point(448, 261);
+            this.btnEliminar.Location = new System.Drawing.Point(236, 411);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(150, 40);
-            this.btnEliminar.TabIndex = 79;
+            this.btnEliminar.TabIndex = 94;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.TextColor = System.Drawing.Color.Black;
             this.btnEliminar.UseVisualStyleBackColor = false;
@@ -210,10 +139,10 @@
             this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSalir.Font = new System.Drawing.Font("Work Sans Medium", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSalir.ForeColor = System.Drawing.Color.Black;
-            this.btnSalir.Location = new System.Drawing.Point(559, 371);
+            this.btnSalir.Location = new System.Drawing.Point(613, 372);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(78, 40);
-            this.btnSalir.TabIndex = 80;
+            this.btnSalir.TabIndex = 95;
             this.btnSalir.Text = "Salir";
             this.btnSalir.TextColor = System.Drawing.Color.Black;
             this.btnSalir.UseVisualStyleBackColor = false;
@@ -232,25 +161,34 @@
             this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregar.Font = new System.Drawing.Font("Work Sans Medium", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregar.ForeColor = System.Drawing.Color.Black;
-            this.btnAgregar.Location = new System.Drawing.Point(448, 144);
+            this.btnAgregar.Location = new System.Drawing.Point(59, 411);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(150, 40);
-            this.btnAgregar.TabIndex = 77;
+            this.btnAgregar.TabIndex = 93;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.TextColor = System.Drawing.Color.Black;
             this.btnAgregar.UseVisualStyleBackColor = false;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
-            // Ventas
+            // dgvVentas
+            // 
+            this.dgvVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvVentas.Location = new System.Drawing.Point(46, 56);
+            this.dgvVentas.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvVentas.Name = "dgvVentas";
+            this.dgvVentas.RowHeadersWidth = 62;
+            this.dgvVentas.RowTemplate.Height = 28;
+            this.dgvVentas.Size = new System.Drawing.Size(651, 297);
+            this.dgvVentas.TabIndex = 91;
+            this.dgvVentas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVentas_CellContentClick);
+            // 
+            // VentasDia
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(249)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(655, 423);
+            this.ClientSize = new System.Drawing.Size(703, 471);
             this.ControlBox = false;
-            this.Controls.Add(this.btnMostrar);
-            this.Controls.Add(this.btnBuscar);
-            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox3);
@@ -260,22 +198,19 @@
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.dgvVentas);
-            this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "Ventas";
-            this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Ventas";
-            this.Load += new System.EventHandler(this.Ventas_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvVentas)).EndInit();
+            this.Name = "VentasDia";
+            this.Text = "Ventas del Dia";
+            this.Load += new System.EventHandler(this.VentasDia_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVentas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.DataGridView dgvVentas;
+        private Botones btnImprimir;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Panel panel1;
@@ -283,9 +218,6 @@
         private Botones btnEliminar;
         private Botones btnSalir;
         private Botones btnAgregar;
-        private Botones btnImprimir;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private Botones btnMostrar;
-        private Botones btnBuscar;
+        private System.Windows.Forms.DataGridView dgvVentas;
     }
 }

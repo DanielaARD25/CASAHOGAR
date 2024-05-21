@@ -148,10 +148,45 @@ namespace CASAHOGAR
         #endregion
 
         #region VistaVentas
-        public DataTable VistaVentas()
+        public DataTable VistaVentas(DateTime fecha)
         {
             string conectionString;
-            string Query = "SELECT * FROM vwVentas WITH(NOLOCK)";
+            string Query = "SELECT * FROM vwVentas WHERE CAST([Fecha de Venta] AS DATE) = @Fecha";
+
+            conectionString = Conexion();
+
+            using (SqlConnection connection = new SqlConnection(conectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(Query, connection);
+                command.Parameters.AddWithValue("@Fecha", fecha);
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+
+                DataTable dataTable = new DataTable();
+
+                try
+                {
+                    dataAdapter.Fill(dataTable);
+                    return dataTable;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return null;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+        #endregion
+
+        #region VistaVentasPorDia
+        public DataTable VistaVentasPorDia()
+        {
+            string conectionString;
+            string Query = "SELECT * FROM vwVentasPorDia WITH(NOLOCK)";
 
             conectionString = Conexion();
 
@@ -527,11 +562,42 @@ namespace CASAHOGAR
         }
         #endregion
 
+        #region Verificar Credenciales
+        public bool VerificarCredenciales(string nombreUsuario, string contraseñaUsuario)
+        {
+            string conectionString = Conexion();
+            string query = "SELECT COUNT(*) FROM Usuarios WHERE NombreUsuario = @NombreUsuario AND contraseñaUsuario = @ContraseñaUsuario";
+
+            using (SqlConnection connection = new SqlConnection(conectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@NombreUsuario", nombreUsuario);
+                    command.Parameters.AddWithValue("@ContraseñaUsuario", contraseñaUsuario);
+
+                    try
+                    {
+                        connection.Open();
+                        int count = (int)command.ExecuteScalar();
+
+                        // Si se encuentra una coincidencia de usuario y contraseña en la base de datos, devuelve verdadero
+                        return count > 0;
+                    }
+                    catch (Exception ex)
+                    {
+                        // Manejar cualquier error
+                        throw new Exception("Error al verificar las credenciales: " + ex.Message);
+                    }
+                }
+            }
+        }
+        #endregion
+
         // PROCEDIMIENTOS
 
         // ----------- DONANTES ---------------- 
         #region Alta Donantes
-        public void AltaDonantes(string Nombre, string Apellido, string Telefono, string Email)
+            public void AltaDonantes(string Nombre, string Apellido, string Telefono, string Email)
         {
             //Obtenemos la cadena de conexión de nuestra base de datos
             string conectionString;
@@ -799,6 +865,38 @@ namespace CASAHOGAR
         }
         #endregion
 
+        #region Eliminar Ventas por Fecha
+        public void EliminarVentasPorFecha(DateTime fechaVentas)
+        {
+            string conectionString;
+            conectionString = Conexion();
+            // Consulta SQL para eliminar los registros con la fecha proporcionada
+            string query = "DELETE FROM Ventas WHERE CONVERT(date, fechaVenta, 101) = CONVERT(date, @FechaVenta, 101)";
+
+            using (SqlConnection connection = new SqlConnection(conectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    // Agregar parámetro para la fecha
+                    command.Parameters.AddWithValue("@FechaVenta", fechaVentas);
+
+                    try
+                    {
+                        // Abrir la conexión
+                        connection.Open();
+
+                        // Ejecutar la consulta
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        // Manejar cualquier error
+                        throw new Exception("Error al eliminar los registros de ventas por fecha: " + ex.Message);
+                    }
+                }
+            }
+        }
+        #endregion
         // ----------- PRODUCTOS ---------------- 
 
         #region Alta Productos

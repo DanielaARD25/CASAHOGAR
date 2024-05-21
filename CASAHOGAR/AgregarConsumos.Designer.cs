@@ -113,6 +113,8 @@
             // 
             // cbxNombreInsumo
             // 
+            this.cbxNombreInsumo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbxNombreInsumo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbxNombreInsumo.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxNombreInsumo.FormattingEnabled = true;
             this.cbxNombreInsumo.Location = new System.Drawing.Point(193, 105);
@@ -123,6 +125,8 @@
             // 
             // cbxIdInsumo
             // 
+            this.cbxIdInsumo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbxIdInsumo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbxIdInsumo.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxIdInsumo.FormattingEnabled = true;
             this.cbxIdInsumo.Location = new System.Drawing.Point(193, 69);
@@ -130,6 +134,8 @@
             this.cbxIdInsumo.Size = new System.Drawing.Size(51, 30);
             this.cbxIdInsumo.TabIndex = 62;
             this.cbxIdInsumo.SelectedIndexChanged += new System.EventHandler(this.cbxIdInsumo_SelectedIndexChanged);
+            this.cbxIdInsumo.Enter += new System.EventHandler(this.cbxIdInsumo_Enter);
+            this.cbxIdInsumo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbxIdInsumo_KeyPress);
             // 
             // panel1
             // 

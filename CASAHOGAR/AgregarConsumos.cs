@@ -42,6 +42,7 @@ namespace CASAHOGAR
         {
             LlenarInsumo();
             LlenarCantidades();
+            cbxIdInsumo.KeyPress += cbxIdInsumo_KeyPress;
         }
 
         private void cbxIdInsumo_SelectedIndexChanged(object sender, EventArgs e)
@@ -107,28 +108,28 @@ namespace CASAHOGAR
         }
 
         private void LimpiarControles()
-            {
-                cbxIdInsumo.SelectedIndex = -1;
-                cbxNombreInsumo.SelectedIndex = -1;
-                txtUnidadMedidaInsumo.Clear();
-                lblCantidadDisponible.Text = "";
-                txtCantidadConsumida.Clear();
-            
-            }
+        {
+            cbxIdInsumo.SelectedIndex = -1;
+            cbxNombreInsumo.SelectedIndex = -1;
+            txtUnidadMedidaInsumo.Clear();
+            lblCantidadDisponible.Text = "";
+            txtCantidadConsumida.Clear();
+
+        }
 
 
-            private void txtCantidadDisponibleInsumo_TextChanged(object sender, EventArgs e)
-            {
+        private void txtCantidadDisponibleInsumo_TextChanged(object sender, EventArgs e)
+        {
 
-            }
+        }
 
 
         private void btnSalir_Click(object sender, EventArgs e)
-            {
-                Consumos consumos = new Consumos();
-                consumos.Show();
-                this.Close();
-            }
+        {
+            Consumos consumos = new Consumos();
+            consumos.Show();
+            this.Close();
+        }
 
         private void btnAgregar_Click_1(object sender, EventArgs e)
         {
@@ -155,6 +156,41 @@ namespace CASAHOGAR
         private void txtCantidadDisponibleInsumo_TextChanged_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void cbxIdInsumo_Enter(object sender, EventArgs e)
+        {
+        }
+
+        private void cbxIdInsumo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                VerificarValorEnComboBox();
+                // Esto evita que el "ding" suene cuando se presiona Enter
+                e.Handled = true;
+            }
+        }
+
+        private void VerificarValorEnComboBox()
+        {
+            bool itemEncontrado = false;
+
+            foreach (var item in cbxIdInsumo.Items)
+            {
+                if (item.ToString() == cbxIdInsumo.Text)
+                {
+                    itemEncontrado = true;
+                    break;
+                }
+            }
+
+            if (!itemEncontrado)
+            {
+                MessageBox.Show("El id de Insumo no existe, intenta otro");
+                // Puedes opcionalmente limpiar el texto o seleccionar el primer ítem, por ejemplo:
+                cbxIdInsumo.Text = string.Empty;
+            }
         }
     }
 }

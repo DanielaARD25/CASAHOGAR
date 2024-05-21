@@ -13,6 +13,7 @@ using System.Diagnostics;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using System.IO;
+using Microsoft.VisualBasic;
 
 namespace CASAHOGAR
 {
@@ -20,6 +21,7 @@ namespace CASAHOGAR
     {
         //IMPRIMIR
         private DataGridViewPrinter dataGridViewPrinter;
+        Form1 form1;
         public Ventas()
         {
             InitializeComponent();
@@ -38,16 +40,16 @@ namespace CASAHOGAR
             CasaHogar datos = new CasaHogar();
             try
             {
-
-                dgvVentas.DataSource = datos.VistaVentas();
-
-
+                dgvVentas.DataSource = datos.VistaVentasPorDia();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
             Refresh();
+
+            dgvVentas.CellClick += dgvVentas_CellClick;
+
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -65,42 +67,53 @@ namespace CASAHOGAR
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             CasaHogar datos = new CasaHogar();
+
             // Verificar si hay una fila seleccionada en el DataGridView
             if (dgvVentas.SelectedRows.Count > 0)
             {
-                // Obtener el valor del ID de la fila seleccionada
-                string idSeleccionado = dgvVentas.SelectedRows[0].Cells["ID Venta"].Value.ToString();
+                // Obtener la fecha de la venta seleccionada
+                DateTime fechaSeleccionada = Convert.ToDateTime(dgvVentas.SelectedRows[0].Cells["Fecha de Venta"].Value.ToString());
 
-                // Confirmar con el usuario antes de eliminar
-                DialogResult result = MessageBox.Show("¿Estás seguro de que deseas eliminar el registro de venta con ID " + idSeleccionado + "? Toma en cuenta que el registro se borrará en otros espacios donde también se usaba ",
-                                                        "Confirmar Eliminación",
-                                                        MessageBoxButtons.YesNo,
-                                                        MessageBoxIcon.Question);
+                // Solicitar la contraseña al usuario
+                string contraseñaIngresada = Microsoft.VisualBasic.Interaction.InputBox("Por favor, ingresa tu contraseña para confirmar la eliminación:", "Confirmar Eliminación", "");
 
-                // Si el usuario confirma la eliminación
-                if (result == DialogResult.Yes)
+                // Verificar si la contraseña ingresada coincide con la contraseña del usuario actual
+                if (contraseñaIngresada == SesionUsuario.ContraseñaUsuario)
                 {
-                    // Realizar la eliminación del registro utilizando el ID obtenido
-                    try
-                    {
-                        // Llamar a un método en tu clase de acceso a datos para eliminar el registro por su ID
-                        datos.EliminarRegistroVentas(idSeleccionado);
+                    // Confirmar con el usuario antes de eliminar
+                    DialogResult result = MessageBox.Show("¿Estás seguro de que deseas eliminar todas las ventas realizadas en la fecha " + fechaSeleccionada + "?",
+                                                            "Confirmar Eliminación",
+                                                            MessageBoxButtons.YesNo,
+                                                            MessageBoxIcon.Question);
 
-                        // Actualizar el DataGridView después de la eliminación
+                    // Si el usuario confirma la eliminación
+                    if (result == DialogResult.Yes)
+                    {
+                        // Realizar la eliminación de las ventas por fecha
                         try
                         {
-                            dgvVentas.DataSource = datos.VistaVentas();
-                            this.Refresh();
+                            // Llamar a un método en tu clase de acceso a datos para eliminar las ventas por fecha
+                            datos.EliminarVentasPorFecha(fechaSeleccionada);
+
+                            // Actualizar el DataGridView después de la eliminación
+                            try
+                            {
+                                dgvVentas.DataSource = datos.VistaVentasPorDia();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Error al actualizar el DataGridView después de la eliminación: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.ToString());
+                            MessageBox.Show("Error al eliminar las ventas por fecha: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error al eliminar el registro: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                }
+                else
+                {
+                    MessageBox.Show("Contraseña incorrecta. No tienes permiso para eliminar las ventas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -178,7 +191,7 @@ namespace CASAHOGAR
             P2.Font = FontFactory.GetFont("Arial", 8);
             
             //***NOMBRE DE REPORTE SE CAMBIA Ej Reporte de Productos
-            Chunk text = new Chunk("Reporte de Ventas", FontFactory.GetFont("Soberana Sans", 8, iTextSharp.text.Font.BOLD));
+            Chunk text = new Chunk("Reporte de Ventas por Dia", FontFactory.GetFont("Soberana Sans", 8, iTextSharp.text.Font.BOLD));
             P2.Add(text);
             document.Add(P2);
 
@@ -191,7 +204,7 @@ namespace CASAHOGAR
             
 
             //*** SE CAMBIA DESCRIPCIÓN DE ACUERDO A TABLA
-            P6.Add("En este reporte se detalla la cantidad de ventas.");
+            P6.Add("En este reporte se detalla la cantidad de ventas realizadas en el dia seleccionado.");
             document.Add(P6);
             document.Add(new Paragraph(" "));
 
@@ -205,20 +218,14 @@ namespace CASAHOGAR
             tabla.SetWidthPercentage(new float[] { 56, Columnwidth, 56, 56, Columnwidth, Columnwidth}, PageSize.A4.Rotate());
             
             //*** CAMBIAS LOS NOMBRES SEGÚN LOS QUE ESTÁN EN LA VISTA DE TU TABLA Y SI HAY MÁS COLUMNAS, LAS AGREGAS, SI HAY MENOS, SE LAS QUITAS
-            PdfPCell celda1 = new PdfPCell(new Paragraph("Id Venta", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda2 = new PdfPCell(new Paragraph("Id Producto", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda3 = new PdfPCell(new Paragraph("Producto", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda4 = new PdfPCell(new Paragraph("Cantidad Vendida", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda5 = new PdfPCell(new Paragraph("Monto Pagado", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda6 = new PdfPCell(new Paragraph("Fecha de Venta", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+            PdfPCell celda1 = new PdfPCell(new Paragraph("Fecha de Venta", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+            PdfPCell celda2 = new PdfPCell(new Paragraph("Cantidad Vendida Total", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+            PdfPCell celda3 = new PdfPCell(new Paragraph("Total del dia", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
             
             //***  AGREGAS SEGÚN LAS CELDAS QUE HICISTE
             tabla.AddCell(celda1);
             tabla.AddCell(celda2);
             tabla.AddCell(celda3);
-            tabla.AddCell(celda4);
-            tabla.AddCell(celda5);
-            tabla.AddCell(celda6);
 
             foreach (DataRow item in VistaVentas.Rows)
             {
@@ -231,16 +238,6 @@ namespace CASAHOGAR
 
                 PdfPCell celda9 = new PdfPCell(new Paragraph(item[2].ToString(), FontFactory.GetFont("Arial", 9)));
                 tabla.AddCell(celda9);
-
-                PdfPCell celda10 = new PdfPCell(new Paragraph(item[3].ToString(), FontFactory.GetFont("Arial", 9)));
-                tabla.AddCell(celda10);
-
-                PdfPCell celda11 = new PdfPCell(new Paragraph(item[4].ToString(), FontFactory.GetFont("Arial", 9)));
-                tabla.AddCell(celda11);
-
-                PdfPCell celda12 = new PdfPCell(new Paragraph(item[5].ToString(), FontFactory.GetFont("Arial", 9)));
-                tabla.AddCell(celda12);
-
             }
             document.Add(tabla);
             
@@ -260,42 +257,42 @@ namespace CASAHOGAR
 
         private void dgvVentas_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            string conectionString;
-            conectionString = Conexion();
-            // Obtengo el ID de la venta editada.
-            int idVenta = Convert.ToInt32(dgvVentas.Rows[e.RowIndex].Cells["ID Venta"].Value);
-            // Obtengo los nuevos valores editados.
-            int idProducto = Convert.ToInt32(dgvVentas.Rows[e.RowIndex].Cells["ID Producto"].Value);
-            int cantidadVendida = Convert.ToInt32(dgvVentas.Rows[e.RowIndex].Cells["Cantidad Vendida"].Value.ToString());
-            decimal montoPagado = Convert.ToDecimal(dgvVentas.Rows[e.RowIndex].Cells["Monto Pagado"].Value.ToString());
-            DateTime fechaVenta = Convert.ToDateTime(dgvVentas.Rows[e.RowIndex].Cells["Fecha de Venta"].Value.ToString());
+            //string conectionString;
+            //conectionString = Conexion();
+            //// Obtengo el ID de la venta editada.
+            //int idVenta = Convert.ToInt32(dgvVentas.Rows[e.RowIndex].Cells["ID Venta"].Value);
+            //// Obtengo los nuevos valores editados.
+            //int idProducto = Convert.ToInt32(dgvVentas.Rows[e.RowIndex].Cells["ID Producto"].Value);
+            //int cantidadVendida = Convert.ToInt32(dgvVentas.Rows[e.RowIndex].Cells["Cantidad Vendida"].Value.ToString());
+            //decimal montoPagado = Convert.ToDecimal(dgvVentas.Rows[e.RowIndex].Cells["Monto Pagado"].Value.ToString());
+            //DateTime fechaVenta = Convert.ToDateTime(dgvVentas.Rows[e.RowIndex].Cells["Fecha de Venta"].Value.ToString());
 
-            // Actualizo la base de datos con los nuevos valores de la venta.
-            try
-            {
-                // Establezco una conexión con la base de datos.
-                using (SqlConnection connection = new SqlConnection(conectionString))
-                {
-                    connection.Open();
-                    // Construyo la consulta SQL para actualizar los datos de la venta.
-                    string query = "UPDATE Ventas SET idProducto = @IdProducto, cantidadVendida = @CantidadVendida, montoPagado = @MontoPagado, fechaVenta = @FechaVenta WHERE idVenta = @IdVenta";
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@IdVenta", idVenta);
-                    command.Parameters.AddWithValue("@IdProducto", idProducto);
-                    command.Parameters.AddWithValue("@CantidadVendida", cantidadVendida);
-                    command.Parameters.AddWithValue("@MontoPagado", montoPagado);
-                    command.Parameters.AddWithValue("@FechaVenta", fechaVenta);
-                    // Ejecuto la consulta.
-                    command.ExecuteNonQuery();
+            //// Actualizo la base de datos con los nuevos valores de la venta.
+            //try
+            //{
+            //    // Establezco una conexión con la base de datos.
+            //    using (SqlConnection connection = new SqlConnection(conectionString))
+            //    {
+            //        connection.Open();
+            //        // Construyo la consulta SQL para actualizar los datos de la venta.
+            //        string query = "UPDATE Ventas SET idProducto = @IdProducto, cantidadVendida = @CantidadVendida, montoPagado = @MontoPagado, fechaVenta = @FechaVenta WHERE idVenta = @IdVenta";
+            //        SqlCommand command = new SqlCommand(query, connection);
+            //        command.Parameters.AddWithValue("@IdVenta", idVenta);
+            //        command.Parameters.AddWithValue("@IdProducto", idProducto);
+            //        command.Parameters.AddWithValue("@CantidadVendida", cantidadVendida);
+            //        command.Parameters.AddWithValue("@MontoPagado", montoPagado);
+            //        command.Parameters.AddWithValue("@FechaVenta", fechaVenta);
+            //        // Ejecuto la consulta.
+            //        command.ExecuteNonQuery();
 
-                    MessageBox.Show("Datos de la venta actualizados correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Muestro un mensaje de error en caso de que ocurra una excepción durante la actualización.
-                MessageBox.Show("Error al actualizar los datos de la venta: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //        MessageBox.Show("Datos de la venta actualizados correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    // Muestro un mensaje de error en caso de que ocurra una excepción durante la actualización.
+            //    MessageBox.Show("Error al actualizar los datos de la venta: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
 
@@ -346,7 +343,7 @@ namespace CASAHOGAR
             try
             {
 
-                dgvVentas.DataSource = datos.VistaVentas();
+                dgvVentas.DataSource = datos.VistaVentasPorDia();
 
 
             }
@@ -355,6 +352,27 @@ namespace CASAHOGAR
                 MessageBox.Show(ex.ToString());
             }
             Refresh();
+        }
+
+        private void dgvVentas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dgvVentas_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        private void dgvVentas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow selectedRow = dgvVentas.Rows[e.RowIndex];
+                DateTime selectedDate = Convert.ToDateTime(selectedRow.Cells["Fecha de Venta"].Value.ToString());
+                VentasDia ventasPorFechaForm = new VentasDia(selectedDate);
+                ventasPorFechaForm.Show();
+            }
         }
     }
 }
