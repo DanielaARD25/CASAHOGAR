@@ -388,6 +388,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private Botones btnGuardar;
-        protected internal System.Windows.Forms.DateTimePicker dtpFechaVenta;
+        public System.Windows.Forms.DateTimePicker dtpFechaVenta;
     }
 }

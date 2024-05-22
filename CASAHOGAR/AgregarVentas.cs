@@ -13,6 +13,9 @@ namespace CASAHOGAR
     public partial class AgregarVentas : Form
     {
         private Dictionary<int, List<decimal>> preciosUnitarios = new Dictionary<int, List<decimal>>();
+        Ventas ventas = new Ventas();
+        VentasDia ventasDia;
+        private DateTime fechaSeleccionada;
         public AgregarVentas()
         {
             InitializeComponent();
@@ -77,6 +80,8 @@ namespace CASAHOGAR
             CasaHogar datos = new CasaHogar();
             try
             {
+                DateTime fechaSeleccionada = Convert.ToDateTime(dtpFechaVenta.Value.Date);
+                ventasDia = new VentasDia(fechaSeleccionada);
                 foreach (ListViewItem item in lvRegistroVentas.Items)
                 {
                     int idProducto = Convert.ToInt32(item.SubItems[0].Text);
@@ -87,13 +92,18 @@ namespace CASAHOGAR
                     DateTime fechaCompra = Convert.ToDateTime(item.SubItems[5].Text);
 
                     datos.AltaVentas(idProducto, producto, cantidad, totalCantidadProductos, fechaCompra);
+                    //fechaSeleccionada = fechaCompra.Date;
+                    ventasDia.ActualizarDataGridView();
+                    ventas.ActualizarDataGridView();
+
+
                 }
-
-                MessageBox.Show("Ventas agregadas", "Informativo", MessageBoxButtons.OK);
-
+                
                 // Limpiar los controles y el ListView después de agregar a la base de datos
                 LimpiarControles();
                 lvRegistroVentas.Items.Clear();
+                
+
             }
             catch (Exception ex)
             {

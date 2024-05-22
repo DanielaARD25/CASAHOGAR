@@ -22,6 +22,7 @@ namespace CASAHOGAR
         //IMPRIMIR
         private DataGridViewPrinter dataGridViewPrinter;
         Form1 form1;
+
         public Ventas()
         {
             InitializeComponent();
@@ -37,6 +38,15 @@ namespace CASAHOGAR
 
         private void Ventas_Load(object sender, EventArgs e)
         {
+            ActualizarDataGridView();
+            Refresh();
+
+            dgvVentas.CellClick += dgvVentas_CellClick;
+
+        }
+
+        public void ActualizarDataGridView()
+        {
             CasaHogar datos = new CasaHogar();
             try
             {
@@ -46,10 +56,6 @@ namespace CASAHOGAR
             {
                 MessageBox.Show(ex.ToString());
             }
-            Refresh();
-
-            dgvVentas.CellClick += dgvVentas_CellClick;
-
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -68,58 +74,67 @@ namespace CASAHOGAR
         {
             CasaHogar datos = new CasaHogar();
 
-            // Verificar si hay una fila seleccionada en el DataGridView
-            if (dgvVentas.SelectedRows.Count > 0)
+            DateTime fechaSeleccionada = Convert.ToDateTime(dgvVentas.SelectedRows[0].Cells["Fecha de Venta"].Value.ToString());
+            if (fechaSeleccionada == DateTime.Today)
             {
-                // Obtener la fecha de la venta seleccionada
-                DateTime fechaSeleccionada = Convert.ToDateTime(dgvVentas.SelectedRows[0].Cells["Fecha de Venta"].Value.ToString());
-
-                // Solicitar la contraseña al usuario
-                string contraseñaIngresada = Microsoft.VisualBasic.Interaction.InputBox("Por favor, ingresa tu contraseña para confirmar la eliminación:", "Confirmar Eliminación", "");
-
-                // Verificar si la contraseña ingresada coincide con la contraseña del usuario actual
-                if (contraseñaIngresada == SesionUsuario.ContraseñaUsuario)
+                // Verificar si hay una fila seleccionada en el DataGridView
+                if (dgvVentas.SelectedRows.Count > 0)
                 {
-                    // Confirmar con el usuario antes de eliminar
-                    DialogResult result = MessageBox.Show("¿Estás seguro de que deseas eliminar todas las ventas realizadas en la fecha " + fechaSeleccionada + "?",
-                                                            "Confirmar Eliminación",
-                                                            MessageBoxButtons.YesNo,
-                                                            MessageBoxIcon.Question);
+                    // Obtener la fecha de la venta seleccionada
+                    //DateTime fechaSeleccionada = Convert.ToDateTime(dgvVentas.SelectedRows[0].Cells["Fecha de Venta"].Value.ToString());
 
-                    // Si el usuario confirma la eliminación
-                    if (result == DialogResult.Yes)
+                    // Solicitar la contraseña al usuario
+                    string contraseñaIngresada = Microsoft.VisualBasic.Interaction.InputBox("Por favor, ingresa tu contraseña para confirmar la eliminación:", "Confirmar Eliminación", "");
+
+                    // Verificar si la contraseña ingresada coincide con la contraseña del usuario actual
+                    if (contraseñaIngresada == SesionUsuario.ContraseñaUsuario)
                     {
-                        // Realizar la eliminación de las ventas por fecha
-                        try
-                        {
-                            // Llamar a un método en tu clase de acceso a datos para eliminar las ventas por fecha
-                            datos.EliminarVentasPorFecha(fechaSeleccionada);
+                        // Confirmar con el usuario antes de eliminar
+                        DialogResult result = MessageBox.Show("¿Estás seguro de que deseas eliminar todas las ventas realizadas en la fecha " + fechaSeleccionada + "?",
+                                                                "Confirmar Eliminación",
+                                                                MessageBoxButtons.YesNo,
+                                                                MessageBoxIcon.Question);
 
-                            // Actualizar el DataGridView después de la eliminación
+                        // Si el usuario confirma la eliminación
+                        if (result == DialogResult.Yes)
+                        {
+                            // Realizar la eliminación de las ventas por fecha
                             try
                             {
-                                dgvVentas.DataSource = datos.VistaVentasPorDia();
+                                // Llamar a un método en tu clase de acceso a datos para eliminar las ventas por fecha
+                                datos.EliminarVentasPorFecha(fechaSeleccionada);
+
+                                // Actualizar el DataGridView después de la eliminación
+                                try
+                                {
+                                    ActualizarDataGridView();
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("Error al actualizar el DataGridView después de la eliminación: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
                             }
                             catch (Exception ex)
                             {
-                                MessageBox.Show("Error al actualizar el DataGridView después de la eliminación: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("Error al eliminar las ventas por fecha: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Error al eliminar las ventas por fecha: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Contraseña incorrecta. No tienes permiso para eliminar las ventas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Contraseña incorrecta. No tienes permiso para eliminar las ventas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Por favor, seleccione una fila para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else
             {
-                MessageBox.Show("Por favor, seleccione una fila para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Has excedido el tiempo límite para eliminar el registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            ActualizarDataGridView();
         }
 
         private void btnImprimir_Click_1(object sender, EventArgs e)
@@ -343,7 +358,7 @@ namespace CASAHOGAR
             try
             {
 
-                dgvVentas.DataSource = datos.VistaVentasPorDia();
+                ActualizarDataGridView();
 
 
             }
