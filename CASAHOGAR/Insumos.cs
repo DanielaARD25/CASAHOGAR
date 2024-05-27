@@ -191,11 +191,17 @@ namespace CASAHOGAR
             PdfWriter.GetInstance(document, new FileStream(FileName, FileMode.Create));
             document.Open();
 
-            iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(@"C:\Users\danwe\Desktop\Daniela\TEC\SEMESTRE 6\ING DE SOFTWARE\REVISAR\CASAHOGAR_ETAPA2\CASAHOGAR_DISEÑO_ETAPA4 Edición\CASAHOGAR_DISEÑO_ETAPA2\ReporteEncabezado.png");
+            using (MemoryStream ms = new MemoryStream())
+            {
+                Bitmap bitmap = CASAHOGAR.Properties.Resources.INSUMOS;
+                bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                ms.Seek(0, SeekOrigin.Begin);
 
-            jpg.ScalePercent(32f);
-            jpg.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
-            document.Add(jpg);
+                iTextSharp.text.Image png = iTextSharp.text.Image.GetInstance(ms);
+                png.ScalePercent(32f);
+                png.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+                document.Add(png);
+            }
 
             Paragraph Parrafo = new Paragraph();
             Parrafo.Alignment = Element.ALIGN_RIGHT;

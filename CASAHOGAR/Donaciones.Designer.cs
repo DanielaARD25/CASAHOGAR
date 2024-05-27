@@ -34,11 +34,11 @@
             this.btnAgregar = new CASAHOGAR.Botones();
             this.btnSalir = new CASAHOGAR.Botones();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.btnImprimir = new CASAHOGAR.Botones();
             this.btnBuscar = new CASAHOGAR.Botones();
             this.btnMostrar = new CASAHOGAR.Botones();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.btnEliminar = new CASAHOGAR.Botones();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDonaciones)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -47,6 +47,8 @@
             // 
             // dgvDonaciones
             // 
+            this.dgvDonaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvDonaciones.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.dgvDonaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDonaciones.Location = new System.Drawing.Point(51, 56);
             this.dgvDonaciones.Margin = new System.Windows.Forms.Padding(2);
@@ -131,17 +133,6 @@
             this.pictureBox1.TabIndex = 20;
             this.pictureBox1.TabStop = false;
             // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::CASAHOGAR.Properties.Resources.eliminar;
-            this.pictureBox3.Location = new System.Drawing.Point(267, 449);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(44, 44);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 22;
-            this.pictureBox3.TabStop = false;
-            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
-            // 
             // dateTimePicker2
             // 
             this.dateTimePicker2.Font = new System.Drawing.Font("Work Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -217,6 +208,17 @@
             this.btnMostrar.UseVisualStyleBackColor = false;
             this.btnMostrar.Click += new System.EventHandler(this.btnMostrar_Click);
             // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::CASAHOGAR.Properties.Resources.eliminar;
+            this.pictureBox3.Location = new System.Drawing.Point(267, 449);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(44, 44);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 22;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
+            // 
             // btnEliminar
             // 
             this.btnEliminar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(231)))), ((int)(((byte)(231)))));
@@ -279,11 +281,11 @@
         private Botones btnAgregar;
         private Botones btnSalir;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private Botones btnImprimir;
         private Botones btnBuscar;
         private Botones btnMostrar;
+        private System.Windows.Forms.PictureBox pictureBox3;
         private Botones btnEliminar;
     }
 }

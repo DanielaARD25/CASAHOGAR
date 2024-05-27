@@ -220,4 +220,31 @@
   <data name="Captura de pantalla 2024-05-05 171027" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Captura de pantalla 2024-05-05 171027.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CONSUMOS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CONSUMOS.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DONACIONES" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DONACIONES.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DONANTES" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DONANTES.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EMPLEADOS1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EMPLEADOS.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="INSUMOS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\INSUMOS.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MOV_Y_EQ" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MOV Y EQ.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PRODUCTOS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PRODUCTOS.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="USUARIOS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\USUARIOS.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VENTAS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VENTAS.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

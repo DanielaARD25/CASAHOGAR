@@ -113,11 +113,17 @@ namespace CASAHOGAR
             PdfWriter.GetInstance(document, new FileStream(FileName, FileMode.Create));
             document.Open();
 
-            iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(@"C:\Users\danwe\Desktop\Daniela\TEC\SEMESTRE 6\ING DE SOFTWARE\REVISAR\CASAHOGAR_ETAPA2\CASAHOGAR_DISEÑO_ETAPA4 Edición\CASAHOGAR_DISEÑO_ETAPA2\ReporteEncabezado.png");
-            //*** SI QUIEREN CAMBIAR LA RUTA DE LA IMAGEN, CAMBIENLA, SINO NO
-            jpg.ScalePercent(32f);
-            jpg.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
-            document.Add(jpg);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                Bitmap bitmap = CASAHOGAR.Properties.Resources.VENTAS;
+                bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                ms.Seek(0, SeekOrigin.Begin);
+
+                iTextSharp.text.Image png = iTextSharp.text.Image.GetInstance(ms);
+                png.ScalePercent(32f);
+                png.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+                document.Add(png);
+            }
 
 
             Paragraph Parrafo = new Paragraph();
@@ -138,6 +144,11 @@ namespace CASAHOGAR
             Chunk text = new Chunk("Reporte de Ventas", FontFactory.GetFont("Soberana Sans", 8, iTextSharp.text.Font.BOLD));
             P2.Add(text);
             document.Add(P2);
+
+            Paragraph P3 = new Paragraph();
+            P2.Alignment = Element.ALIGN_RIGHT;
+            P2.Font = FontFactory.GetFont("Arial", 8);
+
 
             document.Add(new Paragraph(" "));
             document.Add(new Paragraph(" "));
@@ -231,6 +242,7 @@ namespace CASAHOGAR
             AgregarVentas agregarVentas = new AgregarVentas();
             agregarVentas.dtpFechaVenta.Value = fechaSeleccionada;
             agregarVentas.Show();
+            this.Close();
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)

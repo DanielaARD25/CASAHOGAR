@@ -80,7 +80,7 @@ namespace CASAHOGAR
             CasaHogar datos = new CasaHogar();
             try
             {
-                DateTime fechaSeleccionada = Convert.ToDateTime(dtpFechaVenta.Value.Date);
+                DateTime fechaSeleccionada = dtpFechaVenta.Value;
                 ventasDia = new VentasDia(fechaSeleccionada);
                 foreach (ListViewItem item in lvRegistroVentas.Items)
                 {

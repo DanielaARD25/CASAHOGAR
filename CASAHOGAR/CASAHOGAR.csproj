@@ -407,5 +407,32 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CONSUMOS.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DONACIONES.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DONANTES.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EMPLEADOS.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\INSUMOS.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MOV Y EQ.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PRODUCTOS.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\USUARIOS.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VENTAS.JPG" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

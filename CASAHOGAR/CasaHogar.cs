@@ -700,7 +700,7 @@ namespace CASAHOGAR
         // ----------- DONACIONES ---------------- 
 
         #region Alta Donaciones
-        public void AltaDonaciones(string ProductoDonado, int CantidadDonada, DateTime FechaDonacion, int IdDonante, string NombreDonante)
+        public void AltaDonaciones(string DescripcionDonacion, DateTime FechaDonacion, int IdDonante, string NombreDonante)
         {
             //Obtenemos la cadena de conexión de nuestra base de datos
             string conectionString;
@@ -719,8 +719,7 @@ namespace CASAHOGAR
                     command.CommandType = CommandType.StoredProcedure;
 
                     //Le mandamos las variables ingresadas en los texbox
-                    command.Parameters.AddWithValue("@ProductoDonado", ProductoDonado);
-                    command.Parameters.AddWithValue("@CantidadDonada", CantidadDonada);
+                    command.Parameters.AddWithValue("@DescripcionDonacion", DescripcionDonacion);
                     command.Parameters.AddWithValue("@FechaDonacion", FechaDonacion);
                     command.Parameters.AddWithValue("@IdDonante", IdDonante);
                     command.Parameters.AddWithValue("@NombreDonante", NombreDonante);

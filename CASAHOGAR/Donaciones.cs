@@ -198,11 +198,17 @@ namespace CASAHOGAR
             PdfWriter.GetInstance(document, new FileStream(FileName, FileMode.Create));
             document.Open();
 
-            iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(@"C:\Users\danwe\Desktop\Daniela\TEC\SEMESTRE 6\ING DE SOFTWARE\REVISAR\CASAHOGAR_ETAPA2\CASAHOGAR_DISEÑO_ETAPA4 Edición\CASAHOGAR_DISEÑO_ETAPA2\ReporteEncabezado.png");
-            //*** SI QUIEREN CAMBIAR LA RUTA DE LA IMAGEN, CAMBIENLA, SINO NO
-            jpg.ScalePercent(32f);
-            jpg.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
-            document.Add(jpg);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                Bitmap bitmap = CASAHOGAR.Properties.Resources.DONACIONES;
+                bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                ms.Seek(0, SeekOrigin.Begin);
+
+                iTextSharp.text.Image png = iTextSharp.text.Image.GetInstance(ms);
+                png.ScalePercent(32f);
+                png.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+                document.Add(png);
+            }
 
 
             Paragraph Parrafo = new Paragraph();
@@ -244,15 +250,14 @@ namespace CASAHOGAR
             PdfPTable tabla = new PdfPTable(NumeroColumnas);
 
             //*** AJUSTA EL TAMAÑO SEGÚN LA CANTIDAD DE COLUMNAS QUE TENGA LA VISTA DE LA TABLA QUE TE TOCÓ, EJ SI SON 6 COLUMNAS, LE PONES 6 VALORES
-            tabla.SetWidthPercentage(new float[] { 56, Columnwidth, 56, 56, Columnwidth, Columnwidth }, PageSize.A4.Rotate());
+            tabla.SetWidthPercentage(new float[] { 56, Columnwidth, 56, 56, Columnwidth}, PageSize.A4.Rotate());
 
             //*** CAMBIAS LOS NOMBRES SEGÚN LOS QUE ESTÁN EN LA VISTA DE TU TABLA Y SI HAY MÁS COLUMNAS, LAS AGREGAS, SI HAY MENOS, SE LAS QUITAS
             PdfPCell celda1 = new PdfPCell(new Paragraph("ID Donación", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda2 = new PdfPCell(new Paragraph("Producto Donado", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda3 = new PdfPCell(new Paragraph("Cantidad Donada", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda4 = new PdfPCell(new Paragraph("Fecha Donación", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda5 = new PdfPCell(new Paragraph("ID Donante", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda6 = new PdfPCell(new Paragraph("Donante", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+            PdfPCell celda2 = new PdfPCell(new Paragraph("Descripción", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+            PdfPCell celda3 = new PdfPCell(new Paragraph("Fecha Donación", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+            PdfPCell celda4 = new PdfPCell(new Paragraph("ID Donante", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+            PdfPCell celda5 = new PdfPCell(new Paragraph("Donante", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
 
             //***  AGREGAS SEGÚN LAS CELDAS QUE HICISTE
             tabla.AddCell(celda1);
@@ -260,7 +265,6 @@ namespace CASAHOGAR
             tabla.AddCell(celda3);
             tabla.AddCell(celda4);
             tabla.AddCell(celda5);
-            tabla.AddCell(celda6);
 
             foreach (DataRow item in VistaVentas.Rows)
             {
@@ -281,8 +285,6 @@ namespace CASAHOGAR
                 PdfPCell celda11 = new PdfPCell(new Paragraph(item[4].ToString(), FontFactory.GetFont("Arial", 9)));
                 tabla.AddCell(celda11);
 
-                PdfPCell celda12 = new PdfPCell(new Paragraph(item[5].ToString(), FontFactory.GetFont("Arial", 9)));
-                tabla.AddCell(celda12);
 
             }
             document.Add(tabla);
@@ -316,47 +318,55 @@ namespace CASAHOGAR
 
         private void btnEliminar_Click_1(object sender, EventArgs e)
         {
-            CasaHogar datos = new CasaHogar();
-            // Verificar si hay una fila seleccionada en el DataGridView
-            if (dgvDonaciones.SelectedRows.Count > 0)
+            DateTime fechaSeleccionada = Convert.ToDateTime(dgvDonaciones.SelectedRows[0].Cells["Fecha Donación"].Value.ToString());
+            if (fechaSeleccionada == DateTime.Today)
             {
-                // Obtener el valor del ID de la fila seleccionada
-                string idSeleccionado = dgvDonaciones.SelectedRows[0].Cells["ID Donación"].Value.ToString();
-
-                // Confirmar con el usuario antes de eliminar
-                DialogResult result = MessageBox.Show("¿Estás seguro de que deseas eliminar el registro de donaciones con ID " + idSeleccionado + "? Toma en cuenta que el registro se borrará en otros espacios donde también se usaba ",
-                                                        "Confirmar Eliminación",
-                                                        MessageBoxButtons.YesNo,
-                                                        MessageBoxIcon.Question);
-
-                // Si el usuario confirma la eliminación
-                if (result == DialogResult.Yes)
+                CasaHogar datos = new CasaHogar();
+                // Verificar si hay una fila seleccionada en el DataGridView
+                if (dgvDonaciones.SelectedRows.Count > 0)
                 {
-                    // Realizar la eliminación del registro utilizando el ID obtenido
-                    try
-                    {
-                        // Llamar a un método en tu clase de acceso a datos para eliminar el registro por su ID
-                        datos.EliminarRegistroDonaciones(idSeleccionado);
+                    // Obtener el valor del ID de la fila seleccionada
+                    string idSeleccionado = dgvDonaciones.SelectedRows[0].Cells["ID Donación"].Value.ToString();
 
-                        // Actualizar el DataGridView después de la eliminación
+                    // Confirmar con el usuario antes de eliminar
+                    DialogResult result = MessageBox.Show("¿Estás seguro de que deseas eliminar el registro de donaciones con ID " + idSeleccionado + "? Toma en cuenta que el registro se borrará en otros espacios donde también se usaba ",
+                                                            "Confirmar Eliminación",
+                                                            MessageBoxButtons.YesNo,
+                                                            MessageBoxIcon.Question);
+
+                    // Si el usuario confirma la eliminación
+                    if (result == DialogResult.Yes)
+                    {
+                        // Realizar la eliminación del registro utilizando el ID obtenido
                         try
                         {
-                            dgvDonaciones.DataSource = datos.VistaDonaciones();
+                            // Llamar a un método en tu clase de acceso a datos para eliminar el registro por su ID
+                            datos.EliminarRegistroDonaciones(idSeleccionado);
+
+                            // Actualizar el DataGridView después de la eliminación
+                            try
+                            {
+                                dgvDonaciones.DataSource = datos.VistaDonaciones();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.ToString());
+                            }
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.ToString());
+                            MessageBox.Show("Error al eliminar el registro: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error al eliminar el registro: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, seleccione una fila para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else
             {
-                MessageBox.Show("Por favor, seleccione una fila para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Excediste el tiempo para eliminar este registro", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }

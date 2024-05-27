@@ -59,8 +59,7 @@ namespace CASAHOGAR
         {
             cbxIdDonante.SelectedIndex = -1;
             cbxNombreDonante.SelectedIndex = -1;
-            txtCantidadDonada.Clear();
-            txtProductoDonado.Clear();
+            rtxtDescripcion.Clear();
             dtpFechaDonacion.Value = DateTime.Today;
         }
 
@@ -80,7 +79,7 @@ namespace CASAHOGAR
                 int idDonante = Convert.ToInt32(cbxIdDonante.SelectedItem.ToString());
                 string nombreDonante = cbxNombreDonante.SelectedItem.ToString();
 
-                datos.AltaDonaciones(txtProductoDonado.Text, Convert.ToInt32(txtCantidadDonada.Text), dtpFechaDonacion.Value, idDonante, nombreDonante);
+                datos.AltaDonaciones(rtxtDescripcion.Text, dtpFechaDonacion.Value, idDonante, nombreDonante);
 
                 MessageBox.Show("Donación agregada", "Informativo", MessageBoxButtons.OK);
 
