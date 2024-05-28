@@ -15,7 +15,7 @@ namespace CASAHOGAR
         private Dictionary<int, List<decimal>> preciosUnitarios = new Dictionary<int, List<decimal>>();
         Ventas ventas = new Ventas();
         VentasDia ventasDia;
-        private DateTime fechaSeleccionada;
+        //private DateTime fechaSeleccionada;
         public AgregarVentas()
         {
             InitializeComponent();

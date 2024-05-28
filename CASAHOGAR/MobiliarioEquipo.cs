@@ -21,13 +21,6 @@ namespace CASAHOGAR
         {
             InitializeComponent();
         }
-
-        public string Conexion()
-        {
-            string connectionString = @"Data Source=THE-MARAUDERS-M\TBD_DARD_23;Initial Catalog=CASAHOGAR;Integrated Security=True";
-            return connectionString;
-        }
-
         private void MobiliarioEquipo_Load(object sender, EventArgs e)
         {
             CasaHogar datos = new CasaHogar();
@@ -115,8 +108,7 @@ namespace CASAHOGAR
 
         private void dgvMobEquipo_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            string conectionString;
-            conectionString = Conexion();
+            CasaHogar datos = new CasaHogar();
             // Obtengo el ID del empleado editado.
             int idMobiliario = Convert.ToInt32(dgvMobEquipo.Rows[e.RowIndex].Cells["ID Mobiliario"].Value);
             // Obtengo los nuevos valores editados.
@@ -125,32 +117,16 @@ namespace CASAHOGAR
             string descripcionMobiliario = dgvMobEquipo.Rows[e.RowIndex].Cells["Descripción"].Value.ToString();
             string estadoArticulo = dgvMobEquipo.Rows[e.RowIndex].Cells["Estado"].Value.ToString();
 
-            // Actualizo la base de datos con los nuevos valores del empleado.
             try
             {
-                // Establezco una conexión con la base de datos.
-                using (SqlConnection connection = new SqlConnection(conectionString))
-                {
-                    connection.Open();
-                    // Construyo la consulta SQL para actualizar los datos del empleado.
-                    string query = "UPDATE MobiliarioEquipo SET nombreMobiliario = @NombreMobiliario, cantidadDisponible = @CantidadDisponible, descripcionMobiliario = @DescripcionMobiliario, estadoArticulo = @EstadoArticulo WHERE idMobiliario = @IdMobiliario";
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@IdMobiliario", idMobiliario);
-                    command.Parameters.AddWithValue("@NombreMobiliario", nombreMobiliario);
-                    command.Parameters.AddWithValue("@CantidadDisponible", cantidadDisponible);
-                    command.Parameters.AddWithValue("@DescripcionMobiliario", descripcionMobiliario);
-                    command.Parameters.AddWithValue("@EstadoArticulo", estadoArticulo);
-                    // Ejecuto la consulta.
-                    command.ExecuteNonQuery();
+                datos.ActualizarMobiliario(idMobiliario,nombreMobiliario,cantidadDisponible,descripcionMobiliario,estadoArticulo);
 
-                    MessageBox.Show("Datos del mobiliario actualizados correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                // Mensaje de éxito
+                MessageBox.Show("Datos actualizados correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
             catch (Exception ex)
             {
-                // Muestro un mensaje de error en caso de que ocurra una excepción durante la actualización.
-                MessageBox.Show("Error al actualizar los datos del mobiliario: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al actualizar el registro: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

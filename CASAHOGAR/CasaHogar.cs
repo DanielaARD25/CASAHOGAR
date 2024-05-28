@@ -44,6 +44,7 @@ namespace CASAHOGAR
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine("Error al ejecutar la vista: " + ex.Message);
                     connection.Close();
                     return null;
                 }
@@ -76,6 +77,7 @@ namespace CASAHOGAR
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine("Error al ejecutar la vista: " + ex.Message);
                     connection.Close();
                     return null;
                 }
@@ -108,6 +110,7 @@ namespace CASAHOGAR
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine("Error al ejecutar la vista: " + ex.Message);
                     connection.Close();
                     return null;
                 }
@@ -140,6 +143,7 @@ namespace CASAHOGAR
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine("Error al ejecutar la vista: " + ex.Message);
                     connection.Close();
                     return null;
                 }
@@ -207,6 +211,7 @@ namespace CASAHOGAR
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine("Error al ejecutar la vista: " + ex.Message);
                     connection.Close();
                     return null;
                 }
@@ -239,6 +244,7 @@ namespace CASAHOGAR
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine("Error al ejecutar la vista: " + ex.Message);
                     connection.Close();
                     return null;
                 }
@@ -271,6 +277,7 @@ namespace CASAHOGAR
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine("Error al ejecutar la vista: " + ex.Message);
                     connection.Close();
                     return null;
                 }
@@ -303,6 +310,7 @@ namespace CASAHOGAR
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine("Error al ejecutar la vista: " + ex.Message);
                     connection.Close();
                     return null;
                 }
@@ -335,6 +343,7 @@ namespace CASAHOGAR
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine("Error al ejecutar la vista: " + ex.Message);
                     connection.Close();
                     return null;
                 }
@@ -593,11 +602,185 @@ namespace CASAHOGAR
         }
         #endregion
 
+        #region Buscar Donacion
+        public void BuscarDonacion(DateTimePicker dtpSeleccionado, DataGridView dgvSeleccionado)
+        {
+            // Obtener la cadena de conexión
+            string connectionString = Conexion();
+
+            // Crear una conexión a la base de datos
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    // Abrir la conexión
+                    connection.Open();
+
+                    // Crear un adaptador de datos y especificar el procedimiento almacenado
+                    SqlDataAdapter da = new SqlDataAdapter("buscarDonacion", connection);
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+
+                    // Agregar parámetros al procedimiento almacenado
+                    da.SelectCommand.Parameters.Add("@FechaDonacion", SqlDbType.DateTime).Value = dtpSeleccionado.Value;
+
+                    // Crear un DataTable para almacenar los resultados
+                    DataTable dt = new DataTable();
+
+                    // Llenar el DataTable con los resultados de la consulta
+                    da.Fill(dt);
+
+                    // Asignar el DataTable al DataGridView
+                    dgvSeleccionado.DataSource = dt;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al buscar ventas: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Buscar Venta
+        public void BuscarVenta(DateTimePicker dtpSeleccionado, DataGridView dgvSeleccionado)
+        {
+            // Obtener la cadena de conexión
+            string connectionString = Conexion();
+
+            // Crear una conexión a la base de datos
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    // Abrir la conexión
+                    connection.Open();
+
+                    // Crear un adaptador de datos y especificar el procedimiento almacenado
+                    SqlDataAdapter da = new SqlDataAdapter("buscar", connection);
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+
+                    // Agregar parámetros al procedimiento almacenado
+                    da.SelectCommand.Parameters.Add("@FechaVenta", SqlDbType.DateTime).Value = dtpSeleccionado.Value;
+
+                    // Crear un DataTable para almacenar los resultados
+                    DataTable dt = new DataTable();
+
+                    // Llenar el DataTable con los resultados de la consulta
+                    da.Fill(dt);
+
+                    // Asignar el DataTable al DataGridView
+                    dgvSeleccionado.DataSource = dt;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al buscar ventas: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        #endregion
+
+        #region Validar Usuario
+        public void ValidarUsuario(string usuarioIngresado, string contraseñaIngresada, Form formulario)
+        {
+            string connectionString = Conexion();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string query = "SELECT contraseñaUsuario FROM Usuarios WHERE NombreUsuario = @NombreUsuario";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@NombreUsuario", usuarioIngresado);
+
+                        string contraseñaEnDB = command.ExecuteScalar() as string;
+
+                        if (contraseñaEnDB != null && contraseñaEnDB.Equals(contraseñaIngresada))
+                        {
+                            SesionUsuario.NombreUsuario = usuarioIngresado;
+                            SesionUsuario.ContraseñaUsuario = contraseñaIngresada;
+
+                            FormularioPrincipal formularioPrincipal = new FormularioPrincipal();
+                            formularioPrincipal.Show();
+                            formulario.Hide();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Usuario o contraseña incorrectos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al conectar con la base de datos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        #endregion
+
+        #region Obtener Unidad Medida
+        public string ObtenerUnidadMedida(int idInsumo)
+        {
+            string unidadMedida = string.Empty;
+            string connectionString = Conexion();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT unidadMedida FROM Insumos WHERE idInsumo = @IdInsumo";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@IdInsumo", idInsumo);
+                        unidadMedida = command.ExecuteScalar() as string;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al obtener la unidad de medida: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            return unidadMedida;
+        }
+        #endregion
+
+        #region Obtener Unidad Medida por Nombre
+        public string ObtenerUnidadMedidaPorNombre(string nombreInsumo)
+        {
+            string unidadMedida = string.Empty;
+            string connectionString = Conexion();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT unidadMedida FROM Insumos WHERE nombreInsumo = @NombreInsumo";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@NombreInsumo", nombreInsumo);
+                        unidadMedida = command.ExecuteScalar() as string;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al obtener la unidad de medida: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            return unidadMedida;
+        }
+        #endregion
+
         // PROCEDIMIENTOS
 
         // ----------- DONANTES ---------------- 
         #region Alta Donantes
-            public void AltaDonantes(string Nombre, string Apellido, string Telefono, string Email)
+        public void AltaDonantes(string Nombre, string Apellido, string Telefono, string Email)
         {
             //Obtenemos la cadena de conexión de nuestra base de datos
             string conectionString;
@@ -697,6 +880,53 @@ namespace CASAHOGAR
         }
         #endregion
 
+        #region Actualizar Donante
+        public void ActualizarDonante(int idDonante, string nombreDonante, string apellidoDonante, string telefonoDonante, string emailDonante)        
+        { 
+                // Obtener la cadena de conexión
+            string connectionString = Conexion();
+
+            // Definir la consulta SQL
+            string updateInsumoQuery = "UPDATE Donantes SET nombreDonante = @NombreDonante, apellidoDonante = @ApellidoDonante, telefonoDonante = @TelefonoDonante, emailDonante = @EmailDonante WHERE idDonante = @IdDonante";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                // Abrir la conexión
+                connection.Open();
+
+                // Iniciar una transacción
+                SqlTransaction transaction = connection.BeginTransaction();
+
+                try
+                {
+                    // Crear el comando SQL
+                    using (SqlCommand command = new SqlCommand(updateInsumoQuery, connection, transaction))
+                    {
+                        // Agregar los parámetros
+                        command.Parameters.AddWithValue("@IdDonante", idDonante);
+                        command.Parameters.AddWithValue("@NombreDonante", nombreDonante);
+                        command.Parameters.AddWithValue("@ApellidoDonante", apellidoDonante);
+                        command.Parameters.AddWithValue("@TelefonoDonante", telefonoDonante);
+                        command.Parameters.AddWithValue("@EmailDonante", emailDonante);
+
+                        // Ejecutar la consulta
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Confirmar la transacción
+                    transaction.Commit();
+
+                }
+                catch (Exception ex)
+                {
+                    // Si ocurre algún error, hacer rollback de la transacción
+                    Console.WriteLine("Error: " + ex.Message);
+                    transaction.Rollback();
+                }
+            }
+        }
+        #endregion
+
         // ----------- DONACIONES ---------------- 
 
         #region Alta Donaciones
@@ -775,6 +1005,53 @@ namespace CASAHOGAR
                         // Manejar cualquier error
                         throw new Exception("Error al eliminar el registro: " + ex.Message);
                     }
+                }
+            }
+        }
+        #endregion
+
+        #region Actualizar Donaciones
+        public void ActualizarDonaciones(int idDonacion, string descripcionDonacion, DateTime fechaDonacion, int idDonante, string nombreDonante)
+        {
+            // Obtener la cadena de conexión
+            string connectionString = Conexion();
+
+            // Definir la consulta SQL
+            string updateInsumoQuery = "UPDATE Donaciones SET descripcionDonacion = @DescripcionDonacion, fechaDonacion = @FechaDonacion, idDonante = @IdDonante, nombreDonante = @NombreDonante WHERE idDonacion = @IdDonacion";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                // Abrir la conexión
+                connection.Open();
+
+                // Iniciar una transacción
+                SqlTransaction transaction = connection.BeginTransaction();
+
+                try
+                {
+                    // Crear el comando SQL
+                    using (SqlCommand command = new SqlCommand(updateInsumoQuery, connection, transaction))
+                    {
+                        // Agregar los parámetros
+                        command.Parameters.AddWithValue("@IdDonacion", idDonacion);
+                        command.Parameters.AddWithValue("@DescripcionDonacion", descripcionDonacion);
+                        command.Parameters.AddWithValue("@FechaDonacion", fechaDonacion);
+                        command.Parameters.AddWithValue("@IdDonante", idDonante);
+                        command.Parameters.AddWithValue("@NombreDonante", nombreDonante);
+
+                        // Ejecutar la consulta
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Confirmar la transacción
+                    transaction.Commit();
+
+                }
+                catch (Exception ex)
+                {
+                    // Si ocurre algún error, hacer rollback de la transacción
+                    Console.WriteLine("Error: " + ex.Message);
+                    transaction.Rollback();
                 }
             }
         }
@@ -998,6 +1275,52 @@ namespace CASAHOGAR
         }
         #endregion
 
+        #region Actualizar Productos
+        public void ActualizarProductos(int idProducto, string nombreProducto, int precioUnitarioProducto, string informacionAdicional)
+        {
+            // Obtener la cadena de conexión
+            string connectionString = Conexion();
+
+            // Definir la consulta SQL
+            string updateInsumoQuery = "UPDATE Productos SET nombreProducto = @NombreProducto, precioUnitarioProducto = @PrecioUnitarioProducto, informacionAdicional = @InformacionAdicional WHERE idProducto = @IdProducto";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                // Abrir la conexión
+                connection.Open();
+
+                // Iniciar una transacción
+                SqlTransaction transaction = connection.BeginTransaction();
+
+                try
+                {
+                    // Crear el comando SQL
+                    using (SqlCommand command = new SqlCommand(updateInsumoQuery, connection, transaction))
+                    {
+                        // Agregar los parámetros
+                        command.Parameters.AddWithValue("@IdProducto", idProducto);
+                        command.Parameters.AddWithValue("@NombreProducto", nombreProducto);
+                        command.Parameters.AddWithValue("@PrecioUnitarioProducto", precioUnitarioProducto);
+                        command.Parameters.AddWithValue("@InformacionAdicional", informacionAdicional);
+
+                        // Ejecutar la consulta
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Confirmar la transacción
+                    transaction.Commit();
+
+                }
+                catch (Exception ex)
+                {
+                    // Si ocurre algún error, hacer rollback de la transacción
+                    Console.WriteLine("Error: " + ex.Message);
+                    transaction.Rollback();
+                }
+            }
+        }
+        #endregion
+
         // ----------- EMPLEADOS ---------------- 
 
         #region Alta Empleados
@@ -1084,6 +1407,55 @@ namespace CASAHOGAR
         }
         #endregion
 
+        #region Actualizar Empleados
+        public void ActualizarEmpleados(int idEmpleado, string nombreEmpleado, string telefonoEmpleado, string emailEmpleado, string horarioLaboral, string puestoTrabajo)
+        {
+            // Obtener la cadena de conexión
+            string connectionString = Conexion();
+
+            // Definir la consulta SQL
+            string updateInsumoQuery = "UPDATE Empleados SET nombreEmpleado = @NombreEmpleado, telefonoEmpleado = @TelefonoEmpleado, emailEmpleado = @EmailEmpleado, horarioLaboral = @HorarioLaboral, puestoTrabajo = @PuestoTrabajo WHERE idEmpleado = @IdEmpleado";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                // Abrir la conexión
+                connection.Open();
+
+                // Iniciar una transacción
+                SqlTransaction transaction = connection.BeginTransaction();
+
+                try
+                {
+                    // Crear el comando SQL
+                    using (SqlCommand command = new SqlCommand(updateInsumoQuery, connection, transaction))
+                    {
+                        // Agregar los parámetros
+                        command.Parameters.AddWithValue("@IdEmpleado", idEmpleado);
+                        command.Parameters.AddWithValue("@NombreEmpleado", nombreEmpleado);
+                        command.Parameters.AddWithValue("@TelefonoEmpleado", telefonoEmpleado);
+                        command.Parameters.AddWithValue("@EmailEmpleado", emailEmpleado);
+                        command.Parameters.AddWithValue("@HorarioLaboral", horarioLaboral);
+                        command.Parameters.AddWithValue("@PuestoTrabajo", puestoTrabajo);
+
+                        // Ejecutar la consulta
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Confirmar la transacción
+                    transaction.Commit();
+
+                }
+                catch (Exception ex)
+                {
+                    // Si ocurre algún error, hacer rollback de la transacción
+                    Console.WriteLine("Error: " + ex.Message);
+                    transaction.Rollback();
+                }
+            }
+        }
+        #endregion
+
+
         // ----------- MOBILIARIO Y EQUIPO ---------------- 
 
         #region Alta MobiliarioEquipo
@@ -1168,6 +1540,53 @@ namespace CASAHOGAR
         }
         #endregion
 
+        #region Actualizar MobiliarioEquipo
+        public void ActualizarMobiliario(int idMobiliario, string nombreMobiliario, int cantidadDisponible, string descripcionMobiliario, string estadoArticulo)
+        {
+            // Obtener la cadena de conexión
+            string connectionString = Conexion();
+
+            // Definir la consulta SQL
+            string updateInsumoQuery = "UPDATE MobiliarioEquipo SET nombreMobiliario = @NombreMobiliario, cantidadDisponible = @CantidadDisponible, descripcionMobiliario = @DescripcionMobiliario, estadoArticulo = @EstadoArticulo WHERE idMobiliario = @IdMobiliario";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                // Abrir la conexión
+                connection.Open();
+
+                // Iniciar una transacción
+                SqlTransaction transaction = connection.BeginTransaction();
+
+                try
+                {
+                    // Crear el comando SQL
+                    using (SqlCommand command = new SqlCommand(updateInsumoQuery, connection, transaction))
+                    {
+                        // Agregar los parámetros
+                        command.Parameters.AddWithValue("@IdMobiliario", idMobiliario);
+                        command.Parameters.AddWithValue("@NombreMobiliario", nombreMobiliario);
+                        command.Parameters.AddWithValue("@CantidadDisponible", cantidadDisponible);
+                        command.Parameters.AddWithValue("@DescripcionMobiliario", descripcionMobiliario);
+                        command.Parameters.AddWithValue("@EstadoArticulo", estadoArticulo);
+
+                        // Ejecutar la consulta
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Confirmar la transacción
+                    transaction.Commit();
+
+                }
+                catch (Exception ex)
+                {
+                    // Si ocurre algún error, hacer rollback de la transacción
+                    Console.WriteLine("Error: " + ex.Message);
+                    transaction.Rollback();
+                }
+            }
+        }
+        #endregion
+
         // ----------- USUARIOS ---------------- 
 
         #region Alta Usuarios
@@ -1246,6 +1665,52 @@ namespace CASAHOGAR
                         // Manejar cualquier error
                         throw new Exception("Error al eliminar el registro: " + ex.Message);
                     }
+                }
+            }
+        }
+        #endregion
+
+        #region Actualizar Usuarios
+        public void ActualizarUsuarios(int idUsuario, string nombreUsuario, string contraseñaUsuario, bool esAdministrador)
+        {
+            // Obtener la cadena de conexión
+            string connectionString = Conexion();
+
+            // Definir la consulta SQL
+            string updateInsumoQuery = "UPDATE Usuarios SET nombreUsuario = @NombreUsuario, contraseñaUsuario = @ContraseñaUsuario, esAdministrador = @EsAdministrador WHERE idUsuario = @IdUsuario";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                // Abrir la conexión
+                connection.Open();
+
+                // Iniciar una transacción
+                SqlTransaction transaction = connection.BeginTransaction();
+
+                try
+                {
+                    // Crear el comando SQL
+                    using (SqlCommand command = new SqlCommand(updateInsumoQuery, connection, transaction))
+                    {
+                        // Agregar los parámetros
+                        command.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                        command.Parameters.AddWithValue("@NombreUsuario", nombreUsuario);
+                        command.Parameters.AddWithValue("@ContraseñaUsuario", contraseñaUsuario);
+                        command.Parameters.AddWithValue("@EsAdministrador", esAdministrador);
+
+                        // Ejecutar la consulta
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Confirmar la transacción
+                    transaction.Commit();
+
+                }
+                catch (Exception ex)
+                {
+                    // Si ocurre algún error, hacer rollback de la transacción
+                    Console.WriteLine("Error: " + ex.Message);
+                    transaction.Rollback();
                 }
             }
         }
@@ -1458,6 +1923,53 @@ namespace CASAHOGAR
                     // Deshacer la transacción en caso de error
                     transaction.Rollback();
                     throw new Exception("Error al eliminar el registro del donante: " + ex.Message);
+                }
+            }
+        }
+        #endregion
+
+        #region Actualizar Insumos
+        public void ActualizarInsumos(int idInsumo, string nombreInsumo, decimal cantidadDisponible, string unidadMedida, string descripcionProducto)
+        {
+            // Obtener la cadena de conexión
+            string connectionString = Conexion();
+
+            // Definir la consulta SQL
+            string updateInsumoQuery = "UPDATE Insumos SET nombreInsumo = @NombreInsumo, cantidadDisponible = @CantidadDisponible, unidadMedida = @UnidadMedida, descripcionProducto = @DescripcionProducto WHERE idInsumo = @IdInsumo";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                // Abrir la conexión
+                connection.Open();
+
+                // Iniciar una transacción
+                SqlTransaction transaction = connection.BeginTransaction();
+
+                try
+                {
+                    // Crear el comando SQL
+                    using (SqlCommand command = new SqlCommand(updateInsumoQuery, connection, transaction))
+                    {
+                        // Agregar los parámetros
+                        command.Parameters.AddWithValue("@IdInsumo", idInsumo);
+                        command.Parameters.AddWithValue("@NombreInsumo", nombreInsumo);
+                        command.Parameters.AddWithValue("@CantidadDisponible", cantidadDisponible);
+                        command.Parameters.AddWithValue("@UnidadMedida", unidadMedida);
+                        command.Parameters.AddWithValue("@DescripcionProducto", descripcionProducto);
+
+                        // Ejecutar la consulta
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Confirmar la transacción
+                    transaction.Commit();
+
+                }
+                catch (Exception ex)
+                {
+                    // Si ocurre algún error, hacer rollback de la transacción
+                    Console.WriteLine("Error: " + ex.Message);
+                    transaction.Rollback();
                 }
             }
         }

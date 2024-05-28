@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Donaciones));
             this.dgvDonaciones = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -57,6 +58,7 @@
             this.dgvDonaciones.RowTemplate.Height = 28;
             this.dgvDonaciones.Size = new System.Drawing.Size(664, 300);
             this.dgvDonaciones.TabIndex = 4;
+            this.dgvDonaciones.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDonaciones_CellContentClick);
             this.dgvDonaciones.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDonaciones_CellEndEdit);
             // 
             // panel1
@@ -260,6 +262,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgvDonaciones);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Donaciones";
             this.ShowIcon = false;

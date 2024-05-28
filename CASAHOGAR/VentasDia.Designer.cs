@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VentasDia));
             this.btnImprimir = new CASAHOGAR.Botones();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -198,7 +199,9 @@
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.dgvVentas);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "VentasDia";
+            this.ShowIcon = false;
             this.Text = "Ventas del Dia";
             this.Load += new System.EventHandler(this.VentasDia_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();

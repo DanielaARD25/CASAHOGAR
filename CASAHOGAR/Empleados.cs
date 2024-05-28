@@ -21,12 +21,6 @@ namespace CASAHOGAR
         {
             InitializeComponent();
         }
-
-        public string Conexion()
-        {
-            string connectionString = @"Data Source=THE-MARAUDERS-M\TBD_DARD_23;Initial Catalog=CASAHOGAR;Integrated Security=True";
-            return connectionString;
-        }
         private void Empleados_Load(object sender, EventArgs e)
         {
             CasaHogar datos = new CasaHogar();
@@ -113,8 +107,7 @@ namespace CASAHOGAR
 
         private void dgvEmpleados_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            string conectionString;
-            conectionString = Conexion();
+            CasaHogar datos = new CasaHogar();
             // Obtengo el ID del empleado editado.
             int idEmpleado = Convert.ToInt32(dgvEmpleados.Rows[e.RowIndex].Cells["ID Empleado"].Value);
             // Obtengo los nuevos valores editados.
@@ -124,32 +117,16 @@ namespace CASAHOGAR
             string horarioLaboral = dgvEmpleados.Rows[e.RowIndex].Cells["Horario Laboral"].Value.ToString();
             string puestoTrabajo = dgvEmpleados.Rows[e.RowIndex].Cells["Puesto de Trabajo"].Value.ToString();
 
-            // Actualizo la base de datos con los nuevos valores del empleado.
             try
             {
-                // Establezco una conexión con la base de datos.
-                using (SqlConnection connection = new SqlConnection(conectionString))
-                {
-                    connection.Open();
-                    // Construyo la consulta SQL para actualizar los datos del empleado.
-                    string query = "UPDATE Empleados SET nombreEmpleado = @NombreEmpleado, telefonoEmpleado = @TelefonoEmpleado, emailEmpleado = @EmailEmpleado, horarioLaboral = @HorarioLaboral, puestoTrabajo = @PuestoTrabajo WHERE idEmpleado = @IdEmpleado";
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@IdEmpleado", idEmpleado);
-                    command.Parameters.AddWithValue("@NombreEmpleado", nombreEmpleado);
-                    command.Parameters.AddWithValue("@TelefonoEmpleado", telefonoEmpleado);
-                    command.Parameters.AddWithValue("@EmailEmpleado", emailEmpleado);
-                    command.Parameters.AddWithValue("@HorarioLaboral", horarioLaboral);
-                    command.Parameters.AddWithValue("@PuestoTrabajo", puestoTrabajo);
-                    // Ejecuto la consulta.
-                    command.ExecuteNonQuery();
+                datos.ActualizarEmpleados(idEmpleado,nombreEmpleado,telefonoEmpleado,emailEmpleado,horarioLaboral,puestoTrabajo);
 
-                    MessageBox.Show("Datos del empleado actualizados correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                // Mensaje de éxito
+                MessageBox.Show("Datos actualizados correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                // Muestro un mensaje de error en caso de que ocurra una excepción durante la actualización.
-                MessageBox.Show("Error al actualizar los datos del empleado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al actualizar el registro: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

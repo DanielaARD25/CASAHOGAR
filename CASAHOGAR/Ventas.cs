@@ -21,19 +21,11 @@ namespace CASAHOGAR
     {
         //IMPRIMIR
         private DataGridViewPrinter dataGridViewPrinter;
-        Form1 form1;
-
         public Ventas()
         {
             InitializeComponent();
             //IMPRIMIR
             dataGridViewPrinter = new DataGridViewPrinter(dgvVentas);
-        }
-
-        public string Conexion()
-        {
-            string connectionString = @"Data Source=THE-MARAUDERS-M\TBD_DARD_23;Initial Catalog=CASAHOGAR;Integrated Security=True";
-            return connectionString;
         }
 
         private void Ventas_Load(object sender, EventArgs e)
@@ -317,45 +309,12 @@ namespace CASAHOGAR
         }
 
 
-        void buscar()
-        {
-            // Obtener la cadena de conexión
-            string connectionString = Conexion();
-
-            // Crear una conexión a la base de datos
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    // Abrir la conexión
-                    connection.Open();
-
-                    // Crear un adaptador de datos y especificar el procedimiento almacenado
-                    SqlDataAdapter da = new SqlDataAdapter("buscar", connection);
-                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
-
-                    // Agregar parámetros al procedimiento almacenado
-                    da.SelectCommand.Parameters.Add("@FechaVenta", SqlDbType.DateTime).Value = dateTimePicker1.Value;
-
-                    // Crear un DataTable para almacenar los resultados
-                    DataTable dt = new DataTable();
-
-                    // Llenar el DataTable con los resultados de la consulta
-                    da.Fill(dt);
-
-                    // Asignar el DataTable al DataGridView
-                    dgvVentas.DataSource = dt;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error al buscar ventas: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
+        
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            buscar();
+            CasaHogar datos = new CasaHogar();
+            datos.BuscarVenta(dateTimePicker1,dgvVentas);
         }
 
         private void btnMostrar_Click(object sender, EventArgs e)

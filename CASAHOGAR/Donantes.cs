@@ -132,8 +132,7 @@ namespace CASAHOGAR
 
         private void dgvDonantes_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            string conectionString;
-            conectionString = Conexion();
+            CasaHogar datos = new CasaHogar();
             // Obtengo el ID del donante editado.
             int idDonante = Convert.ToInt32(dgvDonantes.Rows[e.RowIndex].Cells["ID Donante"].Value);
             // Obtengo los nuevos valores editados.
@@ -145,29 +144,14 @@ namespace CASAHOGAR
             // Actualizo la base de datos con los nuevos valores del donante.
             try
             {
-                // Establezco una conexión con la base de datos.
-                using (SqlConnection connection = new SqlConnection(conectionString))
-                {
-                    connection.Open();
-                    // Construyo la consulta SQL para actualizar los datos del donante.
-                    string query = "UPDATE Donantes SET nombreDonante = @NombreDonante, apellidoDonante = @ApellidoDonante, telefonoDonante = @TelefonoDonante, emailDonante = @EmailDonante WHERE idDonante = @IdDonante";
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@IdDonante", idDonante);
-                    command.Parameters.AddWithValue("@NombreDonante", nombreDonante);
-                    command.Parameters.AddWithValue("@ApellidoDonante", apellidoDonante);
-                    command.Parameters.AddWithValue("@TelefonoDonante", telefonoDonante);
-                    command.Parameters.AddWithValue("@EmailDonante", emailDonante);
-                    // Ejecuto la consulta.
-                    command.ExecuteNonQuery();
+                datos.ActualizarDonante(idDonante,nombreDonante,apellidoDonante,telefonoDonante,emailDonante);
 
-                    MessageBox.Show("Datos del donante actualizados correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                // Mensaje de éxito
+                MessageBox.Show("Datos actualizados correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
             catch (Exception ex)
             {
-                // Muestro un mensaje de error en caso de que ocurra una excepción durante la actualización.
-                MessageBox.Show("Error al actualizar los datos del donante: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al actualizar el registro: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -300,6 +284,11 @@ namespace CASAHOGAR
             Process prc = new System.Diagnostics.Process();
             prc.StartInfo.FileName = FileName;
             prc.Start();
+        }
+
+        private void dgvDonantes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

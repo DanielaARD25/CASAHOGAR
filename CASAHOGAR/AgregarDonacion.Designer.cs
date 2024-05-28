@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarDonacion));
             this.label3 = new System.Windows.Forms.Label();
             this.dtpFechaDonacion = new System.Windows.Forms.DateTimePicker();
             this.Donante = new System.Windows.Forms.Label();
@@ -62,7 +63,7 @@
             this.dtpFechaDonacion.Margin = new System.Windows.Forms.Padding(2);
             this.dtpFechaDonacion.Name = "dtpFechaDonacion";
             this.dtpFechaDonacion.Size = new System.Drawing.Size(208, 25);
-            this.dtpFechaDonacion.TabIndex = 13;
+            this.dtpFechaDonacion.TabIndex = 2;
             // 
             // Donante
             // 
@@ -84,7 +85,7 @@
             this.cbxNombreDonante.Location = new System.Drawing.Point(167, 299);
             this.cbxNombreDonante.Name = "cbxNombreDonante";
             this.cbxNombreDonante.Size = new System.Drawing.Size(121, 30);
-            this.cbxNombreDonante.TabIndex = 61;
+            this.cbxNombreDonante.TabIndex = 4;
             this.cbxNombreDonante.SelectedIndexChanged += new System.EventHandler(this.cbxNombreDonante_SelectedIndexChanged);
             // 
             // cbxIdDonante
@@ -96,7 +97,7 @@
             this.cbxIdDonante.Location = new System.Drawing.Point(167, 263);
             this.cbxIdDonante.Name = "cbxIdDonante";
             this.cbxIdDonante.Size = new System.Drawing.Size(56, 30);
-            this.cbxIdDonante.TabIndex = 62;
+            this.cbxIdDonante.TabIndex = 3;
             this.cbxIdDonante.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // pictureBox1
@@ -158,7 +159,7 @@
             this.rtxtDescripcion.Location = new System.Drawing.Point(167, 80);
             this.rtxtDescripcion.Name = "rtxtDescripcion";
             this.rtxtDescripcion.Size = new System.Drawing.Size(278, 134);
-            this.rtxtDescripcion.TabIndex = 80;
+            this.rtxtDescripcion.TabIndex = 1;
             this.rtxtDescripcion.Text = "";
             // 
             // botones1
@@ -178,7 +179,7 @@
             this.botones1.Location = new System.Drawing.Point(337, 347);
             this.botones1.Name = "botones1";
             this.botones1.Size = new System.Drawing.Size(76, 43);
-            this.botones1.TabIndex = 75;
+            this.botones1.TabIndex = 6;
             this.botones1.Text = "Salir";
             this.botones1.TextColor = System.Drawing.Color.Black;
             this.botones1.UseVisualStyleBackColor = false;
@@ -200,7 +201,7 @@
             this.btnAgregar.Location = new System.Drawing.Point(227, 347);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(91, 43);
-            this.btnAgregar.TabIndex = 74;
+            this.btnAgregar.TabIndex = 5;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.TextColor = System.Drawing.Color.Black;
             this.btnAgregar.UseVisualStyleBackColor = false;
@@ -226,6 +227,7 @@
             this.Controls.Add(this.Donante);
             this.Controls.Add(this.dtpFechaDonacion);
             this.Controls.Add(this.label3);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AgregarDonacion";
             this.ShowIcon = false;

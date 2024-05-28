@@ -21,12 +21,6 @@ namespace CASAHOGAR
         {
             InitializeComponent();
         }
-        public string Conexion()
-        {
-            string connectionString = @"Data Source=THE-MARAUDERS-M\TBD_DARD_23;Initial Catalog=CASAHOGAR;Integrated Security=True";
-            return connectionString;
-        }
-
         private void Usuarios_Load(object sender, EventArgs e)
         {
             CasaHogar datos = new CasaHogar();
@@ -112,8 +106,7 @@ namespace CASAHOGAR
 
         private void dgvUsuarios_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            string conectionString;
-            conectionString = Conexion();
+            CasaHogar datos = new CasaHogar();
             // Obtengo el ID del empleado editado.
             int idUsuario = Convert.ToInt32(dgvUsuarios.Rows[e.RowIndex].Cells["ID Usuario"].Value);
             // Obtengo los nuevos valores editados.
@@ -121,31 +114,16 @@ namespace CASAHOGAR
             string contraseñaUsuario = dgvUsuarios.Rows[e.RowIndex].Cells["Contraseña"].Value.ToString();
             bool esAdministrador = Convert.ToBoolean(dgvUsuarios.Rows[e.RowIndex].Cells["Es Administrador"].Value.ToString());
 
-            // Actualizo la base de datos con los nuevos valores del empleado.
             try
             {
-                // Establezco una conexión con la base de datos.
-                using (SqlConnection connection = new SqlConnection(conectionString))
-                {
-                    connection.Open();
-                    // Construyo la consulta SQL para actualizar los datos del empleado.
-                    string query = "UPDATE Usuarios SET nombreUsuario = @NombreUsuario, contraseñaUsuario = @ContraseñaUsuario, esAdministrador = @EsAdministrador WHERE idUsuario = @IdUsuario";
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@IdUsuario", idUsuario);
-                    command.Parameters.AddWithValue("@NombreUsuario", nombreUsuario);
-                    command.Parameters.AddWithValue("@ContraseñaUsuario", contraseñaUsuario);
-                    command.Parameters.AddWithValue("@EsAdministrador", esAdministrador);
-                    // Ejecuto la consulta.
-                    command.ExecuteNonQuery();
+                datos.ActualizarUsuarios(idUsuario,nombreUsuario,contraseñaUsuario,esAdministrador);
 
-                    MessageBox.Show("Datos del usuario actualizados correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                // Mensaje de éxito
+                MessageBox.Show("Datos actualizados correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
             catch (Exception ex)
             {
-                // Muestro un mensaje de error en caso de que ocurra una excepción durante la actualización.
-                MessageBox.Show("Error al actualizar los datos del usuario: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al actualizar el registro: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

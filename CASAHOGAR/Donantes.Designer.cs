@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Donantes));
             this.dgvDonantes = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -52,6 +53,7 @@
             this.dgvDonantes.RowTemplate.Height = 28;
             this.dgvDonantes.Size = new System.Drawing.Size(563, 300);
             this.dgvDonantes.TabIndex = 0;
+            this.dgvDonantes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDonantes_CellContentClick);
             this.dgvDonantes.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDonantes_CellEndEdit);
             // 
             // label1
@@ -201,6 +203,7 @@
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.dgvDonantes);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Donantes";
             this.ShowIcon = false;

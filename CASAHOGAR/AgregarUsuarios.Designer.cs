@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarUsuarios));
             this.txtConttrasenaUsuario = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtNombreUsuario = new System.Windows.Forms.TextBox();
@@ -48,7 +49,7 @@
             this.txtConttrasenaUsuario.Margin = new System.Windows.Forms.Padding(2);
             this.txtConttrasenaUsuario.Name = "txtConttrasenaUsuario";
             this.txtConttrasenaUsuario.Size = new System.Drawing.Size(164, 25);
-            this.txtConttrasenaUsuario.TabIndex = 33;
+            this.txtConttrasenaUsuario.TabIndex = 2;
             // 
             // label2
             // 
@@ -68,7 +69,7 @@
             this.txtNombreUsuario.Margin = new System.Windows.Forms.Padding(2);
             this.txtNombreUsuario.Name = "txtNombreUsuario";
             this.txtNombreUsuario.Size = new System.Drawing.Size(195, 25);
-            this.txtNombreUsuario.TabIndex = 31;
+            this.txtNombreUsuario.TabIndex = 1;
             // 
             // label1
             // 
@@ -88,7 +89,7 @@
             this.cbxEsAdministrador.Location = new System.Drawing.Point(196, 211);
             this.cbxEsAdministrador.Name = "cbxEsAdministrador";
             this.cbxEsAdministrador.Size = new System.Drawing.Size(131, 26);
-            this.cbxEsAdministrador.TabIndex = 39;
+            this.cbxEsAdministrador.TabIndex = 3;
             this.cbxEsAdministrador.Text = "Administrador";
             this.cbxEsAdministrador.UseVisualStyleBackColor = true;
             // 
@@ -130,7 +131,7 @@
             this.botones1.Location = new System.Drawing.Point(338, 283);
             this.botones1.Name = "botones1";
             this.botones1.Size = new System.Drawing.Size(76, 43);
-            this.botones1.TabIndex = 85;
+            this.botones1.TabIndex = 5;
             this.botones1.Text = "Salir";
             this.botones1.TextColor = System.Drawing.Color.Black;
             this.botones1.UseVisualStyleBackColor = false;
@@ -152,7 +153,7 @@
             this.btnAgregar.Location = new System.Drawing.Point(241, 283);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(91, 43);
-            this.btnAgregar.TabIndex = 84;
+            this.btnAgregar.TabIndex = 4;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.TextColor = System.Drawing.Color.Black;
             this.btnAgregar.UseVisualStyleBackColor = false;
@@ -174,6 +175,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(249)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(687, 363);
+            this.ControlBox = false;
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.botones1);
@@ -184,11 +186,12 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtNombreUsuario);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AgregarUsuarios";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AgregarUsuarios";
+            this.Text = "Agregar Usuarios";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

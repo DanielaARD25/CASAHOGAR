@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarMobEquipo));
             this.label3 = new System.Windows.Forms.Label();
             this.txtCantidadDisponibleMobiliario = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -63,7 +64,7 @@
             this.txtCantidadDisponibleMobiliario.Margin = new System.Windows.Forms.Padding(2);
             this.txtCantidadDisponibleMobiliario.Name = "txtCantidadDisponibleMobiliario";
             this.txtCantidadDisponibleMobiliario.Size = new System.Drawing.Size(91, 25);
-            this.txtCantidadDisponibleMobiliario.TabIndex = 30;
+            this.txtCantidadDisponibleMobiliario.TabIndex = 2;
             this.txtCantidadDisponibleMobiliario.TextChanged += new System.EventHandler(this.txtCantidadDisponibleMobiliario_TextChanged);
             // 
             // label2
@@ -85,7 +86,7 @@
             this.txtNombreMobiliario.Margin = new System.Windows.Forms.Padding(2);
             this.txtNombreMobiliario.Name = "txtNombreMobiliario";
             this.txtNombreMobiliario.Size = new System.Drawing.Size(195, 25);
-            this.txtNombreMobiliario.TabIndex = 28;
+            this.txtNombreMobiliario.TabIndex = 1;
             this.txtNombreMobiliario.TextChanged += new System.EventHandler(this.txtNombreMobiliario_TextChanged);
             // 
             // label1
@@ -107,7 +108,7 @@
             this.txtEstadoMobiliario.Margin = new System.Windows.Forms.Padding(2);
             this.txtEstadoMobiliario.Name = "txtEstadoMobiliario";
             this.txtEstadoMobiliario.Size = new System.Drawing.Size(195, 25);
-            this.txtEstadoMobiliario.TabIndex = 38;
+            this.txtEstadoMobiliario.TabIndex = 4;
             // 
             // label4
             // 
@@ -127,7 +128,7 @@
             this.rtxtDescripcion.Location = new System.Drawing.Point(216, 153);
             this.rtxtDescripcion.Name = "rtxtDescripcion";
             this.rtxtDescripcion.Size = new System.Drawing.Size(195, 118);
-            this.rtxtDescripcion.TabIndex = 37;
+            this.rtxtDescripcion.TabIndex = 3;
             this.rtxtDescripcion.Text = "";
             this.rtxtDescripcion.TextChanged += new System.EventHandler(this.rtxtDescripcion_TextChanged);
             // 
@@ -169,7 +170,7 @@
             this.btnSalir.Location = new System.Drawing.Point(313, 340);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(76, 43);
-            this.btnSalir.TabIndex = 75;
+            this.btnSalir.TabIndex = 6;
             this.btnSalir.Text = "Salir";
             this.btnSalir.TextColor = System.Drawing.Color.Black;
             this.btnSalir.UseVisualStyleBackColor = false;
@@ -191,7 +192,7 @@
             this.btnAgregar.Location = new System.Drawing.Point(216, 340);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(91, 43);
-            this.btnAgregar.TabIndex = 74;
+            this.btnAgregar.TabIndex = 5;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.TextColor = System.Drawing.Color.Black;
             this.btnAgregar.UseVisualStyleBackColor = false;
@@ -227,6 +228,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtNombreMobiliario);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AgregarMobEquipo";
             this.ShowIcon = false;

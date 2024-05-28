@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarVentas));
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txtCantidadVentaProducto = new System.Windows.Forms.TextBox();
@@ -69,7 +70,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(671, 83);
+            this.label3.Location = new System.Drawing.Point(671, 89);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 22);
@@ -80,17 +81,17 @@
             // 
             this.txtCantidadVentaProducto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCantidadVentaProducto.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCantidadVentaProducto.Location = new System.Drawing.Point(520, 80);
+            this.txtCantidadVentaProducto.Location = new System.Drawing.Point(520, 88);
             this.txtCantidadVentaProducto.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtCantidadVentaProducto.Name = "txtCantidadVentaProducto";
             this.txtCantidadVentaProducto.Size = new System.Drawing.Size(86, 25);
-            this.txtCantidadVentaProducto.TabIndex = 12;
+            this.txtCantidadVentaProducto.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(439, 84);
+            this.label2.Location = new System.Drawing.Point(439, 90);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(77, 22);
@@ -115,7 +116,7 @@
             this.dtpFechaVenta.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.dtpFechaVenta.Name = "dtpFechaVenta";
             this.dtpFechaVenta.Size = new System.Drawing.Size(254, 25);
-            this.dtpFechaVenta.TabIndex = 18;
+            this.dtpFechaVenta.TabIndex = 4;
             // 
             // cbxIdProducto
             // 
@@ -127,7 +128,7 @@
             this.cbxIdProducto.Margin = new System.Windows.Forms.Padding(4);
             this.cbxIdProducto.Name = "cbxIdProducto";
             this.cbxIdProducto.Size = new System.Drawing.Size(140, 30);
-            this.cbxIdProducto.TabIndex = 20;
+            this.cbxIdProducto.TabIndex = 1;
             this.cbxIdProducto.SelectedIndexChanged += new System.EventHandler(this.cbxIdProducto_SelectedIndexChanged);
             // 
             // cbxNombreProducto
@@ -140,7 +141,7 @@
             this.cbxNombreProducto.Margin = new System.Windows.Forms.Padding(4);
             this.cbxNombreProducto.Name = "cbxNombreProducto";
             this.cbxNombreProducto.Size = new System.Drawing.Size(216, 30);
-            this.cbxNombreProducto.TabIndex = 21;
+            this.cbxNombreProducto.TabIndex = 2;
             this.cbxNombreProducto.SelectedIndexChanged += new System.EventHandler(this.cbxNombreProducto_SelectedIndexChanged);
             // 
             // label5
@@ -180,7 +181,7 @@
             // 
             this.lblPrecio.AutoSize = true;
             this.lblPrecio.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrecio.Location = new System.Drawing.Point(753, 82);
+            this.lblPrecio.Location = new System.Drawing.Point(753, 88);
             this.lblPrecio.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPrecio.Name = "lblPrecio";
             this.lblPrecio.Size = new System.Drawing.Size(0, 22);
@@ -253,7 +254,7 @@
             this.btnGuardar.Margin = new System.Windows.Forms.Padding(4);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(107, 49);
-            this.btnGuardar.TabIndex = 102;
+            this.btnGuardar.TabIndex = 5;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.TextColor = System.Drawing.Color.Black;
             this.btnGuardar.UseVisualStyleBackColor = false;
@@ -276,7 +277,7 @@
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(107, 53);
-            this.btnCancelar.TabIndex = 99;
+            this.btnCancelar.TabIndex = 6;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.TextColor = System.Drawing.Color.Black;
             this.btnCancelar.UseVisualStyleBackColor = false;
@@ -300,7 +301,7 @@
             this.btnSalir.Margin = new System.Windows.Forms.Padding(4);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(89, 53);
-            this.btnSalir.TabIndex = 95;
+            this.btnSalir.TabIndex = 8;
             this.btnSalir.Text = "Salir";
             this.btnSalir.TextColor = System.Drawing.Color.Black;
             this.btnSalir.UseVisualStyleBackColor = false;
@@ -323,7 +324,7 @@
             this.btnAgregar.Margin = new System.Windows.Forms.Padding(4);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(107, 53);
-            this.btnAgregar.TabIndex = 94;
+            this.btnAgregar.TabIndex = 7;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.TextColor = System.Drawing.Color.Black;
             this.btnAgregar.UseVisualStyleBackColor = false;
@@ -354,6 +355,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Work Sans", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "AgregarVentas";
             this.ShowIcon = false;

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarInsumos));
             this.txtUnidadMedidaInsumo = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -52,7 +53,7 @@
             this.txtUnidadMedidaInsumo.Margin = new System.Windows.Forms.Padding(2);
             this.txtUnidadMedidaInsumo.Name = "txtUnidadMedidaInsumo";
             this.txtUnidadMedidaInsumo.Size = new System.Drawing.Size(120, 25);
-            this.txtUnidadMedidaInsumo.TabIndex = 50;
+            this.txtUnidadMedidaInsumo.TabIndex = 3;
             // 
             // label3
             // 
@@ -84,7 +85,7 @@
             this.txtNombreInsumo.Margin = new System.Windows.Forms.Padding(2);
             this.txtNombreInsumo.Name = "txtNombreInsumo";
             this.txtNombreInsumo.Size = new System.Drawing.Size(203, 25);
-            this.txtNombreInsumo.TabIndex = 46;
+            this.txtNombreInsumo.TabIndex = 1;
             // 
             // label1
             // 
@@ -105,7 +106,7 @@
             this.txtCantidadDisponibleInsumo.Margin = new System.Windows.Forms.Padding(2);
             this.txtCantidadDisponibleInsumo.Name = "txtCantidadDisponibleInsumo";
             this.txtCantidadDisponibleInsumo.Size = new System.Drawing.Size(84, 25);
-            this.txtCantidadDisponibleInsumo.TabIndex = 55;
+            this.txtCantidadDisponibleInsumo.TabIndex = 2;
             // 
             // label4
             // 
@@ -125,7 +126,7 @@
             this.rtxtDescripciónInsumo.Location = new System.Drawing.Point(443, 207);
             this.rtxtDescripciónInsumo.Name = "rtxtDescripciónInsumo";
             this.rtxtDescripciónInsumo.Size = new System.Drawing.Size(256, 106);
-            this.rtxtDescripciónInsumo.TabIndex = 57;
+            this.rtxtDescripciónInsumo.TabIndex = 4;
             this.rtxtDescripciónInsumo.Text = "";
             // 
             // pictureBox1
@@ -166,7 +167,7 @@
             this.btnSalir.Location = new System.Drawing.Point(623, 319);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(76, 43);
-            this.btnSalir.TabIndex = 90;
+            this.btnSalir.TabIndex = 6;
             this.btnSalir.Text = "Salir";
             this.btnSalir.TextColor = System.Drawing.Color.Black;
             this.btnSalir.UseVisualStyleBackColor = false;
@@ -188,7 +189,7 @@
             this.btnAgregar.Location = new System.Drawing.Point(526, 319);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(91, 43);
-            this.btnAgregar.TabIndex = 89;
+            this.btnAgregar.TabIndex = 5;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.TextColor = System.Drawing.Color.Black;
             this.btnAgregar.UseVisualStyleBackColor = false;
@@ -225,6 +226,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtNombreInsumo);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AgregarInsumos";
             this.ShowIcon = false;

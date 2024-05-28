@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Productos));
             this.dgvProductos = new System.Windows.Forms.DataGridView();
             this.btnAgregar = new CASAHOGAR.Botones();
             this.btnSalir = new CASAHOGAR.Botones();
@@ -199,6 +200,7 @@
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.dgvProductos);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Productos";
             this.ShowIcon = false;

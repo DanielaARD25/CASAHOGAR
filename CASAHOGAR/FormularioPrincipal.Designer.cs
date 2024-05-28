@@ -407,6 +407,7 @@
             this.Controls.Add(this.btnDonaciones);
             this.Controls.Add(this.btnDonantes);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormularioPrincipal";
             this.ShowIcon = false;

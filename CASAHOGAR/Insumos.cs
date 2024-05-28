@@ -22,13 +22,6 @@ namespace CASAHOGAR
             InitializeComponent();
         }
 
-        public string Conexion()
-        {
-            string connectionString = @"Data Source=THE-MARAUDERS-M\TBD_DARD_23;Initial Catalog=CASAHOGAR;Integrated Security=True";
-            return connectionString;
-        }
-
-
         private void Insumos_Load(object sender, EventArgs e)
         {
             CasaHogar datos = new CasaHogar();
@@ -119,8 +112,7 @@ namespace CASAHOGAR
 
         private void dgvInsumos_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            string conectionString;
-            conectionString = Conexion();
+            CasaHogar datos = new CasaHogar();
             // Obtengo el ID del empleado editado.
             int idInsumo = Convert.ToInt32(dgvInsumos.Rows[e.RowIndex].Cells["ID Insumo"].Value);
             // Obtengo los nuevos valores editados.
@@ -129,33 +121,18 @@ namespace CASAHOGAR
             string unidadMedida = dgvInsumos.Rows[e.RowIndex].Cells["Unidad de Medida"].Value.ToString();
             string descripcionProducto = dgvInsumos.Rows[e.RowIndex].Cells["Descripción"].Value.ToString();
 
-            // Actualizo la base de datos con los nuevos valores del empleado.
             try
             {
-                // Establezco una conexión con la base de datos.
-                using (SqlConnection connection = new SqlConnection(conectionString))
-                {
-                    connection.Open();
-                    // Construyo la consulta SQL para actualizar los datos del empleado.
-                    string query = "UPDATE Insumos SET nombreInsumo = @NombreInsumo, cantidadDisponible = @CantidadDisponible, unidadMedida = @UnidadMedida, descripcionProducto = @DescripcionProducto WHERE idInsumo = @IdInsumo";
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@IdInsumo", idInsumo);
-                    command.Parameters.AddWithValue("@NombreInsumo", nombreInsumo);
-                    command.Parameters.AddWithValue("@CantidadDisponible", cantidadDisponible);
-                    command.Parameters.AddWithValue("@UnidadMedida", unidadMedida);
-                    command.Parameters.AddWithValue("@DescripcionProducto", descripcionProducto);
-                    // Ejecuto la consulta.
-                    command.ExecuteNonQuery();
+                datos.ActualizarInsumos(idInsumo, nombreInsumo, cantidadDisponible, unidadMedida, descripcionProducto);
 
-                    MessageBox.Show("Datos del insumo actualizados correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                // Mensaje de éxito
+                MessageBox.Show("Datos actualizados correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                // Muestro un mensaje de error en caso de que ocurra una excepción durante la actualización.
-                MessageBox.Show("Error al actualizar los datos del insumo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al actualizar el registro: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            
         }
 
         private void btnImprimir_Click(object sender, EventArgs e)

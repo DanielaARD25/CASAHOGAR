@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarProductos));
             this.label3 = new System.Windows.Forms.Label();
             this.txtPrecioUnitarioProducto = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -61,7 +62,7 @@
             this.txtPrecioUnitarioProducto.Margin = new System.Windows.Forms.Padding(2);
             this.txtPrecioUnitarioProducto.Name = "txtPrecioUnitarioProducto";
             this.txtPrecioUnitarioProducto.Size = new System.Drawing.Size(131, 25);
-            this.txtPrecioUnitarioProducto.TabIndex = 22;
+            this.txtPrecioUnitarioProducto.TabIndex = 2;
             // 
             // label2
             // 
@@ -82,7 +83,7 @@
             this.txtNombreProducto.Margin = new System.Windows.Forms.Padding(2);
             this.txtNombreProducto.Name = "txtNombreProducto";
             this.txtNombreProducto.Size = new System.Drawing.Size(190, 25);
-            this.txtNombreProducto.TabIndex = 20;
+            this.txtNombreProducto.TabIndex = 1;
             // 
             // label1
             // 
@@ -101,8 +102,8 @@
             this.rtxtInformacionAdicional.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtxtInformacionAdicional.Location = new System.Drawing.Point(191, 171);
             this.rtxtInformacionAdicional.Name = "rtxtInformacionAdicional";
-            this.rtxtInformacionAdicional.Size = new System.Drawing.Size(229, 125);
-            this.rtxtInformacionAdicional.TabIndex = 40;
+            this.rtxtInformacionAdicional.Size = new System.Drawing.Size(229, 163);
+            this.rtxtInformacionAdicional.TabIndex = 3;
             this.rtxtInformacionAdicional.Text = "";
             // 
             // pictureBox1
@@ -187,6 +188,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(249)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(661, 396);
+            this.ControlBox = false;
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnSalir);
@@ -198,11 +200,12 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtNombreProducto);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AgregarProductos";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AgregarProductos";
+            this.Text = "Agregar Productos";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

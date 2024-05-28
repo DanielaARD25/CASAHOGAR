@@ -20,8 +20,14 @@ namespace CASAHOGAR
 
         private void cbxNombreInsumo_SelectedIndexChanged(object sender, EventArgs e)
         {
+            CasaHogar datos = new CasaHogar();
             int selectedIndex = cbxNombreInsumo.SelectedIndex;
             cbxIdInsumo.SelectedIndex = selectedIndex;
+
+            string nombreInsumo = cbxNombreInsumo.SelectedItem.ToString();
+
+            string unidadMedida = datos.ObtenerUnidadMedidaPorNombre(nombreInsumo);
+            txtUnidadMedidaInsumo.Text = unidadMedida;
         }
 
         private void LlenarInsumo()
@@ -47,6 +53,7 @@ namespace CASAHOGAR
 
         private void cbxIdInsumo_SelectedIndexChanged(object sender, EventArgs e)
         {
+            CasaHogar datos = new CasaHogar();
             int selectedIndex = cbxIdInsumo.SelectedIndex;
             cbxNombreInsumo.SelectedIndex = selectedIndex;
 
@@ -58,6 +65,9 @@ namespace CASAHOGAR
 
             // Mostrar la cantidad disponible en txtCantidadDisponibleInsumo
             lblCantidadDisponible.Text = cantidades;
+
+            string unidadMedida = datos.ObtenerUnidadMedida(idInsumo);
+            txtUnidadMedidaInsumo.Text = unidadMedida;
         }
 
         private string ObtenerCantidades(int idInsumo)
@@ -191,6 +201,11 @@ namespace CASAHOGAR
                 // Puedes opcionalmente limpiar el texto o seleccionar el primer ítem, por ejemplo:
                 cbxIdInsumo.Text = string.Empty;
             }
+        }
+
+        private void txtUnidadMedidaInsumo_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -22,12 +22,6 @@ namespace CASAHOGAR
             InitializeComponent();
         }
 
-        public string Conexion()
-        {
-            string connectionString = @"Data Source=THE-MARAUDERS-M\TBD_DARD_23;Initial Catalog=CASAHOGAR;Integrated Security=True";
-            return connectionString;
-        }
-
         private void Donaciones_Load(object sender, EventArgs e)
         {
             CasaHogar datos = new CasaHogar();
@@ -66,13 +60,11 @@ namespace CASAHOGAR
 
         private void dgvDonaciones_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            string conectionString;
-            conectionString = Conexion();
+            CasaHogar datos = new CasaHogar();
             // Obtengo el ID del empleado editado.
             int idDonacion = Convert.ToInt32(dgvDonaciones.Rows[e.RowIndex].Cells["ID Donación"].Value);
             // Obtengo los nuevos valores editados.
-            string productoDonado = dgvDonaciones.Rows[e.RowIndex].Cells["Producto Donado"].Value.ToString();
-            int cantidadDonada = Convert.ToInt32(dgvDonaciones.Rows[e.RowIndex].Cells["Cantidad Donada"].Value.ToString());
+            string descripcionDonacion = dgvDonaciones.Rows[e.RowIndex].Cells["Descripción"].Value.ToString();
             DateTime fechaDonacion = Convert.ToDateTime(dgvDonaciones.Rows[e.RowIndex].Cells["Fecha Donación"].Value.ToString());
             int idDonante = Convert.ToInt32(dgvDonaciones.Rows[e.RowIndex].Cells["ID Donante"].Value.ToString());
             string nombreDonante = dgvDonaciones.Rows[e.RowIndex].Cells["Donante"].Value.ToString();
@@ -80,32 +72,15 @@ namespace CASAHOGAR
             // Actualizo la base de datos con los nuevos valores del empleado.
             try
             {
-                // Establezco una conexión con la base de datos.
-                using (SqlConnection connection = new SqlConnection(conectionString))
-                {
-                    connection.Open();
-                    // Construyo la consulta SQL para actualizar los datos del empleado.
-                    string query = "UPDATE Donaciones SET productoDonado = @ProductoDonado, cantidadDonada = @CantidadDonada, fechaDonacion = @FechaDonacion, idDonante = @IdDonante, nombreDonante = @NombreDonante WHERE idDonacion = @IdDonacion";
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@IdDonacion", idDonacion);
-                    command.Parameters.AddWithValue("@ProductoDonado", productoDonado);
-                    command.Parameters.AddWithValue("@CantidadDonada", cantidadDonada);
-                    command.Parameters.AddWithValue("@FechaDonacion", fechaDonacion);
-                    command.Parameters.AddWithValue("@IdDonante", idDonante);
-                    command.Parameters.AddWithValue("@NombreDonante", nombreDonante);
-                    // Ejecuto la consulta.
-                    command.ExecuteNonQuery();
+                datos.ActualizarDonaciones(idDonacion,descripcionDonacion,fechaDonacion,idDonante,nombreDonante);
 
-                    MessageBox.Show("Datos de la donación actualizados correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                // Mensaje de éxito
+                MessageBox.Show("Datos actualizados correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
             catch (Exception ex)
             {
-                // Muestro un mensaje de error en caso de que ocurra una excepción durante la actualización.
-                MessageBox.Show("Error al actualizar los datos de la donación: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al actualizar el registro: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
@@ -115,41 +90,41 @@ namespace CASAHOGAR
 
 
 
-        void buscarDonacion()
-        {
-            // Obtener la cadena de conexión
-            string connectionString = Conexion();
+        //void buscarDonacion()
+        //{
+        //    // Obtener la cadena de conexión
+        //    string connectionString = Conexion();
 
-            // Crear una conexión a la base de datos
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    // Abrir la conexión
-                    connection.Open();
+        //    // Crear una conexión a la base de datos
+        //    using (SqlConnection connection = new SqlConnection(connectionString))
+        //    {
+        //        try
+        //        {
+        //            // Abrir la conexión
+        //            connection.Open();
 
-                    // Crear un adaptador de datos y especificar el procedimiento almacenado
-                    SqlDataAdapter da = new SqlDataAdapter("buscarDonacion", connection);
-                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+        //            // Crear un adaptador de datos y especificar el procedimiento almacenado
+        //            SqlDataAdapter da = new SqlDataAdapter("buscarDonacion", connection);
+        //            da.SelectCommand.CommandType = CommandType.StoredProcedure;
 
-                    // Agregar parámetros al procedimiento almacenado
-                    da.SelectCommand.Parameters.Add("@FechaDonacion", SqlDbType.DateTime).Value = dateTimePicker2.Value;
+        //            // Agregar parámetros al procedimiento almacenado
+        //            da.SelectCommand.Parameters.Add("@FechaDonacion", SqlDbType.DateTime).Value = dateTimePicker2.Value;
 
-                    // Crear un DataTable para almacenar los resultados
-                    DataTable dt = new DataTable();
+        //            // Crear un DataTable para almacenar los resultados
+        //            DataTable dt = new DataTable();
 
-                    // Llenar el DataTable con los resultados de la consulta
-                    da.Fill(dt);
+        //            // Llenar el DataTable con los resultados de la consulta
+        //            da.Fill(dt);
 
-                    // Asignar el DataTable al DataGridView
-                    dgvDonaciones.DataSource = dt;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error al buscar ventas: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
+        //            // Asignar el DataTable al DataGridView
+        //            dgvDonaciones.DataSource = dt;
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            MessageBox.Show("Error al buscar ventas: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        }
+        //    }
+        //}
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
@@ -297,7 +272,8 @@ namespace CASAHOGAR
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            buscarDonacion();
+            CasaHogar datos = new CasaHogar();
+            datos.BuscarDonacion(dateTimePicker2, dgvDonaciones);
         }
 
         private void btnMostrar_Click(object sender, EventArgs e)
@@ -368,6 +344,11 @@ namespace CASAHOGAR
             {
                 MessageBox.Show("Excediste el tiempo para eliminar este registro", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void dgvDonaciones_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarDonantes));
             this.label1 = new System.Windows.Forms.Label();
             this.txtNombreDonante = new System.Windows.Forms.TextBox();
             this.txtApellidoDonante = new System.Windows.Forms.TextBox();
@@ -73,7 +74,7 @@
             this.txtApellidoDonante.Margin = new System.Windows.Forms.Padding(2);
             this.txtApellidoDonante.Name = "txtApellidoDonante";
             this.txtApellidoDonante.Size = new System.Drawing.Size(173, 25);
-            this.txtApellidoDonante.TabIndex = 3;
+            this.txtApellidoDonante.TabIndex = 2;
             // 
             // label2
             // 
@@ -94,7 +95,7 @@
             this.txtTelefonoDonante.Margin = new System.Windows.Forms.Padding(2);
             this.txtTelefonoDonante.Name = "txtTelefonoDonante";
             this.txtTelefonoDonante.Size = new System.Drawing.Size(173, 25);
-            this.txtTelefonoDonante.TabIndex = 5;
+            this.txtTelefonoDonante.TabIndex = 3;
             // 
             // label3
             // 
@@ -115,7 +116,7 @@
             this.txtEmailDonante.Margin = new System.Windows.Forms.Padding(2);
             this.txtEmailDonante.Name = "txtEmailDonante";
             this.txtEmailDonante.Size = new System.Drawing.Size(173, 25);
-            this.txtEmailDonante.TabIndex = 7;
+            this.txtEmailDonante.TabIndex = 4;
             // 
             // label4
             // 
@@ -166,7 +167,7 @@
             this.botones1.Location = new System.Drawing.Point(486, 274);
             this.botones1.Name = "botones1";
             this.botones1.Size = new System.Drawing.Size(76, 43);
-            this.botones1.TabIndex = 80;
+            this.botones1.TabIndex = 6;
             this.botones1.Text = "Salir";
             this.botones1.TextColor = System.Drawing.Color.Black;
             this.botones1.UseVisualStyleBackColor = false;
@@ -188,7 +189,7 @@
             this.btnAgregar.Location = new System.Drawing.Point(389, 274);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(91, 43);
-            this.btnAgregar.TabIndex = 79;
+            this.btnAgregar.TabIndex = 5;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.TextColor = System.Drawing.Color.Black;
             this.btnAgregar.UseVisualStyleBackColor = false;
@@ -224,10 +225,11 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtNombreDonante);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AgregarDonantes";
             this.ShowIcon = false;
-            this.Text = "AgregarDonantes";
+            this.Text = "Agregar Donantes";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

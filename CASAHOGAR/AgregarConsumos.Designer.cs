@@ -55,7 +55,7 @@
             this.txtCantidadConsumida.Margin = new System.Windows.Forms.Padding(2);
             this.txtCantidadConsumida.Name = "txtCantidadConsumida";
             this.txtCantidadConsumida.Size = new System.Drawing.Size(135, 25);
-            this.txtCantidadConsumida.TabIndex = 44;
+            this.txtCantidadConsumida.TabIndex = 3;
             // 
             // label4
             // 
@@ -76,7 +76,8 @@
             this.txtUnidadMedidaInsumo.Margin = new System.Windows.Forms.Padding(2);
             this.txtUnidadMedidaInsumo.Name = "txtUnidadMedidaInsumo";
             this.txtUnidadMedidaInsumo.Size = new System.Drawing.Size(135, 25);
-            this.txtUnidadMedidaInsumo.TabIndex = 41;
+            this.txtUnidadMedidaInsumo.TabIndex = 4;
+            this.txtUnidadMedidaInsumo.TextChanged += new System.EventHandler(this.txtUnidadMedidaInsumo_TextChanged);
             // 
             // label3
             // 
@@ -120,7 +121,7 @@
             this.cbxNombreInsumo.Location = new System.Drawing.Point(193, 105);
             this.cbxNombreInsumo.Name = "cbxNombreInsumo";
             this.cbxNombreInsumo.Size = new System.Drawing.Size(135, 30);
-            this.cbxNombreInsumo.TabIndex = 61;
+            this.cbxNombreInsumo.TabIndex = 2;
             this.cbxNombreInsumo.SelectedIndexChanged += new System.EventHandler(this.cbxNombreInsumo_SelectedIndexChanged);
             // 
             // cbxIdInsumo
@@ -132,7 +133,7 @@
             this.cbxIdInsumo.Location = new System.Drawing.Point(193, 69);
             this.cbxIdInsumo.Name = "cbxIdInsumo";
             this.cbxIdInsumo.Size = new System.Drawing.Size(51, 30);
-            this.cbxIdInsumo.TabIndex = 62;
+            this.cbxIdInsumo.TabIndex = 1;
             this.cbxIdInsumo.SelectedIndexChanged += new System.EventHandler(this.cbxIdInsumo_SelectedIndexChanged);
             this.cbxIdInsumo.Enter += new System.EventHandler(this.cbxIdInsumo_Enter);
             this.cbxIdInsumo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbxIdInsumo_KeyPress);
@@ -262,7 +263,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AgregarConsumos";
-            this.ShowInTaskbar = false;
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agregar Consumos";
             this.Load += new System.EventHandler(this.AgregarConsumos_Load);

@@ -21,12 +21,6 @@ namespace CASAHOGAR
         {
             InitializeComponent();
         }
-
-        public string Conexion()
-        {
-            string connectionString = @"Data Source=THE-MARAUDERS-M\TBD_DARD_23;Initial Catalog=CASAHOGAR;Integrated Security=True";
-            return connectionString;
-        }
         private void Productos_Load(object sender, EventArgs e)
         {
             CasaHogar datos = new CasaHogar();
@@ -113,8 +107,7 @@ namespace CASAHOGAR
 
         private void dgvProductos_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            string conectionString;
-            conectionString = Conexion();
+            CasaHogar datos = new CasaHogar();
             // Obtengo el ID del producto editado.
             int idProducto = Convert.ToInt32(dgvProductos.Rows[e.RowIndex].Cells["ID Producto"].Value);
             // Obtengo los nuevos valores editados.
@@ -122,30 +115,16 @@ namespace CASAHOGAR
             int precioUnitarioProducto = Convert.ToInt32(dgvProductos.Rows[e.RowIndex].Cells["Precio Unitario"].Value.ToString());
             string informacionAdicional = dgvProductos.Rows[e.RowIndex].Cells["Información Adicional"].Value.ToString();
 
-            // Actualizo la base de datos con los nuevos valores del producto.
             try
             {
-                // Establezco una conexión con la base de datos.
-                using (SqlConnection connection = new SqlConnection(conectionString))
-                {
-                    connection.Open();
-                    // Construyo la consulta SQL para actualizar los datos del producto.
-                    string query = "UPDATE Productos SET nombreProducto = @NombreProducto, precioUnitarioProducto = @PrecioUnitarioProducto, informacionAdicional = @InformacionAdicional WHERE idProducto = @IdProducto";
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@IdProducto", idProducto);
-                    command.Parameters.AddWithValue("@NombreProducto", nombreProducto);
-                    command.Parameters.AddWithValue("@PrecioUnitarioProducto", precioUnitarioProducto);
-                    command.Parameters.AddWithValue("@InformacionAdicional", informacionAdicional);
-                    // Ejecuto la consulta.
-                    command.ExecuteNonQuery();
+                datos.ActualizarProductos(idProducto,nombreProducto,precioUnitarioProducto,informacionAdicional);
 
-                    MessageBox.Show("Datos del producto actualizados correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                // Mensaje de éxito
+                MessageBox.Show("Datos actualizados correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                // Muestro un mensaje de error en caso de que ocurra una excepción durante la actualización.
-                MessageBox.Show("Error al actualizar los datos del producto: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al actualizar el registro: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

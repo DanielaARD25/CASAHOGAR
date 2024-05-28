@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarEmpleados));
             this.label4 = new System.Windows.Forms.Label();
             this.txtEmailEmpeado = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -67,7 +68,7 @@
             this.txtEmailEmpeado.Margin = new System.Windows.Forms.Padding(2);
             this.txtEmailEmpeado.Name = "txtEmailEmpeado";
             this.txtEmailEmpeado.Size = new System.Drawing.Size(217, 25);
-            this.txtEmailEmpeado.TabIndex = 24;
+            this.txtEmailEmpeado.TabIndex = 4;
             // 
             // label3
             // 
@@ -88,7 +89,7 @@
             this.txtTelefonoEmpleado.Margin = new System.Windows.Forms.Padding(2);
             this.txtTelefonoEmpleado.Name = "txtTelefonoEmpleado";
             this.txtTelefonoEmpleado.Size = new System.Drawing.Size(217, 25);
-            this.txtTelefonoEmpleado.TabIndex = 22;
+            this.txtTelefonoEmpleado.TabIndex = 3;
             // 
             // label2
             // 
@@ -109,7 +110,7 @@
             this.txtNombreEmpleado.Margin = new System.Windows.Forms.Padding(2);
             this.txtNombreEmpleado.Name = "txtNombreEmpleado";
             this.txtNombreEmpleado.Size = new System.Drawing.Size(217, 25);
-            this.txtNombreEmpleado.TabIndex = 20;
+            this.txtNombreEmpleado.TabIndex = 1;
             // 
             // label1
             // 
@@ -130,7 +131,7 @@
             this.txtHorarioLaboral.Margin = new System.Windows.Forms.Padding(2);
             this.txtHorarioLaboral.Name = "txtHorarioLaboral";
             this.txtHorarioLaboral.Size = new System.Drawing.Size(217, 25);
-            this.txtHorarioLaboral.TabIndex = 27;
+            this.txtHorarioLaboral.TabIndex = 5;
             // 
             // txtPuestoTrabajo
             // 
@@ -140,7 +141,7 @@
             this.txtPuestoTrabajo.Margin = new System.Windows.Forms.Padding(2);
             this.txtPuestoTrabajo.Name = "txtPuestoTrabajo";
             this.txtPuestoTrabajo.Size = new System.Drawing.Size(217, 25);
-            this.txtPuestoTrabajo.TabIndex = 28;
+            this.txtPuestoTrabajo.TabIndex = 6;
             // 
             // label5
             // 
@@ -162,7 +163,7 @@
             this.txtApellidoEmpleado.Margin = new System.Windows.Forms.Padding(2);
             this.txtApellidoEmpleado.Name = "txtApellidoEmpleado";
             this.txtApellidoEmpleado.Size = new System.Drawing.Size(217, 25);
-            this.txtApellidoEmpleado.TabIndex = 59;
+            this.txtApellidoEmpleado.TabIndex = 2;
             // 
             // label6
             // 
@@ -213,7 +214,7 @@
             this.botones1.Location = new System.Drawing.Point(546, 348);
             this.botones1.Name = "botones1";
             this.botones1.Size = new System.Drawing.Size(76, 43);
-            this.botones1.TabIndex = 85;
+            this.botones1.TabIndex = 8;
             this.botones1.Text = "Salir";
             this.botones1.TextColor = System.Drawing.Color.Black;
             this.botones1.UseVisualStyleBackColor = false;
@@ -235,7 +236,7 @@
             this.btnAgregar.Location = new System.Drawing.Point(449, 348);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(91, 43);
-            this.btnAgregar.TabIndex = 84;
+            this.btnAgregar.TabIndex = 7;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.TextColor = System.Drawing.Color.Black;
             this.btnAgregar.UseVisualStyleBackColor = false;
@@ -257,6 +258,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(249)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(647, 400);
+            this.ControlBox = false;
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.botones1);
@@ -274,11 +276,12 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtNombreEmpleado);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AgregarEmpleados";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AgregarEmpleados";
+            this.Text = "Agregar Empleados";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
