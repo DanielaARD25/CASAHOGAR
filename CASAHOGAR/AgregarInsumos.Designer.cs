@@ -34,7 +34,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtNombreInsumo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtCantidadDisponibleInsumo = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.rtxtDescripciónInsumo = new System.Windows.Forms.RichTextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -42,7 +41,12 @@
             this.btnSalir = new CASAHOGAR.Botones();
             this.btnAgregar = new CASAHOGAR.Botones();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.nupCantidadMinima = new System.Windows.Forms.NumericUpDown();
+            this.nupCantidadDisponible = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupCantidadMinima)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupCantidadDisponible)).BeginInit();
             this.SuspendLayout();
             // 
             // txtUnidadMedidaInsumo
@@ -53,7 +57,7 @@
             this.txtUnidadMedidaInsumo.Margin = new System.Windows.Forms.Padding(2);
             this.txtUnidadMedidaInsumo.Name = "txtUnidadMedidaInsumo";
             this.txtUnidadMedidaInsumo.Size = new System.Drawing.Size(120, 25);
-            this.txtUnidadMedidaInsumo.TabIndex = 3;
+            this.txtUnidadMedidaInsumo.TabIndex = 4;
             // 
             // label3
             // 
@@ -98,16 +102,6 @@
             this.label1.TabIndex = 45;
             this.label1.Text = "Nombre insumo:";
             // 
-            // txtCantidadDisponibleInsumo
-            // 
-            this.txtCantidadDisponibleInsumo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtCantidadDisponibleInsumo.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCantidadDisponibleInsumo.Location = new System.Drawing.Point(443, 119);
-            this.txtCantidadDisponibleInsumo.Margin = new System.Windows.Forms.Padding(2);
-            this.txtCantidadDisponibleInsumo.Name = "txtCantidadDisponibleInsumo";
-            this.txtCantidadDisponibleInsumo.Size = new System.Drawing.Size(84, 25);
-            this.txtCantidadDisponibleInsumo.TabIndex = 2;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -126,7 +120,7 @@
             this.rtxtDescripciónInsumo.Location = new System.Drawing.Point(443, 207);
             this.rtxtDescripciónInsumo.Name = "rtxtDescripciónInsumo";
             this.rtxtDescripciónInsumo.Size = new System.Drawing.Size(256, 106);
-            this.rtxtDescripciónInsumo.TabIndex = 4;
+            this.rtxtDescripciónInsumo.TabIndex = 5;
             this.rtxtDescripciónInsumo.Text = "";
             // 
             // pictureBox1
@@ -167,7 +161,7 @@
             this.btnSalir.Location = new System.Drawing.Point(623, 319);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(76, 43);
-            this.btnSalir.TabIndex = 6;
+            this.btnSalir.TabIndex = 7;
             this.btnSalir.Text = "Salir";
             this.btnSalir.TextColor = System.Drawing.Color.Black;
             this.btnSalir.UseVisualStyleBackColor = false;
@@ -189,7 +183,7 @@
             this.btnAgregar.Location = new System.Drawing.Point(526, 319);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(91, 43);
-            this.btnAgregar.TabIndex = 5;
+            this.btnAgregar.TabIndex = 6;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.TextColor = System.Drawing.Color.Black;
             this.btnAgregar.UseVisualStyleBackColor = false;
@@ -206,20 +200,51 @@
             this.panel1.Size = new System.Drawing.Size(281, 374);
             this.panel1.TabIndex = 88;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(541, 122);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(135, 22);
+            this.label5.TabIndex = 94;
+            this.label5.Text = "Cantidad mínima:";
+            // 
+            // nupCantidadMinima
+            // 
+            this.nupCantidadMinima.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nupCantidadMinima.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nupCantidadMinima.Location = new System.Drawing.Point(681, 119);
+            this.nupCantidadMinima.Name = "nupCantidadMinima";
+            this.nupCantidadMinima.Size = new System.Drawing.Size(82, 25);
+            this.nupCantidadMinima.TabIndex = 3;
+            // 
+            // nupCantidadDisponible
+            // 
+            this.nupCantidadDisponible.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nupCantidadDisponible.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nupCantidadDisponible.Location = new System.Drawing.Point(443, 119);
+            this.nupCantidadDisponible.Name = "nupCantidadDisponible";
+            this.nupCantidadDisponible.Size = new System.Drawing.Size(82, 25);
+            this.nupCantidadDisponible.TabIndex = 2;
+            // 
             // AgregarInsumos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(249)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(716, 374);
+            this.ClientSize = new System.Drawing.Size(775, 374);
             this.ControlBox = false;
+            this.Controls.Add(this.nupCantidadDisponible);
+            this.Controls.Add(this.nupCantidadMinima);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.rtxtDescripciónInsumo);
-            this.Controls.Add(this.txtCantidadDisponibleInsumo);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtUnidadMedidaInsumo);
             this.Controls.Add(this.label3);
@@ -233,6 +258,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agregar Insumos";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupCantidadMinima)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupCantidadDisponible)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -244,7 +271,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtNombreInsumo;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtCantidadDisponibleInsumo;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RichTextBox rtxtDescripciónInsumo;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -252,5 +278,8 @@
         private Botones btnSalir;
         private Botones btnAgregar;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown nupCantidadMinima;
+        private System.Windows.Forms.NumericUpDown nupCantidadDisponible;
     }
 }

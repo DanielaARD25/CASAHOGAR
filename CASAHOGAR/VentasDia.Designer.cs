@@ -56,7 +56,7 @@
             this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImprimir.Font = new System.Drawing.Font("Work Sans Medium", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImprimir.ForeColor = System.Drawing.Color.Black;
-            this.btnImprimir.Location = new System.Drawing.Point(515, 372);
+            this.btnImprimir.Location = new System.Drawing.Point(650, 419);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(83, 40);
             this.btnImprimir.TabIndex = 99;
@@ -140,7 +140,7 @@
             this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSalir.Font = new System.Drawing.Font("Work Sans Medium", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSalir.ForeColor = System.Drawing.Color.Black;
-            this.btnSalir.Location = new System.Drawing.Point(613, 372);
+            this.btnSalir.Location = new System.Drawing.Point(748, 419);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(78, 40);
             this.btnSalir.TabIndex = 95;
@@ -173,13 +173,14 @@
             // 
             // dgvVentas
             // 
+            this.dgvVentas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvVentas.Location = new System.Drawing.Point(46, 56);
             this.dgvVentas.Margin = new System.Windows.Forms.Padding(2);
             this.dgvVentas.Name = "dgvVentas";
             this.dgvVentas.RowHeadersWidth = 62;
             this.dgvVentas.RowTemplate.Height = 28;
-            this.dgvVentas.Size = new System.Drawing.Size(651, 297);
+            this.dgvVentas.Size = new System.Drawing.Size(780, 297);
             this.dgvVentas.TabIndex = 91;
             this.dgvVentas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVentas_CellContentClick);
             // 
@@ -188,7 +189,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(249)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(703, 471);
+            this.ClientSize = new System.Drawing.Size(837, 471);
             this.ControlBox = false;
             this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.label1);

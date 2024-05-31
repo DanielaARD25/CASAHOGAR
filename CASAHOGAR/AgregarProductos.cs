@@ -22,8 +22,7 @@ namespace CASAHOGAR
         private void LimpiarControles()
         {
             txtPrecioUnitarioProducto.Clear();
-            txtNombreProducto.Clear();
-            rtxtInformacionAdicional.Clear();
+
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -31,16 +30,16 @@ namespace CASAHOGAR
             CasaHogar datos = new CasaHogar();
             try
             {
-                datos.AltaProductos(txtNombreProducto.Text, Convert.ToInt32(txtPrecioUnitarioProducto.Text), rtxtInformacionAdicional.Text);
+                datos.AltaProductos(Convert.ToInt32(txtPrecioUnitarioProducto.Text));
 
-                MessageBox.Show("Producto agregado", "Informativo", MessageBoxButtons.OK);
+                MessageBox.Show("Precio agregado", "Informativo", MessageBoxButtons.OK);
 
                 // Limpiar los controles
                 LimpiarControles();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al agregar el registro de producto: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al agregar el registro de precio: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

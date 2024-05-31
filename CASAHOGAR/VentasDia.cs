@@ -170,15 +170,16 @@ namespace CASAHOGAR
             PdfPTable tabla = new PdfPTable(NumeroColumnas);
 
             //*** AJUSTA EL TAMAÑO SEGÚN LA CANTIDAD DE COLUMNAS QUE TENGA LA VISTA DE LA TABLA QUE TE TOCÓ, EJ SI SON 6 COLUMNAS, LE PONES 6 VALORES
-            tabla.SetWidthPercentage(new float[] { 56, Columnwidth, 56, 56, Columnwidth, Columnwidth }, PageSize.A4.Rotate());
+            tabla.SetWidthPercentage(new float[] { Columnwidth, Columnwidth, Columnwidth, 56, Columnwidth, Columnwidth, Columnwidth}, PageSize.A4.Rotate());
 
             //*** CAMBIAS LOS NOMBRES SEGÚN LOS QUE ESTÁN EN LA VISTA DE TU TABLA Y SI HAY MÁS COLUMNAS, LAS AGREGAS, SI HAY MENOS, SE LAS QUITAS
             PdfPCell celda1 = new PdfPCell(new Paragraph("Id Venta", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda2 = new PdfPCell(new Paragraph("Id Producto", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda3 = new PdfPCell(new Paragraph("Producto", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda4 = new PdfPCell(new Paragraph("Cantidad Vendida", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda5 = new PdfPCell(new Paragraph("Monto Pagado", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda6 = new PdfPCell(new Paragraph("Fecha de Venta", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+            PdfPCell celda2 = new PdfPCell(new Paragraph("Id Precio", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+            PdfPCell celda3 = new PdfPCell(new Paragraph("Precio", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+            PdfPCell celda4 = new PdfPCell(new Paragraph("Descripción", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+            PdfPCell celda5 = new PdfPCell(new Paragraph("Cantidad Vendida", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+            PdfPCell celda6 = new PdfPCell(new Paragraph("Monto Pagado", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+            PdfPCell celda7 = new PdfPCell(new Paragraph("Fecha de Venta", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
 
             //***  AGREGAS SEGÚN LAS CELDAS QUE HICISTE
             tabla.AddCell(celda1);
@@ -187,27 +188,31 @@ namespace CASAHOGAR
             tabla.AddCell(celda4);
             tabla.AddCell(celda5);
             tabla.AddCell(celda6);
+            tabla.AddCell(celda7);
 
             foreach (DataRow item in VistaVentas.Rows)
             {
                 //*** SI HICISTE 8 CELDAS, AGREGAS 8 DE ESTOS CODIGUITOS
-                PdfPCell celda7 = new PdfPCell(new Paragraph(item[0].ToString(), FontFactory.GetFont("Arial", 9)));
-                tabla.AddCell(celda7);
-
-                PdfPCell celda8 = new PdfPCell(new Paragraph(item[1].ToString(), FontFactory.GetFont("Arial", 9)));
+                PdfPCell celda8 = new PdfPCell(new Paragraph(item[0].ToString(), FontFactory.GetFont("Arial", 9)));
                 tabla.AddCell(celda8);
 
-                PdfPCell celda9 = new PdfPCell(new Paragraph(item[2].ToString(), FontFactory.GetFont("Arial", 9)));
+                PdfPCell celda9 = new PdfPCell(new Paragraph(item[1].ToString(), FontFactory.GetFont("Arial", 9)));
                 tabla.AddCell(celda9);
 
-                PdfPCell celda10 = new PdfPCell(new Paragraph(item[3].ToString(), FontFactory.GetFont("Arial", 9)));
+                PdfPCell celda10 = new PdfPCell(new Paragraph(item[2].ToString(), FontFactory.GetFont("Arial", 9)));
                 tabla.AddCell(celda10);
 
-                PdfPCell celda11 = new PdfPCell(new Paragraph(item[4].ToString(), FontFactory.GetFont("Arial", 9)));
+                PdfPCell celda11 = new PdfPCell(new Paragraph(item[3].ToString(), FontFactory.GetFont("Arial", 9)));
                 tabla.AddCell(celda11);
 
-                PdfPCell celda12 = new PdfPCell(new Paragraph(item[5].ToString(), FontFactory.GetFont("Arial", 9)));
+                PdfPCell celda12 = new PdfPCell(new Paragraph(item[4].ToString(), FontFactory.GetFont("Arial", 9)));
                 tabla.AddCell(celda12);
+
+                PdfPCell celda13 = new PdfPCell(new Paragraph(item[5].ToString(), FontFactory.GetFont("Arial", 9)));
+                tabla.AddCell(celda13);
+
+                PdfPCell celda14 = new PdfPCell(new Paragraph(item[6].ToString(), FontFactory.GetFont("Arial", 9)));
+                tabla.AddCell(celda14);
 
             }
             document.Add(tabla);
@@ -257,13 +262,6 @@ namespace CASAHOGAR
                 {
                     // Obtener el valor del ID de la fila seleccionada
                     string idSeleccionado = dgvVentas.SelectedRows[0].Cells["ID Venta"].Value.ToString();
-
-                    // Solicitar la contraseña del usuario actual
-                    string contraseñaIngresada = Microsoft.VisualBasic.Interaction.InputBox("Por favor, ingresa tu contraseña para confirmar la eliminación:", "Confirmar Eliminación", "");
-
-                    // Verificar la contraseña
-                    if (contraseñaIngresada == SesionUsuario.ContraseñaUsuario)
-                    {
                         // Confirmar con el usuario antes de eliminar
                         DialogResult result = MessageBox.Show("¿Estás seguro de que deseas eliminar el registro de venta con ID " + idSeleccionado + "?",
                                                                 "Confirmar Eliminación",
@@ -295,11 +293,6 @@ namespace CASAHOGAR
                                 MessageBox.Show("Error al eliminar el registro: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Contraseña incorrecta. No tienes permiso para eliminar este registro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
                 }
                 else
                 {

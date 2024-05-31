@@ -72,15 +72,6 @@ namespace CASAHOGAR
                 // Verificar si hay una fila seleccionada en el DataGridView
                 if (dgvVentas.SelectedRows.Count > 0)
                 {
-                    // Obtener la fecha de la venta seleccionada
-                    //DateTime fechaSeleccionada = Convert.ToDateTime(dgvVentas.SelectedRows[0].Cells["Fecha de Venta"].Value.ToString());
-
-                    // Solicitar la contraseña al usuario
-                    string contraseñaIngresada = Microsoft.VisualBasic.Interaction.InputBox("Por favor, ingresa tu contraseña para confirmar la eliminación:", "Confirmar Eliminación", "");
-
-                    // Verificar si la contraseña ingresada coincide con la contraseña del usuario actual
-                    if (contraseñaIngresada == SesionUsuario.ContraseñaUsuario)
-                    {
                         // Confirmar con el usuario antes de eliminar
                         DialogResult result = MessageBox.Show("¿Estás seguro de que deseas eliminar todas las ventas realizadas en la fecha " + fechaSeleccionada + "?",
                                                                 "Confirmar Eliminación",
@@ -111,11 +102,7 @@ namespace CASAHOGAR
                                 MessageBox.Show("Error al eliminar las ventas por fecha: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Contraseña incorrecta. No tienes permiso para eliminar las ventas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    
                 }
                 else
                 {
@@ -228,7 +215,7 @@ namespace CASAHOGAR
             PdfPTable tabla = new PdfPTable(NumeroColumnas);
 
             //*** AJUSTA EL TAMAÑO SEGÚN LA CANTIDAD DE COLUMNAS QUE TENGA LA VISTA DE LA TABLA QUE TE TOCÓ, EJ SI SON 6 COLUMNAS, LE PONES 6 VALORES
-            tabla.SetWidthPercentage(new float[] { 56, Columnwidth, 56, 56, Columnwidth, Columnwidth}, PageSize.A4.Rotate());
+            tabla.SetWidthPercentage(new float[] { 56, Columnwidth, 56}, PageSize.A4.Rotate());
             
             //*** CAMBIAS LOS NOMBRES SEGÚN LOS QUE ESTÁN EN LA VISTA DE TU TABLA Y SI HAY MÁS COLUMNAS, LAS AGREGAS, SI HAY MENOS, SE LAS QUITAS
             PdfPCell celda1 = new PdfPCell(new Paragraph("Fecha de Venta", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));

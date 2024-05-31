@@ -148,7 +148,7 @@ namespace CASAHOGAR
             // Establecer propiedades del SaveFileDialog
             Ruta.Filter = "Archivos PDF (*.pdf)|*.pdf"; // Filtro para mostrar solo archivos PDF
             Ruta.Title = "Guardar PDF"; // Título del diálogo
-            Ruta.FileName = "ReporteProductos.pdf"; // **** CAMBIAR NOMAS EL NOMBRE DEPENDIENDO DE LA TABLA EJ. ReporteDonantes
+            Ruta.FileName = "ReportePrecios.pdf"; // **** CAMBIAR NOMAS EL NOMBRE DEPENDIENDO DE LA TABLA EJ. ReporteDonantes
             Ruta.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Directorio inicial (Mis documentos)
 
             // Mostrar el diálogo para que el usuario seleccione la ubicación del archivo
@@ -185,7 +185,7 @@ namespace CASAHOGAR
             Parrafo.Font.SetStyle(iTextSharp.text.Font.BOLD);
             Parrafo.Font.SetStyle(iTextSharp.text.Font.UNDEFINED);
 
-            Parrafo.Add("Departamento: Productos"); //*** CAMBIAR DEPARTAMENTO SEGÚN LA TABLA QUE LES TOCÓ
+            Parrafo.Add("Departamento: Ventas"); //*** CAMBIAR DEPARTAMENTO SEGÚN LA TABLA QUE LES TOCÓ
             document.Add(Parrafo);
 
 
@@ -194,7 +194,7 @@ namespace CASAHOGAR
             P2.Font = FontFactory.GetFont("Arial", 8);
 
             //***NOMBRE DE REPORTE SE CAMBIA Ej Reporte de Productos
-            Chunk text = new Chunk("Reporte de Productos", FontFactory.GetFont("Soberana Sans", 8, iTextSharp.text.Font.BOLD));
+            Chunk text = new Chunk("Reporte de Precios", FontFactory.GetFont("Soberana Sans", 8, iTextSharp.text.Font.BOLD));
             P2.Add(text);
             document.Add(P2);
 
@@ -207,7 +207,7 @@ namespace CASAHOGAR
 
 
             //*** SE CAMBIA DESCRIPCIÓN DE ACUERDO A TABLA
-            P6.Add("En este reporte se detalla un registro de los productos.");
+            P6.Add("En este reporte se detalla un registro de los precios.");
             document.Add(P6);
             document.Add(new Paragraph(" "));
 
@@ -218,19 +218,16 @@ namespace CASAHOGAR
             PdfPTable tabla = new PdfPTable(NumeroColumnas);
 
             //*** AJUSTA EL TAMAÑO SEGÚN LA CANTIDAD DE COLUMNAS QUE TENGA LA VISTA DE LA TABLA QUE TE TOCÓ, EJ SI SON 6 COLUMNAS, LE PONES 6 VALORES
-            tabla.SetWidthPercentage(new float[] { 56, Columnwidth, 56, Columnwidth }, PageSize.A4.Rotate());
+            tabla.SetWidthPercentage(new float[] { Columnwidth, Columnwidth}, PageSize.A4.Rotate());
 
             //*** CAMBIAS LOS NOMBRES SEGÚN LOS QUE ESTÁN EN LA VISTA DE TU TABLA Y SI HAY MÁS COLUMNAS, LAS AGREGAS, SI HAY MENOS, SE LAS QUITAS
-            PdfPCell celda1 = new PdfPCell(new Paragraph("ID Producto", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda2 = new PdfPCell(new Paragraph("Nombre Producto", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda3 = new PdfPCell(new Paragraph("Precio Unitario", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda4 = new PdfPCell(new Paragraph("Información Adicional", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+            PdfPCell celda1 = new PdfPCell(new Paragraph("ID Precio", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+            PdfPCell celda2 = new PdfPCell(new Paragraph("Precio Unitario", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
 
             //***  AGREGAS SEGÚN LAS CELDAS QUE HICISTE
             tabla.AddCell(celda1);
             tabla.AddCell(celda2);
-            tabla.AddCell(celda3);
-            tabla.AddCell(celda4);
+
 
 
             foreach (DataRow item in VistaVentas.Rows)
@@ -241,12 +238,6 @@ namespace CASAHOGAR
 
                 PdfPCell celda6 = new PdfPCell(new Paragraph(item[1].ToString(), FontFactory.GetFont("Arial", 9)));
                 tabla.AddCell(celda6);
-
-                PdfPCell celda7 = new PdfPCell(new Paragraph(item[2].ToString(), FontFactory.GetFont("Arial", 9)));
-                tabla.AddCell(celda7);
-
-                PdfPCell celda8 = new PdfPCell(new Paragraph(item[3].ToString(), FontFactory.GetFont("Arial", 9)));
-                tabla.AddCell(celda8);
 
             }
             document.Add(tabla);

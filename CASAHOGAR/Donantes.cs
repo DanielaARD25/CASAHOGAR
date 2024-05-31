@@ -137,14 +137,12 @@ namespace CASAHOGAR
             int idDonante = Convert.ToInt32(dgvDonantes.Rows[e.RowIndex].Cells["ID Donante"].Value);
             // Obtengo los nuevos valores editados.
             string nombreDonante = dgvDonantes.Rows[e.RowIndex].Cells["Donante"].Value.ToString();
-            string apellidoDonante = dgvDonantes.Rows[e.RowIndex].Cells["Apellido Donante"].Value.ToString();
             string telefonoDonante = dgvDonantes.Rows[e.RowIndex].Cells["Teléfono"].Value.ToString();
-            string emailDonante = dgvDonantes.Rows[e.RowIndex].Cells["Email Donante"].Value.ToString();
 
             // Actualizo la base de datos con los nuevos valores del donante.
             try
             {
-                datos.ActualizarDonante(idDonante,nombreDonante,apellidoDonante,telefonoDonante,emailDonante);
+                datos.ActualizarDonante(idDonante,nombreDonante, telefonoDonante);
 
                 // Mensaje de éxito
                 MessageBox.Show("Datos actualizados correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -246,17 +244,13 @@ namespace CASAHOGAR
             //*** Para esto van a tener que tener abierto en SQL el query de las Vistas, se los voy a adjuntar para que 	se guién y sepan qué poner entre las comillas ""
             PdfPCell celda1 = new PdfPCell(new Paragraph("ID Donante", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
             PdfPCell celda2 = new PdfPCell(new Paragraph("Donante", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda3 = new PdfPCell(new Paragraph("Apellido Donante", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda4 = new PdfPCell(new Paragraph("Teléfono", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda5 = new PdfPCell(new Paragraph("Email Donante", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+            PdfPCell celda3 = new PdfPCell(new Paragraph("Teléfono", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
 
 
             //***  AGREGAS SEGÚN LAS CELDAS QUE HICISTE
             tabla.AddCell(celda1);
             tabla.AddCell(celda2);
             tabla.AddCell(celda3);
-            tabla.AddCell(celda4);
-            tabla.AddCell(celda5);
 
 
             foreach (DataRow item in VistaVentas.Rows)
@@ -270,13 +264,6 @@ namespace CASAHOGAR
 
                 PdfPCell celda8 = new PdfPCell(new Paragraph(item[2].ToString(), FontFactory.GetFont("Arial", 9)));
                 tabla.AddCell(celda8);
-
-                PdfPCell celda9 = new PdfPCell(new Paragraph(item[3].ToString(), FontFactory.GetFont("Arial", 9)));
-                tabla.AddCell(celda9);
-
-                PdfPCell celda10 = new PdfPCell(new Paragraph(item[4].ToString(), FontFactory.GetFont("Arial", 9)));
-                tabla.AddCell(celda10);
-
             }
             document.Add(tabla);
 

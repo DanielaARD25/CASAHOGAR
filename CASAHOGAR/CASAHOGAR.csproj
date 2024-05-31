@@ -163,6 +163,12 @@
     <Compile Include="Insumos.Designer.cs">
       <DependentUpon>Insumos.cs</DependentUpon>
     </Compile>
+    <Compile Include="MenosInsumos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenosInsumos.Designer.cs">
+      <DependentUpon>MenosInsumos.cs</DependentUpon>
+    </Compile>
     <Compile Include="MobiliarioEquipo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -243,6 +249,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Insumos.resx">
       <DependentUpon>Insumos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenosInsumos.resx">
+      <DependentUpon>MenosInsumos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MobiliarioEquipo.resx">
       <DependentUpon>MobiliarioEquipo.cs</DependentUpon>

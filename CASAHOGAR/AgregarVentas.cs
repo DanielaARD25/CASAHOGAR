@@ -12,7 +12,6 @@ namespace CASAHOGAR
 {
     public partial class AgregarVentas : Form
     {
-        private Dictionary<int, List<decimal>> preciosUnitarios = new Dictionary<int, List<decimal>>();
         Ventas ventas = new Ventas();
         VentasDia ventasDia;
         //private DateTime fechaSeleccionada;
@@ -24,55 +23,41 @@ namespace CASAHOGAR
 
         private void LimpiarControles()
         {
-            cbxIdProducto.SelectedIndex = -1;
-            cbxNombreProducto.SelectedIndex = -1;
+            cbxIdPrecio.SelectedIndex = -1;
+            cbxPrecio.SelectedIndex = -1;
+            rtxtDescripcion.Clear();
             txtCantidadVentaProducto.Clear();
-            lblPrecio.Text = "";
             dtpFechaVenta.Value = DateTime.Now;
-        }
-
-        private void LlenarProductos()
-        {
-            DataTable data = new DataTable();
-            CasaHogar datos = new CasaHogar();
-
-            data = datos.ObtenerProductos();
-
-            foreach (DataRow row in data.Rows)
-            {
-                cbxNombreProducto.Items.Add(row["nombreProducto"].ToString());
-                cbxIdProducto.Items.Add(row["idProducto"].ToString());
-            }
         }
 
         private void cbxIdProducto_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int selectedIndex = cbxIdProducto.SelectedIndex;
-            cbxNombreProducto.SelectedIndex = selectedIndex;
-
-            // Obtener el ID del insumo seleccionado
-            int idProducto = Convert.ToInt32(cbxIdProducto.SelectedItem);
-
-            // Obtener la cantidad disponible asociada al ID del insumo
-            string precios = ObtenerPreciosUnitarios(idProducto);
-
-            // Mostrar la cantidad disponible en txtCantidadDisponibleInsumo
-            lblPrecio.Text = precios;
+            int selectedIndex = cbxIdPrecio.SelectedIndex;
+            cbxPrecio.SelectedIndex = selectedIndex;
         }
 
+        private void LlenarPrecios()
+        {
+            DataTable data = new DataTable();
+            CasaHogar datos = new CasaHogar();
+
+            data = datos.ObtenerPrecio();
+
+            foreach (DataRow row in data.Rows)
+            {
+                cbxIdPrecio.Items.Add(row["idPrecio"].ToString());
+                cbxPrecio.Items.Add(row["precioUnitarioProducto"].ToString());
+            }
+        }
         private void cbxNombreProducto_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int selectedIndex = cbxNombreProducto.SelectedIndex;
-            cbxIdProducto.SelectedIndex = selectedIndex;
+            int selectedIndex = cbxPrecio.SelectedIndex;
+            cbxIdPrecio.SelectedIndex = selectedIndex;
         }
 
         private void AgregarVentas_Load(object sender, EventArgs e)
         {
-            LlenarProductos();
-
-            LlenarPrecio();
-
-            lblPrecio.Text = "$" + (0).ToString();
+            LlenarPrecios();
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -84,14 +69,14 @@ namespace CASAHOGAR
                 ventasDia = new VentasDia(fechaSeleccionada);
                 foreach (ListViewItem item in lvRegistroVentas.Items)
                 {
-                    int idProducto = Convert.ToInt32(item.SubItems[0].Text);
-                    string producto = item.SubItems[1].Text;
-                    int cantidad = Convert.ToInt32(item.SubItems[2].Text);
-                    decimal precio = Convert.ToDecimal(item.SubItems[3].Text);
+                    int idPrecio= Convert.ToInt32(item.SubItems[0].Text);
+                    int precio = Convert.ToInt32(item.SubItems[1].Text);
+                    string descripcion = item.SubItems[2].Text;
+                    int cantidad = Convert.ToInt32(item.SubItems[3].Text);
                     decimal totalCantidadProductos = Convert.ToDecimal(item.SubItems[4].Text);
                     DateTime fechaCompra = Convert.ToDateTime(item.SubItems[5].Text);
 
-                    datos.AltaVentas(idProducto, producto, cantidad, totalCantidadProductos, fechaCompra);
+                    datos.AltaVentas(idPrecio, descripcion, cantidad, totalCantidadProductos, fechaCompra);
                     //fechaSeleccionada = fechaCompra.Date;
                     ventasDia.ActualizarDataGridView();
                     ventas.ActualizarDataGridView();
@@ -137,58 +122,12 @@ namespace CASAHOGAR
             }
         }
 
-        private void LlenarPrecio()
-        {
-            try
-            {
-                DataTable data = new DataTable();
-                CasaHogar datos = new CasaHogar();
-
-                data = datos.ObtenerPrecio();
-
-                preciosUnitarios.Clear(); // Limpiar el diccionario antes de llenarlo
-
-                foreach (DataRow row in data.Rows)
-                {
-                    int idProducto = Convert.ToInt32(row["idProducto"]);
-                    int precio = Convert.ToInt32(row["precioUnitarioProducto"]);
-
-                    if (preciosUnitarios.ContainsKey(idProducto))
-                    {
-                        preciosUnitarios[idProducto].Add(precio);
-                    }
-                    else
-                    {
-                        List<decimal> precios = new List<decimal>();
-                        precios.Add(precio);
-                        preciosUnitarios.Add(idProducto, precios);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al obtener las precios: " + ex.Message);
-            }
-        }
-
-        private string ObtenerPreciosUnitarios(int precio)
-        {
-            if (preciosUnitarios.ContainsKey(precio))
-            {
-                List<decimal> PreciosU = preciosUnitarios[precio];
-                return string.Join(",", PreciosU);
-            }
-            else
-            {
-                return string.Empty;
-            }
-        }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if(cbxIdProducto.SelectedIndex == -1 && cbxNombreProducto.SelectedIndex == -1)
+            if(cbxIdPrecio.SelectedIndex == -1 && cbxPrecio.SelectedIndex == -1)
             {
-                MessageBox.Show("Debe ingresar un producto.");
+                MessageBox.Show("Debe ingresar un precio.");
             }
 
             if (txtCantidadVentaProducto.Text == "" && txtCantidadVentaProducto.Text == " ")
@@ -198,19 +137,19 @@ namespace CASAHOGAR
 
             else
             {
-                int idProducto = Convert.ToInt32(cbxIdProducto.Text);
-                string nombreProducto = cbxNombreProducto.Text;
+                int idPrecio = Convert.ToInt32(cbxIdPrecio.Text);
+                int precio = Convert.ToInt32(cbxPrecio.Text);
+                string descripcion = rtxtDescripcion.Text;
                 int cantidad = Convert.ToInt32(txtCantidadVentaProducto.Text);
-                decimal precio = Convert.ToDecimal(lblPrecio.Text);
                 DateTime fechaCompra = dtpFechaVenta.Value;
 
                 //Calculos del total de productos y cantidad
                 decimal totalCantidadProductos = cantidad * precio;
 
-                ListViewItem fila = new ListViewItem(idProducto.ToString());
-                fila.SubItems.Add(nombreProducto.ToString());
+                ListViewItem fila = new ListViewItem(idPrecio.ToString());
+                fila.SubItems.Add(precio.ToString());
+                fila.SubItems.Add(descripcion.ToString());
                 fila.SubItems.Add(Convert.ToString(cantidad));
-                fila.SubItems.Add(Convert.ToString(precio));
                 fila.SubItems.Add(Convert.ToString(totalCantidadProductos));
                 fila.SubItems.Add(Convert.ToString(fechaCompra));
 

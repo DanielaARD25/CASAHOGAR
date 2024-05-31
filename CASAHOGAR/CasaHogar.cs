@@ -780,7 +780,7 @@ namespace CASAHOGAR
 
         // ----------- DONANTES ---------------- 
         #region Alta Donantes
-        public void AltaDonantes(string Nombre, string Apellido, string Telefono, string Email)
+        public void AltaDonantes(string Nombre, string Telefono)
         {
             //Obtenemos la cadena de conexión de nuestra base de datos
             string conectionString;
@@ -800,9 +800,7 @@ namespace CASAHOGAR
 
                     //Le mandamos las variables ingresadas en los texbox
                     command.Parameters.AddWithValue("@NombreDonante", Nombre);
-                    command.Parameters.AddWithValue("@ApellidoDonante", Apellido);
                     command.Parameters.AddWithValue("@TelefonoDonante", Telefono);
-                    command.Parameters.AddWithValue("@EmailDonante", Email);
 
                     //Ejecutamos el componente "Similar a EXEC en SQL"
                     command.ExecuteNonQuery();
@@ -881,13 +879,13 @@ namespace CASAHOGAR
         #endregion
 
         #region Actualizar Donante
-        public void ActualizarDonante(int idDonante, string nombreDonante, string apellidoDonante, string telefonoDonante, string emailDonante)        
+        public void ActualizarDonante(int idDonante, string nombreDonante, string telefonoDonante)        
         { 
                 // Obtener la cadena de conexión
             string connectionString = Conexion();
 
             // Definir la consulta SQL
-            string updateInsumoQuery = "UPDATE Donantes SET nombreDonante = @NombreDonante, apellidoDonante = @ApellidoDonante, telefonoDonante = @TelefonoDonante, emailDonante = @EmailDonante WHERE idDonante = @IdDonante";
+            string updateInsumoQuery = "UPDATE Donantes SET nombreDonante = @NombreDonante, telefonoDonante = @TelefonoDonante WHERE idDonante = @IdDonante";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -905,9 +903,7 @@ namespace CASAHOGAR
                         // Agregar los parámetros
                         command.Parameters.AddWithValue("@IdDonante", idDonante);
                         command.Parameters.AddWithValue("@NombreDonante", nombreDonante);
-                        command.Parameters.AddWithValue("@ApellidoDonante", apellidoDonante);
                         command.Parameters.AddWithValue("@TelefonoDonante", telefonoDonante);
-                        command.Parameters.AddWithValue("@EmailDonante", emailDonante);
 
                         // Ejecutar la consulta
                         command.ExecuteNonQuery();
@@ -1060,7 +1056,7 @@ namespace CASAHOGAR
         // ----------- VENTAS ---------------- 
 
         #region Alta Ventas
-        public void AltaVentas(int IdProducto, string Producto, int CantidadVendida, decimal MontoPagado, DateTime FechaVenta)
+        public void AltaVentas(int IdPrecio, string DescripcionVenta, int CantidadVendida, decimal MontoPagado, DateTime FechaVenta)
         {
             //Obtenemos la cadena de conexión de nuestra base de datos
             string conectionString;
@@ -1079,8 +1075,8 @@ namespace CASAHOGAR
                     command.CommandType = CommandType.StoredProcedure;
 
                     //Le mandamos las variables ingresadas en los texbox
-                    command.Parameters.AddWithValue("@IdProducto", IdProducto);
-                    command.Parameters.AddWithValue("@Producto", Producto);
+                    command.Parameters.AddWithValue("@IdPrecio", IdPrecio);
+                    command.Parameters.AddWithValue("@DescripcionVenta", DescripcionVenta);
                     command.Parameters.AddWithValue("@CantidadVendida", CantidadVendida);
                     command.Parameters.AddWithValue("@MontoPagado", MontoPagado);
                     command.Parameters.AddWithValue("@FechaVenta", FechaVenta);
@@ -1176,7 +1172,7 @@ namespace CASAHOGAR
         // ----------- PRODUCTOS ---------------- 
 
         #region Alta Productos
-        public void AltaProductos(string Nombre, int Precio, string Informacion)
+        public void AltaProductos(int Precio)
         {
             //Obtenemos la cadena de conexión de nuestra base de datos
             string conectionString;
@@ -1195,9 +1191,7 @@ namespace CASAHOGAR
                     command.CommandType = CommandType.StoredProcedure;
 
                     //Le mandamos las variables ingresadas en los texbox
-                    command.Parameters.AddWithValue("@NombreProducto", Nombre);
                     command.Parameters.AddWithValue("@PrecioUnitarioProducto", Precio);
-                    command.Parameters.AddWithValue("@InformacionAdicional", Informacion);
 
                     //Ejecutamos el componente "Similar a EXEC en SQL"
                     command.ExecuteNonQuery();
@@ -1224,7 +1218,7 @@ namespace CASAHOGAR
         #endregion
 
         #region Eliminar Productos
-        public void EliminarRegistroProducto(string idProducto)
+        public void EliminarRegistroProducto(string idPrecio)
         {
             string connectionString;
             connectionString = Conexion();
@@ -1232,7 +1226,7 @@ namespace CASAHOGAR
             // Consulta SQL para deshabilitar la restricción de referencia en la tabla 
             string disableConstraintQuery = "ALTER TABLE dbo.Ventas NOCHECK CONSTRAINT FK_VentasProductos";
 
-            string deleteQuery = "DELETE FROM dbo.Productos WHERE idProducto = @IdProducto";
+            string deleteQuery = "DELETE FROM dbo.Productos WHERE idPrecio = @IdPrecio";
 
             // Consulta SQL para habilitar nuevamente la restricción de referencia en la tabla sales
             string enableConstraintQuery = "ALTER TABLE dbo.Ventas CHECK CONSTRAINT FK_VentasProductos";
@@ -1252,7 +1246,7 @@ namespace CASAHOGAR
 
                     using (SqlCommand command = new SqlCommand(deleteQuery, connection, transaction))
                     {
-                        command.Parameters.AddWithValue("@IdProducto", idProducto);
+                        command.Parameters.AddWithValue("@IdPrecio", idPrecio);
                         command.ExecuteNonQuery();
                     }
 
@@ -1269,7 +1263,7 @@ namespace CASAHOGAR
                 {
                     // Deshacer la transacción en caso de error
                     transaction.Rollback();
-                    throw new Exception("Error al eliminar el registro del donante: " + ex.Message);
+                    throw new Exception("Error al eliminar el registro del precio: " + ex.Message);
                 }
             }
         }
@@ -1838,7 +1832,7 @@ namespace CASAHOGAR
 
         // ----------- INSUMOS ---------------- 
         #region Alta Insumos
-        public void AltaInsumos(string NombreInsumo, decimal CantidadDisponible, string UnidadMedida, string DescripcionProducto)
+        public void AltaInsumos(string NombreInsumo, decimal CantidadDisponible, decimal CantidadMinima, string UnidadMedida, string DescripcionProducto)
         {
             string conectionString;
             conectionString = Conexion();
@@ -1853,6 +1847,7 @@ namespace CASAHOGAR
 
                     command.Parameters.AddWithValue("@NombreInsumo", NombreInsumo);
                     command.Parameters.AddWithValue("@CantidadDisponible", CantidadDisponible);
+                    command.Parameters.AddWithValue("@CantidadMinima", CantidadMinima);
                     command.Parameters.AddWithValue("@UnidadMedida", UnidadMedida);
                     command.Parameters.AddWithValue("@DescripcionProducto", DescripcionProducto);
 
@@ -1929,13 +1924,13 @@ namespace CASAHOGAR
         #endregion
 
         #region Actualizar Insumos
-        public void ActualizarInsumos(int idInsumo, string nombreInsumo, decimal cantidadDisponible, string unidadMedida, string descripcionProducto)
+        public void ActualizarInsumos(int idInsumo, string nombreInsumo, decimal cantidadDisponible, decimal cantidadMinima, string unidadMedida, string descripcionProducto)
         {
             // Obtener la cadena de conexión
             string connectionString = Conexion();
 
             // Definir la consulta SQL
-            string updateInsumoQuery = "UPDATE Insumos SET nombreInsumo = @NombreInsumo, cantidadDisponible = @CantidadDisponible, unidadMedida = @UnidadMedida, descripcionProducto = @DescripcionProducto WHERE idInsumo = @IdInsumo";
+            string updateInsumoQuery = "UPDATE Insumos SET nombreInsumo = @NombreInsumo, cantidadDisponible = @CantidadDisponible, cantidadMinima = @CantidadMinima, unidadMedida = @UnidadMedida, descripcionProducto = @DescripcionProducto WHERE idInsumo = @IdInsumo";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -1954,6 +1949,7 @@ namespace CASAHOGAR
                         command.Parameters.AddWithValue("@IdInsumo", idInsumo);
                         command.Parameters.AddWithValue("@NombreInsumo", nombreInsumo);
                         command.Parameters.AddWithValue("@CantidadDisponible", cantidadDisponible);
+                        command.Parameters.AddWithValue("@CantidadMinima", cantidadMinima);
                         command.Parameters.AddWithValue("@UnidadMedida", unidadMedida);
                         command.Parameters.AddWithValue("@DescripcionProducto", descripcionProducto);
 

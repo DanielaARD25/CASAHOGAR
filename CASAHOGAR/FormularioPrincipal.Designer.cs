@@ -310,7 +310,7 @@
             this.btnProductos.Name = "btnProductos";
             this.btnProductos.Size = new System.Drawing.Size(150, 43);
             this.btnProductos.TabIndex = 13;
-            this.btnProductos.Text = "Productos";
+            this.btnProductos.Text = "Precios";
             this.btnProductos.TextColor = System.Drawing.Color.Black;
             this.btnProductos.UseVisualStyleBackColor = false;
             this.btnProductos.Click += new System.EventHandler(this.btnProductos_Click_1);

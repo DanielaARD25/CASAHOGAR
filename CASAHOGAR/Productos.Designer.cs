@@ -45,6 +45,7 @@
             // 
             // dgvProductos
             // 
+            this.dgvProductos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvProductos.Location = new System.Drawing.Point(40, 58);
             this.dgvProductos.Margin = new System.Windows.Forms.Padding(2);
@@ -158,9 +159,9 @@
             this.label1.Font = new System.Drawing.Font("Work Sans SemiBold", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(42, 2);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(209, 54);
+            this.label1.Size = new System.Drawing.Size(156, 54);
             this.label1.TabIndex = 75;
-            this.label1.Text = "Productos";
+            this.label1.Text = "Precios";
             // 
             // btnImprimir
             // 
@@ -205,7 +206,7 @@
             this.Name = "Productos";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Productos";
+            this.Text = "Precios";
             this.Load += new System.EventHandler(this.Productos_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

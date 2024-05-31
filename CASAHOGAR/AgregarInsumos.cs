@@ -21,7 +21,9 @@ namespace CASAHOGAR
             txtNombreInsumo.Clear();
             txtUnidadMedidaInsumo.Clear();
             rtxtDescripciónInsumo.Clear();
-            txtCantidadDisponibleInsumo.Clear();
+            nupCantidadDisponible.Value = 0;
+            nupCantidadMinima.Value = 0;
+
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -29,7 +31,7 @@ namespace CASAHOGAR
             CasaHogar datos = new CasaHogar();
             try
             {
-                datos.AltaInsumos(txtNombreInsumo.Text, Convert.ToDecimal(txtCantidadDisponibleInsumo.Text), txtUnidadMedidaInsumo.Text, rtxtDescripciónInsumo.Text);
+                datos.AltaInsumos(txtNombreInsumo.Text, nupCantidadDisponible.Value, nupCantidadMinima.Value, txtUnidadMedidaInsumo.Text, rtxtDescripciónInsumo.Text);
 
                 MessageBox.Show("Insumo agregado", "Informativo", MessageBoxButtons.OK);
 

@@ -118,12 +118,13 @@ namespace CASAHOGAR
             // Obtengo los nuevos valores editados.
             string nombreInsumo = dgvInsumos.Rows[e.RowIndex].Cells["Nombre"].Value.ToString();
             decimal cantidadDisponible = Convert.ToDecimal(dgvInsumos.Rows[e.RowIndex].Cells["Cantidad Disponible"].Value.ToString());
+            decimal cantidadMinima = Convert.ToDecimal(dgvInsumos.Rows[e.RowIndex].Cells["Cantidad Minima"].Value.ToString());
             string unidadMedida = dgvInsumos.Rows[e.RowIndex].Cells["Unidad de Medida"].Value.ToString();
             string descripcionProducto = dgvInsumos.Rows[e.RowIndex].Cells["Descripción"].Value.ToString();
 
             try
             {
-                datos.ActualizarInsumos(idInsumo, nombreInsumo, cantidadDisponible, unidadMedida, descripcionProducto);
+                datos.ActualizarInsumos(idInsumo, nombreInsumo, cantidadDisponible, cantidadMinima, unidadMedida, descripcionProducto);
 
                 // Mensaje de éxito
                 MessageBox.Show("Datos actualizados correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -214,20 +215,22 @@ namespace CASAHOGAR
             PdfPTable tabla = new PdfPTable(NumeroColumnas);
 
             // Ajustar el tamaño según la cantidad de columnas de la vista de insumos
-            tabla.SetWidthPercentage(new float[] { 56, Columnwidth, 56, 56, Columnwidth }, PageSize.A4.Rotate());
+            tabla.SetWidthPercentage(new float[] { Columnwidth, Columnwidth, 56, 56, Columnwidth, 56}, PageSize.A4.Rotate());
 
             // Cambiar los nombres de las celdas según la vista de insumos
             PdfPCell celda1 = new PdfPCell(new Paragraph("Id Insumo", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
             PdfPCell celda2 = new PdfPCell(new Paragraph("Nombre", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
             PdfPCell celda3 = new PdfPCell(new Paragraph("Cantidad Disponible", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda4 = new PdfPCell(new Paragraph("Unidad de Medida", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
-            PdfPCell celda5 = new PdfPCell(new Paragraph("Descripción", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+            PdfPCell celda4 = new PdfPCell(new Paragraph("Cantidad Minima", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+            PdfPCell celda5 = new PdfPCell(new Paragraph("Unidad de Medida", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+            PdfPCell celda6 = new PdfPCell(new Paragraph("Descripción", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
 
             tabla.AddCell(celda1);
             tabla.AddCell(celda2);
             tabla.AddCell(celda3);
             tabla.AddCell(celda4);
             tabla.AddCell(celda5);
+            tabla.AddCell(celda6);
 
             foreach (DataRow item in VistaInsumos.Rows)
             {
@@ -245,6 +248,9 @@ namespace CASAHOGAR
 
                 PdfPCell celda11 = new PdfPCell(new Paragraph(item[4].ToString(), FontFactory.GetFont("Arial", 9)));
                 tabla.AddCell(celda11);
+
+                PdfPCell celda12 = new PdfPCell(new Paragraph(item[5].ToString(), FontFactory.GetFont("Arial", 9)));
+                tabla.AddCell(celda12);
 
             }
             document.Add(tabla);

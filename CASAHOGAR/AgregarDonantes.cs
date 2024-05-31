@@ -20,9 +20,7 @@ namespace CASAHOGAR
         private void LimpiarControles()
         {
             txtNombreDonante.Clear();
-            txtApellidoDonante.Clear();
             txtTelefonoDonante.Clear();
-            txtEmailDonante.Clear();
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -30,7 +28,7 @@ namespace CASAHOGAR
             CasaHogar datos = new CasaHogar();
             try
             {
-                datos.AltaDonantes(txtNombreDonante.Text, txtApellidoDonante.Text, txtTelefonoDonante.Text, txtEmailDonante.Text);
+                datos.AltaDonantes(txtNombreDonante.Text, txtTelefonoDonante.Text);
                 MessageBox.Show("Donante agregado", "Informativo", MessageBoxButtons.OK);
 
                 // Limpiar los controles después de actualizar el stock
