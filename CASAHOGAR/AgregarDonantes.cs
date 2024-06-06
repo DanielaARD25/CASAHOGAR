@@ -28,10 +28,24 @@ namespace CASAHOGAR
             CasaHogar datos = new CasaHogar();
             try
             {
+                // Verificar que todos los campos estén llenos
+                if (string.IsNullOrWhiteSpace(txtNombreDonante.Text))
+                {
+                    MessageBox.Show("Por favor, ingresa el nombre del donante.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtTelefonoDonante.Text))
+                {
+                    MessageBox.Show("Por favor, ingresa el teléfono del donante.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Agregar el donante
                 datos.AltaDonantes(txtNombreDonante.Text, txtTelefonoDonante.Text);
                 MessageBox.Show("Donante agregado", "Informativo", MessageBoxButtons.OK);
 
-                // Limpiar los controles después de actualizar el stock
+                // Limpiar los controles después de agregar el donante
                 LimpiarControles();
             }
             catch (Exception ex)

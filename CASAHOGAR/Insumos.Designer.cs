@@ -38,6 +38,7 @@
             this.btnSalir = new CASAHOGAR.Botones();
             this.btnAgregar = new CASAHOGAR.Botones();
             this.btnImprimir = new CASAHOGAR.Botones();
+            this.botones1 = new CASAHOGAR.Botones();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInsumos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -45,13 +46,14 @@
             // 
             // dgvInsumos
             // 
+            this.dgvInsumos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvInsumos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvInsumos.Location = new System.Drawing.Point(41, 58);
             this.dgvInsumos.Margin = new System.Windows.Forms.Padding(2);
             this.dgvInsumos.Name = "dgvInsumos";
             this.dgvInsumos.RowHeadersWidth = 62;
             this.dgvInsumos.RowTemplate.Height = 28;
-            this.dgvInsumos.Size = new System.Drawing.Size(564, 300);
+            this.dgvInsumos.Size = new System.Drawing.Size(670, 300);
             this.dgvInsumos.TabIndex = 12;
             this.dgvInsumos.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInsumos_CellEndEdit);
             // 
@@ -130,7 +132,7 @@
             this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSalir.Font = new System.Drawing.Font("Work Sans Medium", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSalir.ForeColor = System.Drawing.Color.Black;
-            this.btnSalir.Location = new System.Drawing.Point(520, 431);
+            this.btnSalir.Location = new System.Drawing.Point(633, 431);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(78, 36);
             this.btnSalir.TabIndex = 53;
@@ -174,7 +176,7 @@
             this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImprimir.Font = new System.Drawing.Font("Work Sans Medium", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImprimir.ForeColor = System.Drawing.Color.Black;
-            this.btnImprimir.Location = new System.Drawing.Point(431, 431);
+            this.btnImprimir.Location = new System.Drawing.Point(544, 431);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(83, 36);
             this.btnImprimir.TabIndex = 86;
@@ -183,13 +185,36 @@
             this.btnImprimir.UseVisualStyleBackColor = false;
             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
+            // botones1
+            // 
+            this.botones1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(231)))), ((int)(((byte)(231)))));
+            this.botones1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(231)))), ((int)(((byte)(231)))));
+            this.botones1.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botones1.BorderRadius = 20;
+            this.botones1.BorderSize = 0;
+            this.botones1.FlatAppearance.BorderSize = 0;
+            this.botones1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(225)))), ((int)(((byte)(175)))));
+            this.botones1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(225)))), ((int)(((byte)(175)))));
+            this.botones1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botones1.Font = new System.Drawing.Font("Work Sans Medium", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.botones1.ForeColor = System.Drawing.Color.Black;
+            this.botones1.Location = new System.Drawing.Point(543, 363);
+            this.botones1.Name = "botones1";
+            this.botones1.Size = new System.Drawing.Size(167, 36);
+            this.botones1.TabIndex = 87;
+            this.botones1.Text = "Insumos mínimos";
+            this.botones1.TextColor = System.Drawing.Color.Black;
+            this.botones1.UseVisualStyleBackColor = false;
+            this.botones1.Click += new System.EventHandler(this.botones1_Click);
+            // 
             // Insumos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(249)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(610, 479);
+            this.ClientSize = new System.Drawing.Size(722, 479);
             this.ControlBox = false;
+            this.Controls.Add(this.botones1);
             this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox3);
@@ -206,6 +231,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Insumos";
             this.Load += new System.EventHandler(this.Insumos_Load);
+            this.Shown += new System.EventHandler(this.Insumos_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.dgvInsumos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -224,5 +250,6 @@
         private Botones btnSalir;
         private Botones btnAgregar;
         private Botones btnImprimir;
+        private Botones botones1;
     }
 }

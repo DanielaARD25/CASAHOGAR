@@ -58,6 +58,7 @@
             this.txtNombreDonante.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombreDonante.Location = new System.Drawing.Point(362, 93);
             this.txtNombreDonante.Margin = new System.Windows.Forms.Padding(2);
+            this.txtNombreDonante.MaxLength = 1000;
             this.txtNombreDonante.Name = "txtNombreDonante";
             this.txtNombreDonante.Size = new System.Drawing.Size(173, 25);
             this.txtNombreDonante.TabIndex = 1;
@@ -68,6 +69,7 @@
             this.txtTelefonoDonante.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTelefonoDonante.Location = new System.Drawing.Point(362, 132);
             this.txtTelefonoDonante.Margin = new System.Windows.Forms.Padding(2);
+            this.txtTelefonoDonante.MaxLength = 10;
             this.txtTelefonoDonante.Name = "txtTelefonoDonante";
             this.txtTelefonoDonante.Size = new System.Drawing.Size(173, 25);
             this.txtTelefonoDonante.TabIndex = 3;
@@ -179,6 +181,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AgregarDonantes";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agregar Donantes";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

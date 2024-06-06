@@ -74,6 +74,7 @@
             this.txtUnidadMedidaInsumo.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUnidadMedidaInsumo.Location = new System.Drawing.Point(193, 219);
             this.txtUnidadMedidaInsumo.Margin = new System.Windows.Forms.Padding(2);
+            this.txtUnidadMedidaInsumo.MaxLength = 30;
             this.txtUnidadMedidaInsumo.Name = "txtUnidadMedidaInsumo";
             this.txtUnidadMedidaInsumo.Size = new System.Drawing.Size(135, 25);
             this.txtUnidadMedidaInsumo.TabIndex = 4;
@@ -143,9 +144,9 @@
             this.panel1.BackgroundImage = global::CASAHOGAR.Properties.Resources.Captura_de_pantalla_2024_05_05_151037;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(337, 0);
+            this.panel1.Location = new System.Drawing.Point(345, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(223, 335);
+            this.panel1.Size = new System.Drawing.Size(215, 335);
             this.panel1.TabIndex = 63;
             // 
             // btnAgregar

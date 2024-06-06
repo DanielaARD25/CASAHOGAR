@@ -12,7 +12,7 @@ namespace CASAHOGAR
 {
     public partial class AgregarVentas : Form
     {
-        Ventas ventas = new Ventas();
+        Ventas ventas;
         VentasDia ventasDia;
         //private DateTime fechaSeleccionada;
         public AgregarVentas()
@@ -26,7 +26,7 @@ namespace CASAHOGAR
             cbxIdPrecio.SelectedIndex = -1;
             cbxPrecio.SelectedIndex = -1;
             rtxtDescripcion.Clear();
-            txtCantidadVentaProducto.Clear();
+            nupCantidad.Value = 0;
             dtpFechaVenta.Value = DateTime.Now;
         }
 
@@ -77,10 +77,9 @@ namespace CASAHOGAR
                     DateTime fechaCompra = Convert.ToDateTime(item.SubItems[5].Text);
 
                     datos.AltaVentas(idPrecio, descripcion, cantidad, totalCantidadProductos, fechaCompra);
-                    //fechaSeleccionada = fechaCompra.Date;
-                    ventasDia.ActualizarDataGridView();
+                    //fechaSeleccionada = fechaCompra.Date
+                    ventas = new Ventas();
                     ventas.ActualizarDataGridView();
-
 
                 }
                 
@@ -98,49 +97,38 @@ namespace CASAHOGAR
 
         private void btnSalir_Click_1(object sender, EventArgs e)
         {
-            // Verificar si el formulario de ventas ya está abierto
-            bool formularioVentasAbierto = false;
-            foreach (Form formularioAbierto in Application.OpenForms)
-            {
-                if (formularioAbierto is Ventas)
-                {
-                    formularioVentasAbierto = true;
-                    break;
-                }
-            }
-
-            // Si el formulario de ventas ya está abierto, cerrar este formulario
-            if (formularioVentasAbierto)
-            {
-                this.Close();
-            }
-            else // Si el formulario de ventas no está abierto, abrirlo y luego cerrar este formulario
-            {
-                Ventas ventas = new Ventas();
-                ventas.Show();
-                this.Close();
-            }
+            ventas = new Ventas();
+            ventas.Show();
+            this.Close();
         }
 
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if(cbxIdPrecio.SelectedIndex == -1 && cbxPrecio.SelectedIndex == -1)
+            if (cbxIdPrecio.SelectedIndex == -1 || cbxPrecio.SelectedIndex == -1)
             {
-                MessageBox.Show("Debe ingresar un precio.");
+                MessageBox.Show("Debe seleccionar un precio.");
+                return; // Detiene la ejecución del método si no se selecciona un precio
             }
 
-            if (txtCantidadVentaProducto.Text == "" && txtCantidadVentaProducto.Text == " ")
+            if (nupCantidad.Value <= 0)
             {
-                MessageBox.Show("Debe ingresar una cantidad.");
+                MessageBox.Show("Debe ingresar una cantidad válida.");
+                return; // Detiene la ejecución del método si no se ingresa una cantidad válida
             }
 
-            else
+            if (string.IsNullOrWhiteSpace(rtxtDescripcion.Text))
+            {
+                MessageBox.Show("Debe ingresar una descripción.");
+                return; // Detiene la ejecución del método si no se ingresa una descripción
+            }
+
+            try
             {
                 int idPrecio = Convert.ToInt32(cbxIdPrecio.Text);
                 int precio = Convert.ToInt32(cbxPrecio.Text);
                 string descripcion = rtxtDescripcion.Text;
-                int cantidad = Convert.ToInt32(txtCantidadVentaProducto.Text);
+                int cantidad = Convert.ToInt32(nupCantidad.Value);
                 DateTime fechaCompra = dtpFechaVenta.Value;
 
                 //Calculos del total de productos y cantidad
@@ -155,7 +143,10 @@ namespace CASAHOGAR
 
                 lvRegistroVentas.Items.Add(fila);
                 LimpiarControles();
-                //btnCancelar_Click(sender, e);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al agregar el registro de venta: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

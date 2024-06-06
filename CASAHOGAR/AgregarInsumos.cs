@@ -31,6 +31,32 @@ namespace CASAHOGAR
             CasaHogar datos = new CasaHogar();
             try
             {
+                // Verificar que todos los campos estén llenos
+                if (string.IsNullOrWhiteSpace(txtNombreInsumo.Text))
+                {
+                    MessageBox.Show("Por favor, ingresa el nombre del insumo.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (nupCantidadDisponible.Value <= 0)
+                {
+                    MessageBox.Show("Por favor, ingresa una cantidad disponible válida.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (nupCantidadMinima.Value <= 0)
+                {
+                    MessageBox.Show("Por favor, ingresa una cantidad mínima válida.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtUnidadMedidaInsumo.Text))
+                {
+                    MessageBox.Show("Por favor, ingresa la unidad de medida del insumo.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Agregar el insumo
                 datos.AltaInsumos(txtNombreInsumo.Text, nupCantidadDisponible.Value, nupCantidadMinima.Value, txtUnidadMedidaInsumo.Text, rtxtDescripciónInsumo.Text);
 
                 MessageBox.Show("Insumo agregado", "Informativo", MessageBoxButtons.OK);

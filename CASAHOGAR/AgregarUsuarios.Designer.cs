@@ -47,6 +47,7 @@
             this.txtConttrasenaUsuario.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtConttrasenaUsuario.Location = new System.Drawing.Point(196, 161);
             this.txtConttrasenaUsuario.Margin = new System.Windows.Forms.Padding(2);
+            this.txtConttrasenaUsuario.MaxLength = 10;
             this.txtConttrasenaUsuario.Name = "txtConttrasenaUsuario";
             this.txtConttrasenaUsuario.Size = new System.Drawing.Size(164, 25);
             this.txtConttrasenaUsuario.TabIndex = 2;
@@ -67,6 +68,7 @@
             this.txtNombreUsuario.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombreUsuario.Location = new System.Drawing.Point(196, 116);
             this.txtNombreUsuario.Margin = new System.Windows.Forms.Padding(2);
+            this.txtNombreUsuario.MaxLength = 10;
             this.txtNombreUsuario.Name = "txtNombreUsuario";
             this.txtNombreUsuario.Size = new System.Drawing.Size(195, 25);
             this.txtNombreUsuario.TabIndex = 1;

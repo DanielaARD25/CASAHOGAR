@@ -36,6 +36,14 @@ namespace CASAHOGAR
             CasaHogar datos = new CasaHogar();
             try
             {
+                // Verificar que el nombre de usuario y la contraseña no estén vacíos
+                if (string.IsNullOrWhiteSpace(txtNombreUsuario.Text) || string.IsNullOrWhiteSpace(txtConttrasenaUsuario.Text))
+                {
+                    MessageBox.Show("Por favor, ingresa un nombre de usuario y una contraseña.", "Campos obligatorios", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Agregar el usuario
                 datos.AltaUsuarios(txtNombreUsuario.Text, txtConttrasenaUsuario.Text, cbxEsAdministrador.Checked);
 
                 MessageBox.Show("Usuario agregado", "Informativo", MessageBoxButtons.OK);

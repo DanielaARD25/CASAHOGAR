@@ -45,6 +45,7 @@
             // 
             // dgvDonantes
             // 
+            this.dgvDonantes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvDonantes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDonantes.Location = new System.Drawing.Point(45, 56);
             this.dgvDonantes.Margin = new System.Windows.Forms.Padding(2);

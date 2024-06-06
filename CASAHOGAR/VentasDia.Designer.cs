@@ -203,6 +203,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "VentasDia";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ventas del Dia";
             this.Load += new System.EventHandler(this.VentasDia_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();

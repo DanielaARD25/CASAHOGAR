@@ -7,7 +7,7 @@
     <ProjectGuid>{D34FE594-597E-497E-8418-AB531A766491}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>CASAHOGAR</RootNamespace>
-    <AssemblyName>CASAHOGAR</AssemblyName>
+    <AssemblyName>SistemaCasaHogar</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -31,6 +31,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>271904723_1252675208549335_3945628700041112833_n.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="itextsharp">
@@ -183,6 +186,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SesionUsuario.cs" />
     <Compile Include="Usuarios.cs">
       <SubType>Form</SubType>
@@ -261,14 +269,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="Usuarios.resx">
       <DependentUpon>Usuarios.cs</DependentUpon>
     </EmbeddedResource>
@@ -417,31 +420,61 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\CONSUMOS.JPG" />
+    <None Include="Resources\VENTAS.jpeg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\DONACIONES.JPG" />
+    <None Include="Resources\DONACIONES.jpeg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\DONANTES.JPG" />
+    <None Include="Resources\DONANTES.jpeg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\EMPLEADOS.JPG" />
+    <None Include="Resources\EMPLEADOS.jpeg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\INSUMOS.JPG" />
+    <None Include="Resources\INSUMOS.jpeg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MOV Y EQ.JPG" />
+    <None Include="Resources\MOB_Y_EQ.jpeg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\PRODUCTOS.JPG" />
+    <None Include="Resources\USUARIOS.jpeg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\USUARIOS.JPG" />
+    <None Include="Resources\PRODUCTOS.jpeg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\VENTAS.JPG" />
+    <None Include="Resources\MOB_Y_EQ.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CONSUMOS.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\USUARIOS.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VENTAS.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DONACIONES.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DONANTES.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EMPLEADOS.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\INSUMOS.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MOV Y EQ.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PRODUCTOS.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="271904723_1252675208549335_3945628700041112833_n.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

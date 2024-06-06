@@ -55,6 +55,7 @@
             this.txtUnidadMedidaInsumo.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUnidadMedidaInsumo.Location = new System.Drawing.Point(443, 159);
             this.txtUnidadMedidaInsumo.Margin = new System.Windows.Forms.Padding(2);
+            this.txtUnidadMedidaInsumo.MaxLength = 30;
             this.txtUnidadMedidaInsumo.Name = "txtUnidadMedidaInsumo";
             this.txtUnidadMedidaInsumo.Size = new System.Drawing.Size(120, 25);
             this.txtUnidadMedidaInsumo.TabIndex = 4;
@@ -87,6 +88,7 @@
             this.txtNombreInsumo.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombreInsumo.Location = new System.Drawing.Point(443, 83);
             this.txtNombreInsumo.Margin = new System.Windows.Forms.Padding(2);
+            this.txtNombreInsumo.MaxLength = 100;
             this.txtNombreInsumo.Name = "txtNombreInsumo";
             this.txtNombreInsumo.Size = new System.Drawing.Size(203, 25);
             this.txtNombreInsumo.TabIndex = 1;
@@ -118,6 +120,7 @@
             this.rtxtDescripciónInsumo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtxtDescripciónInsumo.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtxtDescripciónInsumo.Location = new System.Drawing.Point(443, 207);
+            this.rtxtDescripciónInsumo.MaxLength = 255;
             this.rtxtDescripciónInsumo.Name = "rtxtDescripciónInsumo";
             this.rtxtDescripciónInsumo.Size = new System.Drawing.Size(256, 106);
             this.rtxtDescripciónInsumo.TabIndex = 5;

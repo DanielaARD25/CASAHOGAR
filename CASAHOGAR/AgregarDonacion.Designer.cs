@@ -157,6 +157,7 @@
             // 
             this.rtxtDescripcion.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtxtDescripcion.Location = new System.Drawing.Point(167, 80);
+            this.rtxtDescripcion.MaxLength = 1000;
             this.rtxtDescripcion.Name = "rtxtDescripcion";
             this.rtxtDescripcion.Size = new System.Drawing.Size(278, 134);
             this.rtxtDescripcion.TabIndex = 1;
@@ -231,6 +232,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AgregarDonacion";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agregar Donacion";
             this.Load += new System.EventHandler(this.AgregarDonacion_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

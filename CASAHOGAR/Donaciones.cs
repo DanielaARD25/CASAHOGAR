@@ -170,18 +170,36 @@ namespace CASAHOGAR
         {
             string FileName = RutaArchivo;
             Document document = new Document(PageSize.A4.Rotate(), 50, 50, 25, 25);
-            PdfWriter.GetInstance(document, new FileStream(FileName, FileMode.Create));
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(FileName, FileMode.Create));
             document.Open();
 
             using (MemoryStream ms = new MemoryStream())
             {
+                // Cargar la imagen desde los recursos
                 Bitmap bitmap = CASAHOGAR.Properties.Resources.DONACIONES;
                 bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                 ms.Seek(0, SeekOrigin.Begin);
 
+                // Obtener la imagen de iTextSharp
                 iTextSharp.text.Image png = iTextSharp.text.Image.GetInstance(ms);
-                png.ScalePercent(32f);
+
+                // Obtener el tamaño de la página
+                var pageSize = document.PageSize;
+
+                // Calcular la escala para ajustar la imagen al ancho de la página, manteniendo la relación de aspecto
+                float pageWidth = pageSize.Width - document.LeftMargin - document.RightMargin;
+                float pageHeight = pageSize.Height - document.TopMargin - document.BottomMargin;
+                float scaleX = pageWidth / png.Width;
+                float scaleY = pageHeight / png.Height;
+                float scale = Math.Min(scaleX, scaleY);
+
+                // Aplicar la escala a la imagen
+                png.ScalePercent(scale * 100);
+
+                // Centrar la imagen
                 png.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+
+                // Añadir la imagen al documento
                 document.Add(png);
             }
 
@@ -263,6 +281,17 @@ namespace CASAHOGAR
 
             }
             document.Add(tabla);
+
+            PdfPTable footer = new PdfPTable(1);
+            footer.TotalWidth = document.PageSize.Width - document.LeftMargin - document.RightMargin;
+            footer.DefaultCell.Border = iTextSharp.text.Rectangle.NO_BORDER;
+            footer.AddCell(new PdfPCell(new Phrase(DateTime.Now.ToString("dd/MM/yyyy"), FontFactory.GetFont("Arial", 8)))
+            {
+                Border = iTextSharp.text.Rectangle.NO_BORDER,
+                HorizontalAlignment = Element.ALIGN_RIGHT
+            });
+            footer.WriteSelectedRows(0, -1, document.LeftMargin, document.BottomMargin - 10, writer.DirectContent);
+
 
             document.Close();
             Process prc = new System.Diagnostics.Process();

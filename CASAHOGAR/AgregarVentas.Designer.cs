@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarVentas));
             this.label4 = new System.Windows.Forms.Label();
-            this.txtCantidadVentaProducto = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dtpFechaVenta = new System.Windows.Forms.DateTimePicker();
@@ -52,7 +51,9 @@
             this.btnAgregar = new CASAHOGAR.Botones();
             this.label3 = new System.Windows.Forms.Label();
             this.rtxtDescripcion = new System.Windows.Forms.RichTextBox();
+            this.nupCantidad = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupCantidad)).BeginInit();
             this.SuspendLayout();
             // 
             // label4
@@ -65,16 +66,6 @@
             this.label4.Size = new System.Drawing.Size(142, 22);
             this.label4.TabIndex = 15;
             this.label4.Text = "Fecha de la venta:";
-            // 
-            // txtCantidadVentaProducto
-            // 
-            this.txtCantidadVentaProducto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtCantidadVentaProducto.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCantidadVentaProducto.Location = new System.Drawing.Point(774, 92);
-            this.txtCantidadVentaProducto.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.txtCantidadVentaProducto.Name = "txtCantidadVentaProducto";
-            this.txtCantidadVentaProducto.Size = new System.Drawing.Size(86, 25);
-            this.txtCantidadVentaProducto.TabIndex = 4;
             // 
             // label2
             // 
@@ -324,10 +315,20 @@
             // 
             this.rtxtDescripcion.Font = new System.Drawing.Font("Work Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtxtDescripcion.Location = new System.Drawing.Point(460, 91);
+            this.rtxtDescripcion.MaxLength = 1000;
             this.rtxtDescripcion.Name = "rtxtDescripcion";
             this.rtxtDescripcion.Size = new System.Drawing.Size(214, 67);
             this.rtxtDescripcion.TabIndex = 3;
             this.rtxtDescripcion.Text = "";
+            // 
+            // nupCantidad
+            // 
+            this.nupCantidad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nupCantidad.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nupCantidad.Location = new System.Drawing.Point(775, 90);
+            this.nupCantidad.Name = "nupCantidad";
+            this.nupCantidad.Size = new System.Drawing.Size(82, 25);
+            this.nupCantidad.TabIndex = 4;
             // 
             // AgregarVentas
             // 
@@ -336,6 +337,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(249)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(949, 546);
             this.ControlBox = false;
+            this.Controls.Add(this.nupCantidad);
             this.Controls.Add(this.rtxtDescripcion);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnGuardar);
@@ -350,7 +352,6 @@
             this.Controls.Add(this.cbxIdPrecio);
             this.Controls.Add(this.dtpFechaVenta);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtCantidadVentaProducto);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Work Sans", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -358,9 +359,11 @@
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "AgregarVentas";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agregar Ventas";
             this.Load += new System.EventHandler(this.AgregarVentas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupCantidad)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -368,7 +371,6 @@
 
         #endregion
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtCantidadVentaProducto;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbxIdPrecio;
@@ -390,5 +392,6 @@
         public System.Windows.Forms.DateTimePicker dtpFechaVenta;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RichTextBox rtxtDescripcion;
+        private System.Windows.Forms.NumericUpDown nupCantidad;
     }
 }

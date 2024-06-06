@@ -66,6 +66,7 @@
             this.txtEmailEmpeado.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmailEmpeado.Location = new System.Drawing.Point(405, 210);
             this.txtEmailEmpeado.Margin = new System.Windows.Forms.Padding(2);
+            this.txtEmailEmpeado.MaxLength = 1000;
             this.txtEmailEmpeado.Name = "txtEmailEmpeado";
             this.txtEmailEmpeado.Size = new System.Drawing.Size(217, 25);
             this.txtEmailEmpeado.TabIndex = 4;
@@ -87,6 +88,7 @@
             this.txtTelefonoEmpleado.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTelefonoEmpleado.Location = new System.Drawing.Point(405, 166);
             this.txtTelefonoEmpleado.Margin = new System.Windows.Forms.Padding(2);
+            this.txtTelefonoEmpleado.MaxLength = 20;
             this.txtTelefonoEmpleado.Name = "txtTelefonoEmpleado";
             this.txtTelefonoEmpleado.Size = new System.Drawing.Size(217, 25);
             this.txtTelefonoEmpleado.TabIndex = 3;
@@ -108,6 +110,7 @@
             this.txtNombreEmpleado.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombreEmpleado.Location = new System.Drawing.Point(405, 94);
             this.txtNombreEmpleado.Margin = new System.Windows.Forms.Padding(2);
+            this.txtNombreEmpleado.MaxLength = 100;
             this.txtNombreEmpleado.Name = "txtNombreEmpleado";
             this.txtNombreEmpleado.Size = new System.Drawing.Size(217, 25);
             this.txtNombreEmpleado.TabIndex = 1;
@@ -129,6 +132,7 @@
             this.txtHorarioLaboral.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtHorarioLaboral.Location = new System.Drawing.Point(405, 249);
             this.txtHorarioLaboral.Margin = new System.Windows.Forms.Padding(2);
+            this.txtHorarioLaboral.MaxLength = 50;
             this.txtHorarioLaboral.Name = "txtHorarioLaboral";
             this.txtHorarioLaboral.Size = new System.Drawing.Size(217, 25);
             this.txtHorarioLaboral.TabIndex = 5;
@@ -139,6 +143,7 @@
             this.txtPuestoTrabajo.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPuestoTrabajo.Location = new System.Drawing.Point(405, 296);
             this.txtPuestoTrabajo.Margin = new System.Windows.Forms.Padding(2);
+            this.txtPuestoTrabajo.MaxLength = 50;
             this.txtPuestoTrabajo.Name = "txtPuestoTrabajo";
             this.txtPuestoTrabajo.Size = new System.Drawing.Size(217, 25);
             this.txtPuestoTrabajo.TabIndex = 6;
@@ -161,6 +166,7 @@
             this.txtApellidoEmpleado.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtApellidoEmpleado.Location = new System.Drawing.Point(405, 131);
             this.txtApellidoEmpleado.Margin = new System.Windows.Forms.Padding(2);
+            this.txtApellidoEmpleado.MaxLength = 100;
             this.txtApellidoEmpleado.Name = "txtApellidoEmpleado";
             this.txtApellidoEmpleado.Size = new System.Drawing.Size(217, 25);
             this.txtApellidoEmpleado.TabIndex = 2;

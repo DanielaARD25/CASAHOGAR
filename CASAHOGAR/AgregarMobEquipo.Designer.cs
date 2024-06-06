@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarMobEquipo));
             this.label3 = new System.Windows.Forms.Label();
-            this.txtCantidadDisponibleMobiliario = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtNombreMobiliario = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -42,7 +41,9 @@
             this.btnSalir = new CASAHOGAR.Botones();
             this.btnAgregar = new CASAHOGAR.Botones();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.nupCantidadDisponible = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupCantidadDisponible)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
@@ -55,17 +56,6 @@
             this.label3.Size = new System.Drawing.Size(99, 22);
             this.label3.TabIndex = 31;
             this.label3.Text = "Descripción:";
-            // 
-            // txtCantidadDisponibleMobiliario
-            // 
-            this.txtCantidadDisponibleMobiliario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtCantidadDisponibleMobiliario.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCantidadDisponibleMobiliario.Location = new System.Drawing.Point(216, 118);
-            this.txtCantidadDisponibleMobiliario.Margin = new System.Windows.Forms.Padding(2);
-            this.txtCantidadDisponibleMobiliario.Name = "txtCantidadDisponibleMobiliario";
-            this.txtCantidadDisponibleMobiliario.Size = new System.Drawing.Size(91, 25);
-            this.txtCantidadDisponibleMobiliario.TabIndex = 2;
-            this.txtCantidadDisponibleMobiliario.TextChanged += new System.EventHandler(this.txtCantidadDisponibleMobiliario_TextChanged);
             // 
             // label2
             // 
@@ -84,6 +74,7 @@
             this.txtNombreMobiliario.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombreMobiliario.Location = new System.Drawing.Point(216, 82);
             this.txtNombreMobiliario.Margin = new System.Windows.Forms.Padding(2);
+            this.txtNombreMobiliario.MaxLength = 100;
             this.txtNombreMobiliario.Name = "txtNombreMobiliario";
             this.txtNombreMobiliario.Size = new System.Drawing.Size(195, 25);
             this.txtNombreMobiliario.TabIndex = 1;
@@ -106,6 +97,7 @@
             this.txtEstadoMobiliario.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEstadoMobiliario.Location = new System.Drawing.Point(216, 286);
             this.txtEstadoMobiliario.Margin = new System.Windows.Forms.Padding(2);
+            this.txtEstadoMobiliario.MaxLength = 50;
             this.txtEstadoMobiliario.Name = "txtEstadoMobiliario";
             this.txtEstadoMobiliario.Size = new System.Drawing.Size(195, 25);
             this.txtEstadoMobiliario.TabIndex = 4;
@@ -126,6 +118,7 @@
             this.rtxtDescripcion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtxtDescripcion.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtxtDescripcion.Location = new System.Drawing.Point(216, 153);
+            this.rtxtDescripcion.MaxLength = 255;
             this.rtxtDescripcion.Name = "rtxtDescripcion";
             this.rtxtDescripcion.Size = new System.Drawing.Size(195, 118);
             this.rtxtDescripcion.TabIndex = 3;
@@ -208,6 +201,15 @@
             this.panel1.Size = new System.Drawing.Size(247, 395);
             this.panel1.TabIndex = 73;
             // 
+            // nupCantidadDisponible
+            // 
+            this.nupCantidadDisponible.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nupCantidadDisponible.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nupCantidadDisponible.Location = new System.Drawing.Point(216, 118);
+            this.nupCantidadDisponible.Name = "nupCantidadDisponible";
+            this.nupCantidadDisponible.Size = new System.Drawing.Size(82, 25);
+            this.nupCantidadDisponible.TabIndex = 2;
+            // 
             // AgregarMobEquipo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -215,6 +217,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(249)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(664, 395);
             this.ControlBox = false;
+            this.Controls.Add(this.nupCantidadDisponible);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnSalir);
@@ -224,7 +227,6 @@
             this.Controls.Add(this.txtEstadoMobiliario);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtCantidadDisponibleMobiliario);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtNombreMobiliario);
             this.Controls.Add(this.label1);
@@ -235,6 +237,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agregar Mobiliario y Equipo";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupCantidadDisponible)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -242,7 +245,6 @@
 
         #endregion
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtCantidadDisponibleMobiliario;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtNombreMobiliario;
         private System.Windows.Forms.Label label1;
@@ -254,5 +256,6 @@
         private Botones btnSalir;
         private Botones btnAgregar;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.NumericUpDown nupCantidadDisponible;
     }
 }

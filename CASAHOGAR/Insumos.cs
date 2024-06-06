@@ -17,6 +17,7 @@ namespace CASAHOGAR
 {
     public partial class Insumos : Form
     {
+        MenosInsumos menos;
         public Insumos()
         {
             InitializeComponent();
@@ -36,6 +37,7 @@ namespace CASAHOGAR
             {
                 MessageBox.Show(ex.ToString());
             }
+
         }
 
         private void btnEliminarInsumo_Click(object sender, EventArgs e)
@@ -166,18 +168,36 @@ namespace CASAHOGAR
         {
             string FileName = RutaArchivo;
             Document document = new Document(PageSize.A4.Rotate(), 50, 50, 25, 25);
-            PdfWriter.GetInstance(document, new FileStream(FileName, FileMode.Create));
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(FileName, FileMode.Create));
             document.Open();
 
             using (MemoryStream ms = new MemoryStream())
             {
+                // Cargar la imagen desde los recursos
                 Bitmap bitmap = CASAHOGAR.Properties.Resources.INSUMOS;
                 bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                 ms.Seek(0, SeekOrigin.Begin);
 
+                // Obtener la imagen de iTextSharp
                 iTextSharp.text.Image png = iTextSharp.text.Image.GetInstance(ms);
-                png.ScalePercent(32f);
+
+                // Obtener el tamaño de la página
+                var pageSize = document.PageSize;
+
+                // Calcular la escala para ajustar la imagen al ancho de la página, manteniendo la relación de aspecto
+                float pageWidth = pageSize.Width - document.LeftMargin - document.RightMargin;
+                float pageHeight = pageSize.Height - document.TopMargin - document.BottomMargin;
+                float scaleX = pageWidth / png.Width;
+                float scaleY = pageHeight / png.Height;
+                float scale = Math.Min(scaleX, scaleY);
+
+                // Aplicar la escala a la imagen
+                png.ScalePercent(scale * 100);
+
+                // Centrar la imagen
                 png.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+
+                // Añadir la imagen al documento
                 document.Add(png);
             }
 
@@ -255,12 +275,64 @@ namespace CASAHOGAR
             }
             document.Add(tabla);
 
+            PdfPTable footer = new PdfPTable(1);
+            footer.TotalWidth = document.PageSize.Width - document.LeftMargin - document.RightMargin;
+            footer.DefaultCell.Border = iTextSharp.text.Rectangle.NO_BORDER;
+            footer.AddCell(new PdfPCell(new Phrase(DateTime.Now.ToString("dd/MM/yyyy"), FontFactory.GetFont("Arial", 8)))
+            {
+                Border = iTextSharp.text.Rectangle.NO_BORDER,
+                HorizontalAlignment = Element.ALIGN_RIGHT
+            });
+            footer.WriteSelectedRows(0, -1, document.LeftMargin, document.BottomMargin - 10, writer.DirectContent);
+
+
             document.Close();
             Process prc = new System.Diagnostics.Process();
             prc.StartInfo.FileName = FileName;
             prc.Start();
         }
 
+        private void botones1_Click(object sender, EventArgs e)
+        {
+            menos = new MenosInsumos();
+            menos.Show();
+        }
+
+        private void Insumos_Shown(object sender, EventArgs e)
+        {
+            CasaHogar datos = new CasaHogar();
+            this.Shown -= Insumos_Shown; // Deshabilitar temporalmente el evento
+            try
+            {
+                // Obtener los datos de insumos y asignarlos al DataGridView
+                DataTable insumos = datos.VistaInsumos();
+                dgvInsumos.DataSource = insumos;
+
+                //-------------------------------------INSUMOS EN CEROS ------------------------------------
+                // Verificar si algún insumo tiene cantidad 0
+                var insumosSinCantidad = insumos.AsEnumerable()
+                                                .Where(row => Convert.ToDecimal(row["Cantidad Disponible"]) == 0)
+                                                .ToList();
+
+                if (insumosSinCantidad.Any())
+                {
+                    // Crear el mensaje con los nombres de los insumos con cantidad 0
+                    string mensaje = "Los siguientes insumos tienen cantidad 0:\n" +
+                                     string.Join("\n", insumosSinCantidad.Select(row => row["Nombre"].ToString()));
+
+                    // Mostrar el mensaje en un MessageBox
+                    MessageBox.Show(mensaje, "Insumos en Cero", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                this.Shown += Insumos_Shown; // Rehabilitar el evento
+            }
+        }
     }
 }
 

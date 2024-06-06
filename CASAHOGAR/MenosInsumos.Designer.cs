@@ -30,13 +30,14 @@
         {
             this.dgvMenosInsumos = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnSalir = new CASAHOGAR.Botones();
             this.btnImprimir = new CASAHOGAR.Botones();
+            this.btnSalir = new CASAHOGAR.Botones();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMenosInsumos)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvMenosInsumos
             // 
+            this.dgvMenosInsumos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvMenosInsumos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMenosInsumos.Location = new System.Drawing.Point(12, 54);
             this.dgvMenosInsumos.Name = "dgvMenosInsumos";
@@ -52,27 +53,6 @@
             this.label1.Size = new System.Drawing.Size(239, 42);
             this.label1.TabIndex = 99;
             this.label1.Text = "Menos Insumos";
-            // 
-            // btnSalir
-            // 
-            this.btnSalir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(231)))), ((int)(((byte)(231)))));
-            this.btnSalir.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(231)))), ((int)(((byte)(231)))));
-            this.btnSalir.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnSalir.BorderRadius = 20;
-            this.btnSalir.BorderSize = 0;
-            this.btnSalir.FlatAppearance.BorderSize = 0;
-            this.btnSalir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(225)))), ((int)(((byte)(175)))));
-            this.btnSalir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(225)))), ((int)(((byte)(175)))));
-            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSalir.Font = new System.Drawing.Font("Work Sans Medium", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSalir.ForeColor = System.Drawing.Color.Black;
-            this.btnSalir.Location = new System.Drawing.Point(254, 405);
-            this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(78, 40);
-            this.btnSalir.TabIndex = 100;
-            this.btnSalir.Text = "Salir";
-            this.btnSalir.TextColor = System.Drawing.Color.Black;
-            this.btnSalir.UseVisualStyleBackColor = false;
             // 
             // btnImprimir
             // 
@@ -94,6 +74,29 @@
             this.btnImprimir.Text = "Imprimir";
             this.btnImprimir.TextColor = System.Drawing.Color.Black;
             this.btnImprimir.UseVisualStyleBackColor = false;
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+            // 
+            // btnSalir
+            // 
+            this.btnSalir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(231)))), ((int)(((byte)(231)))));
+            this.btnSalir.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(231)))), ((int)(((byte)(231)))));
+            this.btnSalir.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnSalir.BorderRadius = 20;
+            this.btnSalir.BorderSize = 0;
+            this.btnSalir.FlatAppearance.BorderSize = 0;
+            this.btnSalir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(225)))), ((int)(((byte)(175)))));
+            this.btnSalir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(225)))), ((int)(((byte)(175)))));
+            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSalir.Font = new System.Drawing.Font("Work Sans Medium", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSalir.ForeColor = System.Drawing.Color.Black;
+            this.btnSalir.Location = new System.Drawing.Point(254, 405);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(78, 40);
+            this.btnSalir.TabIndex = 100;
+            this.btnSalir.Text = "Salir";
+            this.btnSalir.TextColor = System.Drawing.Color.Black;
+            this.btnSalir.UseVisualStyleBackColor = false;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // MenosInsumos
             // 
@@ -107,7 +110,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvMenosInsumos);
             this.Name = "MenosInsumos";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Insumos";
+            this.Load += new System.EventHandler(this.MenosInsumos_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMenosInsumos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

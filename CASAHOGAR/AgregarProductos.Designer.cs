@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarProductos));
-            this.txtPrecioUnitarioProducto = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -37,18 +36,10 @@
             this.btnAgregar = new CASAHOGAR.Botones();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.nupPrecio = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupPrecio)).BeginInit();
             this.SuspendLayout();
-            // 
-            // txtPrecioUnitarioProducto
-            // 
-            this.txtPrecioUnitarioProducto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPrecioUnitarioProducto.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPrecioUnitarioProducto.Location = new System.Drawing.Point(182, 142);
-            this.txtPrecioUnitarioProducto.Margin = new System.Windows.Forms.Padding(2);
-            this.txtPrecioUnitarioProducto.Name = "txtPrecioUnitarioProducto";
-            this.txtPrecioUnitarioProducto.Size = new System.Drawing.Size(131, 25);
-            this.txtPrecioUnitarioProducto.TabIndex = 2;
             // 
             // label2
             // 
@@ -148,6 +139,15 @@
             this.label1.TabIndex = 83;
             this.label1.Text = "Agrega un nuevo precio que desees agregar \r\na tu registro.";
             // 
+            // nupPrecio
+            // 
+            this.nupPrecio.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nupPrecio.Font = new System.Drawing.Font("Work Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nupPrecio.Location = new System.Drawing.Point(182, 143);
+            this.nupPrecio.Name = "nupPrecio";
+            this.nupPrecio.Size = new System.Drawing.Size(132, 25);
+            this.nupPrecio.TabIndex = 1;
+            // 
             // AgregarProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -155,13 +155,13 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(249)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(561, 272);
             this.ControlBox = false;
+            this.Controls.Add(this.nupPrecio);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.txtPrecioUnitarioProducto);
             this.Controls.Add(this.label2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -170,13 +170,13 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agregar Precios";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupPrecio)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.TextBox txtPrecioUnitarioProducto;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label5;
@@ -184,5 +184,6 @@
         private Botones btnAgregar;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown nupPrecio;
     }
 }

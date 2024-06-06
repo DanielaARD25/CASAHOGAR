@@ -140,23 +140,34 @@ namespace CASAHOGAR
         private void dgvConsumos_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             CasaHogar datos = new CasaHogar();
-            // Obtengo el ID del empleado editado.
+            // Obtengo el ID del consumo editado.
             int idConsumo = Convert.ToInt32(dgvConsumos.Rows[e.RowIndex].Cells["ID Consumo"].Value);
             // Obtengo los nuevos valores editados.
-            int idInsumo = Convert.ToInt32(dgvConsumos.Rows[e.RowIndex].Cells["ID Insumo"].Value.ToString());
-            decimal cantidadConsumida = Convert.ToDecimal(dgvConsumos.Rows[e.RowIndex].Cells["Cantidad Consumida"].Value.ToString());
-            decimal cantidadDisponible = Convert.ToDecimal(dgvConsumos.Rows[e.RowIndex].Cells["Cantidad Disponible"].Value.ToString());
+            int idInsumo = Convert.ToInt32(dgvConsumos.Rows[e.RowIndex].Cells["ID Insumo"].Value);
+            decimal cantidadConsumida = Convert.ToDecimal(dgvConsumos.Rows[e.RowIndex].Cells["Cantidad Consumida"].Value);
+            decimal cantidadDisponible = Convert.ToDecimal(dgvConsumos.Rows[e.RowIndex].Cells["Cantidad Disponible"].Value);
             string unidadMedida = dgvConsumos.Rows[e.RowIndex].Cells["Unidad de Medida"].Value.ToString();
 
-            // Actualizo la base de datos con los nuevos valores del empleado.
+            // Validar cantidad disponible antes de actualizar
+            if (cantidadConsumida <= 0)
+            {
+                MessageBox.Show("La cantidad consumida no puede ser cero o negativa.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             try
             {
                 datos.ActualizarCantidades(idInsumo, idConsumo, cantidadConsumida, cantidadDisponible, unidadMedida);
+                MessageBox.Show("Datos actualizados correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
+            catch (InvalidOperationException ex)
+            {
+                // Capturar los errores lanzados por RAISERROR
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             catch (Exception ex)
             {
-                // Muestro un mensaje de error en caso de que ocurra una excepción durante la actualización.
+                // Capturar otros tipos de errores
                 MessageBox.Show("Error al actualizar los datos del consumo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -189,18 +200,36 @@ namespace CASAHOGAR
         {
             string FileName = RutaArchivo;
             Document document = new Document(PageSize.A4.Rotate(), 50, 50, 25, 25);
-            PdfWriter.GetInstance(document, new FileStream(FileName, FileMode.Create));
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(FileName, FileMode.Create));
             document.Open();
 
             using (MemoryStream ms = new MemoryStream())
             {
+                // Cargar la imagen desde los recursos
                 Bitmap bitmap = CASAHOGAR.Properties.Resources.CONSUMOS;
                 bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                 ms.Seek(0, SeekOrigin.Begin);
 
+                // Obtener la imagen de iTextSharp
                 iTextSharp.text.Image png = iTextSharp.text.Image.GetInstance(ms);
-                png.ScalePercent(32f);
+
+                // Obtener el tamaño de la página
+                var pageSize = document.PageSize;
+
+                // Calcular la escala para ajustar la imagen al ancho de la página, manteniendo la relación de aspecto
+                float pageWidth = pageSize.Width - document.LeftMargin - document.RightMargin;
+                float pageHeight = pageSize.Height - document.TopMargin - document.BottomMargin;
+                float scaleX = pageWidth / png.Width;
+                float scaleY = pageHeight / png.Height;
+                float scale = Math.Min(scaleX, scaleY);
+
+                // Aplicar la escala a la imagen
+                png.ScalePercent(scale * 100);
+
+                // Centrar la imagen
                 png.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+
+                // Añadir la imagen al documento
                 document.Add(png);
             }
 
@@ -281,7 +310,19 @@ namespace CASAHOGAR
             }
             document.Add(tabla);
 
+            PdfPTable footer = new PdfPTable(1);
+            footer.TotalWidth = document.PageSize.Width - document.LeftMargin - document.RightMargin;
+            footer.DefaultCell.Border = iTextSharp.text.Rectangle.NO_BORDER;
+            footer.AddCell(new PdfPCell(new Phrase(DateTime.Now.ToString("dd/MM/yyyy"), FontFactory.GetFont("Arial", 8)))
+            {
+                Border = iTextSharp.text.Rectangle.NO_BORDER,
+                HorizontalAlignment = Element.ALIGN_RIGHT
+            });
+            footer.WriteSelectedRows(0, -1, document.LeftMargin, document.BottomMargin - 10, writer.DirectContent);
+
+
             document.Close();
+
             Process prc = new System.Diagnostics.Process();
             prc.StartInfo.FileName = FileName;
             prc.Start();

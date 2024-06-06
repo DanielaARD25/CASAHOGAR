@@ -13,21 +13,30 @@ namespace CASAHOGAR
     public partial class AgregarConsumos : Form
     {
         private Dictionary<int, List<int>> cantidadesDisponibles = new Dictionary<int, List<int>>();
+        private Dictionary<string, string> nombreToUnidadMedida;
         public AgregarConsumos()
         {
             InitializeComponent();
+            nombreToUnidadMedida = new Dictionary<string, string>();
+
+            // Asignar el evento
+            cbxNombreInsumo.SelectedIndexChanged += new EventHandler(cbxNombreInsumo_SelectedIndexChanged);
         }
 
         private void cbxNombreInsumo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CasaHogar datos = new CasaHogar();
             int selectedIndex = cbxNombreInsumo.SelectedIndex;
-            cbxIdInsumo.SelectedIndex = selectedIndex;
+            if (selectedIndex >= 0)
+            {
+                cbxIdInsumo.SelectedIndex = selectedIndex;
 
-            string nombreInsumo = cbxNombreInsumo.SelectedItem.ToString();
+                string nombreInsumo = cbxNombreInsumo.SelectedItem.ToString();
 
-            string unidadMedida = datos.ObtenerUnidadMedidaPorNombre(nombreInsumo);
-            txtUnidadMedidaInsumo.Text = unidadMedida;
+                if (nombreToUnidadMedida.TryGetValue(nombreInsumo, out string unidadMedida))
+                {
+                    txtUnidadMedidaInsumo.Text = unidadMedida;
+                }
+            }
         }
 
         private void LlenarInsumo()
@@ -39,12 +48,17 @@ namespace CASAHOGAR
 
             foreach (DataRow row in data.Rows)
             {
-                cbxNombreInsumo.Items.Add(row["nombreInsumo"].ToString());
-                cbxIdInsumo.Items.Add(row["idInsumo"].ToString());
+                string nombreInsumo = row["nombreInsumo"].ToString();
+                string idInsumo = row["idInsumo"].ToString();
+                string unidadMedida = row["unidadMedida"].ToString();
+
+                cbxNombreInsumo.Items.Add(nombreInsumo);
+                cbxIdInsumo.Items.Add(idInsumo);
+                nombreToUnidadMedida[nombreInsumo] = unidadMedida;
             }
         }
 
-        private void AgregarConsumos_Load(object sender, EventArgs e)
+            private void AgregarConsumos_Load(object sender, EventArgs e)
         {
             LlenarInsumo();
             LlenarCantidades();
@@ -55,19 +69,28 @@ namespace CASAHOGAR
         {
             CasaHogar datos = new CasaHogar();
             int selectedIndex = cbxIdInsumo.SelectedIndex;
-            cbxNombreInsumo.SelectedIndex = selectedIndex;
+            if (selectedIndex >= 0)
+            {
+                cbxNombreInsumo.SelectedIndex = selectedIndex;
 
-            // Obtener el ID del insumo seleccionado
-            int idInsumo = Convert.ToInt32(cbxIdInsumo.SelectedItem);
+                // Obtener el ID del insumo seleccionado
+                int idInsumo = Convert.ToInt32(cbxIdInsumo.SelectedItem);
 
-            // Obtener la cantidad disponible asociada al ID del insumo
-            string cantidades = ObtenerCantidades(idInsumo);
+                // Obtener la cantidad disponible asociada al ID del insumo
+                string cantidades = ObtenerCantidades(idInsumo);
 
-            // Mostrar la cantidad disponible en txtCantidadDisponibleInsumo
-            lblCantidadDisponible.Text = cantidades;
+                // Mostrar la cantidad disponible en lblCantidadDisponible
+                lblCantidadDisponible.Text = cantidades;
 
-            string unidadMedida = datos.ObtenerUnidadMedida(idInsumo);
-            txtUnidadMedidaInsumo.Text = unidadMedida;
+                // Obtener el nombre del insumo seleccionado
+                string nombreInsumo = cbxNombreInsumo.SelectedItem.ToString();
+
+                // Obtener la unidad de medida del insumo seleccionado
+                if (nombreToUnidadMedida.TryGetValue(nombreInsumo, out string unidadMedida))
+                {
+                    txtUnidadMedidaInsumo.Text = unidadMedida;
+                }
+            }
         }
 
         private string ObtenerCantidades(int idInsumo)
@@ -146,6 +169,31 @@ namespace CASAHOGAR
             CasaHogar datos = new CasaHogar();
             try
             {
+                // Verificar que todos los campos estén llenos
+                if (cbxIdInsumo.SelectedItem == null)
+                {
+                    MessageBox.Show("Por favor, selecciona un ID de insumo.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (cbxNombreInsumo.SelectedItem == null)
+                {
+                    MessageBox.Show("Por favor, selecciona un nombre de insumo.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtCantidadConsumida.Text))
+                {
+                    MessageBox.Show("Por favor, ingresa la cantidad consumida.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtUnidadMedidaInsumo.Text))
+                {
+                    MessageBox.Show("Por favor, ingresa la unidad de medida.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 // Obtener los valores seleccionados en los ComboBox
                 int idInsumo = Convert.ToInt32(cbxIdInsumo.SelectedItem);
                 string insumo = cbxNombreInsumo.SelectedItem.ToString();

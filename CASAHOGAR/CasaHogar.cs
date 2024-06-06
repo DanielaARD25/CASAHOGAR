@@ -14,7 +14,7 @@ namespace CASAHOGAR
     {
         public string Conexion()
         {
-            string connectionString = @"Data Source=THE-MARAUDERS-M\TBD_DARD_23;Initial Catalog=CASAHOGAR;Integrated Security=True";
+            string connectionString = @"Data Source=DESKTOP-R5CDQ7N\CASAHOGARANGELES;Initial Catalog=CASAHOGAR;Integrated Security=True";
             return connectionString;
         }
 
@@ -219,6 +219,40 @@ namespace CASAHOGAR
         }
         #endregion
 
+        #region VistaVentasPorDia2
+        public DataTable VistaVentasPorDia2(DateTime fecha)
+        {
+            string connectionString = Conexion();
+            string query = "SELECT * FROM vwVentasPorDia WITH(NOLOCK) WHERE CAST([Fecha de Venta] AS DATE) = @Fecha";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Fecha", fecha.Date);
+
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+                    DataTable dataTable = new DataTable();
+
+                    dataAdapter.Fill(dataTable);
+
+                    return dataTable;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al ejecutar la vista: " + ex.Message);
+                    return null;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+        #endregion
+
         #region VistaProductos
         public DataTable VistaProductos()
         {
@@ -290,6 +324,39 @@ namespace CASAHOGAR
         {
             string conectionString;
             string Query = "SELECT * FROM vwInsumos WITH(NOLOCK)";
+
+            conectionString = Conexion();
+
+            using (SqlConnection connection = new SqlConnection(conectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(Query, connection);
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+
+                DataTable dataTable = new DataTable();
+
+                try
+                {
+                    dataAdapter.Fill(dataTable);
+
+                    connection.Close();
+                    return dataTable;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al ejecutar la vista: " + ex.Message);
+                    connection.Close();
+                    return null;
+                }
+            }
+        }
+        #endregion
+
+        #region VistaInsumos Minimos
+        public DataTable VistaInsumosMinimos()
+        {
+            string conectionString;
+            string Query = "SELECT * FROM vwInsumosMinimos WITH(NOLOCK)";
 
             conectionString = Conexion();
 
@@ -524,48 +591,38 @@ namespace CASAHOGAR
         #region ActualizarCantidades
         public void ActualizarCantidades(int IdInsumo, int IdConsumo, decimal CantidadConsumida, decimal CantidadDisponible, string UnidadMedida)
         {
-            //Obtenemos la cadena de conexión de nuestra base de datos
-            string conectionString;
-            conectionString = Conexion();
+            string connectionString = Conexion();
 
-            //Generamos la conexión
-            using (SqlConnection connection = new SqlConnection(conectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
                 {
-                    //Abrimos la conexión
                     connection.Open();
-                    //Indicamos el comando que se va a ejecutar en este caso un stored procedure
                     SqlCommand command = new SqlCommand("spi_ActualizarConsumosInsumos", connection);
-                    //Le indicamos que tipo de componente es
                     command.CommandType = CommandType.StoredProcedure;
 
-                    //Le mandamos las variables ingresadas en los texbox
                     command.Parameters.AddWithValue("@IdInsumo", IdInsumo);
                     command.Parameters.AddWithValue("@IdConsumo", IdConsumo);
                     command.Parameters.AddWithValue("@CantidadConsumida", CantidadConsumida);
                     command.Parameters.AddWithValue("@CantidadDisponible", CantidadDisponible);
                     command.Parameters.AddWithValue("@UnidadMedida", UnidadMedida);
 
-                    //Ejecutamos el componente "Similar a EXEC en SQL"
                     command.ExecuteNonQuery();
-                    connection.Close();
                 }
                 catch (SqlException ex)
                 {
-                    // Manejar específicamente errores de SQL Server
-                    Console.WriteLine("Error al ejecutar el stored procedure: " + ex.Message);
-                    throw; // Relanzar la excepción para que pueda ser capturada en el bloque catch de tu código de presentación
+                    if (ex.Number == 50000) // Número de error definido por RAISERROR
+                    {
+                        throw new InvalidOperationException(ex.Message, ex);
+                    }
+                    else
+                    {
+                        throw; // Relanzar la excepción para que pueda ser capturada en el bloque catch de tu código de presentación
+                    }
                 }
                 catch (Exception ex)
                 {
-                    // Otros tipos de errores
-                    Console.WriteLine("Error al ejecutar el stored procedure: " + ex.Message);
                     throw; // Relanzar la excepción para que pueda ser capturada en el bloque catch de tu código de presentación
-                }
-                finally
-                {
-                    connection.Close(); // Asegúrate de cerrar la conexión
                 }
             }
         }
@@ -679,6 +736,7 @@ namespace CASAHOGAR
         }
         #endregion
 
+
         #region Validar Usuario
         public void ValidarUsuario(string usuarioIngresado, string contraseñaIngresada, Form formulario)
         {
@@ -751,7 +809,7 @@ namespace CASAHOGAR
         #region Obtener Unidad Medida por Nombre
         public string ObtenerUnidadMedidaPorNombre(string nombreInsumo)
         {
-            string unidadMedida = string.Empty;
+            string unidadMedida= String.Empty;
             string connectionString = Conexion();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -1270,13 +1328,14 @@ namespace CASAHOGAR
         #endregion
 
         #region Actualizar Productos
-        public void ActualizarProductos(int idProducto, string nombreProducto, int precioUnitarioProducto, string informacionAdicional)
+        public void ActualizarProductos(int idPrecio, int precioUnitarioProducto)
         {
             // Obtener la cadena de conexión
             string connectionString = Conexion();
 
-            // Definir la consulta SQL
-            string updateInsumoQuery = "UPDATE Productos SET nombreProducto = @NombreProducto, precioUnitarioProducto = @PrecioUnitarioProducto, informacionAdicional = @InformacionAdicional WHERE idProducto = @IdProducto";
+            // Definir las consultas SQL
+            string checkPriceExistsQuery = "SELECT COUNT(*) FROM Productos WHERE precioUnitarioProducto = @Precio AND idPrecio != @IdPrecio";
+            string updateInsumoQuery = "UPDATE Productos SET precioUnitarioProducto = @Precio WHERE idPrecio = @IdPrecio";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -1288,32 +1347,48 @@ namespace CASAHOGAR
 
                 try
                 {
-                    // Crear el comando SQL
-                    using (SqlCommand command = new SqlCommand(updateInsumoQuery, connection, transaction))
+                    // Crear el comando para verificar si el precio ya existe
+                    using (SqlCommand checkCommand = new SqlCommand(checkPriceExistsQuery, connection, transaction))
                     {
                         // Agregar los parámetros
-                        command.Parameters.AddWithValue("@IdProducto", idProducto);
-                        command.Parameters.AddWithValue("@NombreProducto", nombreProducto);
-                        command.Parameters.AddWithValue("@PrecioUnitarioProducto", precioUnitarioProducto);
-                        command.Parameters.AddWithValue("@InformacionAdicional", informacionAdicional);
+                        checkCommand.Parameters.AddWithValue("@Precio", precioUnitarioProducto);
+                        checkCommand.Parameters.AddWithValue("@IdPrecio", idPrecio);
 
                         // Ejecutar la consulta
-                        command.ExecuteNonQuery();
+                        int count = (int)checkCommand.ExecuteScalar();
+
+                        // Verificar si el precio ya existe
+                        if (count > 0)
+                        {
+                            throw new Exception("Ya existe un producto con el mismo precio.");
+                        }
+                    }
+
+                    // Crear el comando para actualizar el producto
+                    using (SqlCommand updateCommand = new SqlCommand(updateInsumoQuery, connection, transaction))
+                    {
+                        // Agregar los parámetros
+                        updateCommand.Parameters.AddWithValue("@IdPrecio", idPrecio);
+                        updateCommand.Parameters.AddWithValue("@Precio", precioUnitarioProducto);
+
+                        // Ejecutar la consulta
+                        updateCommand.ExecuteNonQuery();
                     }
 
                     // Confirmar la transacción
                     transaction.Commit();
-
                 }
                 catch (Exception ex)
                 {
                     // Si ocurre algún error, hacer rollback de la transacción
                     Console.WriteLine("Error: " + ex.Message);
                     transaction.Rollback();
+                    throw; // Relanzar la excepción para que pueda ser manejada externamente si es necesario
                 }
             }
         }
         #endregion
+
 
         // ----------- EMPLEADOS ---------------- 
 

@@ -45,6 +45,7 @@
             // 
             // dgvMobEquipo
             // 
+            this.dgvMobEquipo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvMobEquipo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMobEquipo.Location = new System.Drawing.Point(45, 56);
             this.dgvMobEquipo.Margin = new System.Windows.Forms.Padding(2);

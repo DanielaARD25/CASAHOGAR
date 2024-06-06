@@ -13,7 +13,7 @@ namespace CASAHOGAR
 {
     public partial class Form1 : Form
     {
-        
+
         public Form1()
         {
             InitializeComponent();
@@ -48,6 +48,11 @@ namespace CASAHOGAR
             string contraseñaIngresada = txtContrasena.Text;
 
             datos.ValidarUsuario(usuarioIngresado, contraseñaIngresada, this);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

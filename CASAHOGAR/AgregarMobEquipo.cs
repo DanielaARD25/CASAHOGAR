@@ -21,7 +21,7 @@ namespace CASAHOGAR
         {
             txtEstadoMobiliario.Clear();
             txtNombreMobiliario.Clear();
-            txtCantidadDisponibleMobiliario.Clear();
+            nupCantidadDisponible.Value = 0;
             rtxtDescripcion.Clear();
         }
 
@@ -45,7 +45,27 @@ namespace CASAHOGAR
             CasaHogar datos = new CasaHogar();
             try
             {
-                datos.AltaMobiliarioEquipo(txtNombreMobiliario.Text, Convert.ToInt32(txtCantidadDisponibleMobiliario.Text), rtxtDescripcion.Text, txtEstadoMobiliario.Text);
+                // Verificar que todos los campos estén llenos
+                if (string.IsNullOrWhiteSpace(txtNombreMobiliario.Text))
+                {
+                    MessageBox.Show("Por favor, ingresa el nombre del mobiliario.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (nupCantidadDisponible.Value <= 0)
+                {
+                    MessageBox.Show("Por favor, ingresa una cantidad disponible válida.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtEstadoMobiliario.Text))
+                {
+                    MessageBox.Show("Por favor, ingresa el estado del mobiliario.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Agregar el mobiliario
+                datos.AltaMobiliarioEquipo(txtNombreMobiliario.Text, Convert.ToInt32(nupCantidadDisponible.Value), rtxtDescripcion.Text, txtEstadoMobiliario.Text);
 
                 MessageBox.Show("Mobiliario agregado", "Informativo", MessageBoxButtons.OK);
 

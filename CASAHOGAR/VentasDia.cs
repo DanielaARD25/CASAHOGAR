@@ -19,7 +19,7 @@ namespace CASAHOGAR
     {
         private DateTime fechaSeleccionada;
         CasaHogar conexion = new CasaHogar();
-        Ventas ventas = new Ventas();
+        Ventas ventas;
         
         //string cadena = cone.Conexion();
         public VentasDia(DateTime fecha)
@@ -110,21 +110,38 @@ namespace CASAHOGAR
         {
             string FileName = RutaArchivo;
             Document document = new Document(PageSize.A4.Rotate(), 50, 50, 25, 25);
-            PdfWriter.GetInstance(document, new FileStream(FileName, FileMode.Create));
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(FileName, FileMode.Create));
             document.Open();
 
             using (MemoryStream ms = new MemoryStream())
             {
+                // Cargar la imagen desde los recursos
                 Bitmap bitmap = CASAHOGAR.Properties.Resources.VENTAS;
                 bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                 ms.Seek(0, SeekOrigin.Begin);
 
+                // Obtener la imagen de iTextSharp
                 iTextSharp.text.Image png = iTextSharp.text.Image.GetInstance(ms);
-                png.ScalePercent(32f);
+
+                // Obtener el tamaño de la página
+                var pageSize = document.PageSize;
+
+                // Calcular la escala para ajustar la imagen al ancho de la página, manteniendo la relación de aspecto
+                float pageWidth = pageSize.Width - document.LeftMargin - document.RightMargin;
+                float pageHeight = pageSize.Height - document.TopMargin - document.BottomMargin;
+                float scaleX = pageWidth / png.Width;
+                float scaleY = pageHeight / png.Height;
+                float scale = Math.Min(scaleX, scaleY);
+
+                // Aplicar la escala a la imagen
+                png.ScalePercent(scale * 100);
+
+                // Centrar la imagen
                 png.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+
+                // Añadir la imagen al documento
                 document.Add(png);
             }
-
 
             Paragraph Parrafo = new Paragraph();
             Parrafo.Alignment = Element.ALIGN_RIGHT;
@@ -217,6 +234,18 @@ namespace CASAHOGAR
             }
             document.Add(tabla);
 
+            // Agregar la fecha en la esquina inferior derecha
+            PdfPTable footer = new PdfPTable(1);
+            footer.TotalWidth = document.PageSize.Width - document.LeftMargin - document.RightMargin;
+            footer.DefaultCell.Border = iTextSharp.text.Rectangle.NO_BORDER;
+            footer.AddCell(new PdfPCell(new Phrase(DateTime.Now.ToString("dd/MM/yyyy"), FontFactory.GetFont("Arial", 8)))
+            {
+                Border = iTextSharp.text.Rectangle.NO_BORDER,
+                HorizontalAlignment = Element.ALIGN_RIGHT
+            });
+            footer.WriteSelectedRows(0, -1, document.LeftMargin, document.BottomMargin - 10, writer.DirectContent);
+
+
             document.Close();
             Process prc = new System.Diagnostics.Process();
             prc.StartInfo.FileName = FileName;
@@ -253,12 +282,17 @@ namespace CASAHOGAR
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             CasaHogar datos = new CasaHogar();
+            // Obtener la fecha actual
+            DateTime fechaActual = DateTime.Today;
+
+            // Calcular la fecha límite como una semana antes de la fecha actual
+            DateTime fechaLimite = fechaActual.AddDays(-7);
 
             //DateTime fechaSeleccionada = Convert.ToDateTime(dgvVentas.SelectedRows[0].Cells["Fecha de Venta"].Value.ToString());
-            if(fechaSeleccionada == DateTime.Today)
+            if (dgvVentas.SelectedRows.Count > 0)
             {
                 // Verificar si hay una fila seleccionada en el DataGridView
-                if (dgvVentas.SelectedRows.Count > 0)
+                if ( fechaSeleccionada >= fechaLimite && fechaSeleccionada <= fechaActual)
                 {
                     // Obtener el valor del ID de la fila seleccionada
                     string idSeleccionado = dgvVentas.SelectedRows[0].Cells["ID Venta"].Value.ToString();
@@ -280,6 +314,7 @@ namespace CASAHOGAR
                                 // Actualizar el DataGridView después de la eliminación
                                 try
                                 {
+                                    ventas = new Ventas();
                                     ActualizarDataGridView();
                                     ventas.ActualizarDataGridView();
                                 }
@@ -296,48 +331,16 @@ namespace CASAHOGAR
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, seleccione una fila para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("No puedes eliminar ventas fuera del plazo de una semana desde la fecha de venta.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else
             {
-                MessageBox.Show("Has excedido el tiempo límite para eliminar el registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor, seleccione una fila para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             
             
         }
 
-        //void buscar()
-        //{
-        //    // Crear una conexión a la base de datos
-        //    using (SqlConnection connection = new SqlConnection(connectionString))
-        //    {
-        //        try
-        //        {
-        //            // Abrir la conexión
-        //            connection.Open();
-
-        //            // Crear un adaptador de datos y especificar el procedimiento almacenado
-        //            SqlDataAdapter da = new SqlDataAdapter("buscar", connection);
-        //            da.SelectCommand.CommandType = CommandType.StoredProcedure;
-
-        //            // Agregar parámetros al procedimiento almacenado
-        //            da.SelectCommand.Parameters.Add("@FechaVenta", SqlDbType.DateTime).Value = dateTimePicker1.Value;
-
-        //            // Crear un DataTable para almacenar los resultados
-        //            DataTable dt = new DataTable();
-
-        //            // Llenar el DataTable con los resultados de la consulta
-        //            da.Fill(dt);
-
-        //            // Asignar el DataTable al DataGridView
-        //            dgvVentas.DataSource = dt;
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            MessageBox.Show("Error al buscar ventas: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        }
-        //    }
-        //}
     }
 }

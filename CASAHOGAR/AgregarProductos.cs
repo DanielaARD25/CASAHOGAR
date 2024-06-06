@@ -21,7 +21,7 @@ namespace CASAHOGAR
 
         private void LimpiarControles()
         {
-            txtPrecioUnitarioProducto.Clear();
+            nupPrecio.Value = 0;
 
         }
 
@@ -30,7 +30,15 @@ namespace CASAHOGAR
             CasaHogar datos = new CasaHogar();
             try
             {
-                datos.AltaProductos(Convert.ToInt32(txtPrecioUnitarioProducto.Text));
+                // Verificar si el campo de texto contiene un valor válido
+                if (!int.TryParse(nupPrecio.Text, out int precio) || precio <= 0)
+                {
+                    MessageBox.Show("Por favor, ingresa un precio unitario válido.", "Valor inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Agregar el precio del producto
+                datos.AltaProductos(precio);
 
                 MessageBox.Show("Precio agregado", "Informativo", MessageBoxButtons.OK);
 

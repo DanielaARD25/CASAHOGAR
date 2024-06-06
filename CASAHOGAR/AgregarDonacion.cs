@@ -75,6 +75,25 @@ namespace CASAHOGAR
             CasaHogar datos = new CasaHogar();
             try
             {
+                // Verificar que todos los campos estén llenos
+                if (cbxIdDonante.SelectedItem == null)
+                {
+                    MessageBox.Show("Por favor, selecciona un ID de donante.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (cbxNombreDonante.SelectedItem == null)
+                {
+                    MessageBox.Show("Por favor, selecciona un nombre de donante.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(rtxtDescripcion.Text))
+                {
+                    MessageBox.Show("Por favor, ingresa una descripción de la donación.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 // Obtener los valores seleccionados en los ComboBox
                 int idDonante = Convert.ToInt32(cbxIdDonante.SelectedItem.ToString());
                 string nombreDonante = cbxNombreDonante.SelectedItem.ToString();

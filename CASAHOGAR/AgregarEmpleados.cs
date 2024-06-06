@@ -32,12 +32,44 @@ namespace CASAHOGAR
             CasaHogar datos = new CasaHogar();
             try
             {
+                // Verificar que todos los campos estén llenos
+                if (string.IsNullOrWhiteSpace(txtNombreEmpleado.Text))
+                {
+                    MessageBox.Show("Por favor, ingresa el nombre del empleado.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtApellidoEmpleado.Text))
+                {
+                    MessageBox.Show("Por favor, ingresa el apellido del empleado.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtTelefonoEmpleado.Text))
+                {
+                    MessageBox.Show("Por favor, ingresa el teléfono del empleado.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtHorarioLaboral.Text))
+                {
+                    MessageBox.Show("Por favor, ingresa el horario laboral del empleado.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtPuestoTrabajo.Text))
+                {
+                    MessageBox.Show("Por favor, ingresa el puesto de trabajo del empleado.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Agregar el empleado
                 datos.AltaEmpleados(txtNombreEmpleado.Text, txtApellidoEmpleado.Text, txtTelefonoEmpleado.Text,
                     txtEmailEmpeado.Text, txtHorarioLaboral.Text, txtPuestoTrabajo.Text);
 
                 MessageBox.Show("Empleado agregado", "Informativo", MessageBoxButtons.OK);
 
-                // Limpiar los controles después de actualizar el stock
+                // Limpiar los controles después de agregar el empleado
                 LimpiarControles();
             }
             catch (Exception ex)

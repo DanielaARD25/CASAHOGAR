@@ -66,52 +66,57 @@ namespace CASAHOGAR
         {
             CasaHogar datos = new CasaHogar();
 
-            DateTime fechaSeleccionada = Convert.ToDateTime(dgvVentas.SelectedRows[0].Cells["Fecha de Venta"].Value.ToString());
-            if (fechaSeleccionada == DateTime.Today)
-            {
-                // Verificar si hay una fila seleccionada en el DataGridView
-                if (dgvVentas.SelectedRows.Count > 0)
-                {
-                        // Confirmar con el usuario antes de eliminar
-                        DialogResult result = MessageBox.Show("¿Estás seguro de que deseas eliminar todas las ventas realizadas en la fecha " + fechaSeleccionada + "?",
-                                                                "Confirmar Eliminación",
-                                                                MessageBoxButtons.YesNo,
-                                                                MessageBoxIcon.Question);
+            // Obtener la fecha actual
+            DateTime fechaActual = DateTime.Today;
 
-                        // Si el usuario confirma la eliminación
-                        if (result == DialogResult.Yes)
+            // Calcular la fecha límite como una semana antes de la fecha actual
+            DateTime fechaLimite = fechaActual.AddDays(-7);
+            // Verificar si hay una fila seleccionada en el DataGridView
+            if (dgvVentas.SelectedRows.Count > 0)
+            {
+                DateTime fechaSeleccionada = Convert.ToDateTime(dgvVentas.SelectedRows[0].Cells["Fecha de Venta"].Value.ToString());
+                // Verificar si la fecha de venta está dentro del plazo permitido
+                if (fechaSeleccionada >= fechaLimite && fechaSeleccionada <= fechaActual)
+                {
+                    // Confirmar con el usuario antes de eliminar
+                    DialogResult result = MessageBox.Show("¿Estás seguro de que deseas eliminar todas las ventas realizadas en la fecha " + fechaSeleccionada + "?",
+                                                            "Confirmar Eliminación",
+                                                            MessageBoxButtons.YesNo,
+                                                            MessageBoxIcon.Question);
+
+                    // Si el usuario confirma la eliminación
+                    if (result == DialogResult.Yes)
+                    {
+                        // Realizar la eliminación de las ventas por fecha
+                        try
                         {
-                            // Realizar la eliminación de las ventas por fecha
+                            // Llamar a un método en tu clase de acceso a datos para eliminar las ventas por fecha
+                            datos.EliminarVentasPorFecha(fechaSeleccionada);
+
+                            // Actualizar el DataGridView después de la eliminación
                             try
                             {
-                                // Llamar a un método en tu clase de acceso a datos para eliminar las ventas por fecha
-                                datos.EliminarVentasPorFecha(fechaSeleccionada);
-
-                                // Actualizar el DataGridView después de la eliminación
-                                try
-                                {
-                                    ActualizarDataGridView();
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show("Error al actualizar el DataGridView después de la eliminación: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                }
+                                ActualizarDataGridView();
                             }
                             catch (Exception ex)
                             {
-                                MessageBox.Show("Error al eliminar las ventas por fecha: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("Error al actualizar el DataGridView después de la eliminación: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
-                    
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error al eliminar las ventas por fecha: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, seleccione una fila para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("No puedes eliminar ventas fuera del plazo de una semana desde la fecha de venta.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else
             {
-                MessageBox.Show("Has excedido el tiempo límite para eliminar el registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor, seleccione una fila para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             ActualizarDataGridView();
         }
@@ -160,18 +165,36 @@ namespace CASAHOGAR
         {
             string FileName = RutaArchivo;
             Document document = new Document(PageSize.A4.Rotate(), 50, 50, 25, 25);
-            PdfWriter.GetInstance(document, new FileStream(FileName, FileMode.Create));
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(FileName, FileMode.Create));
             document.Open();
 
             using (MemoryStream ms = new MemoryStream())
             {
+                // Cargar la imagen desde los recursos
                 Bitmap bitmap = CASAHOGAR.Properties.Resources.VENTAS;
                 bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                 ms.Seek(0, SeekOrigin.Begin);
 
+                // Obtener la imagen de iTextSharp
                 iTextSharp.text.Image png = iTextSharp.text.Image.GetInstance(ms);
-                png.ScalePercent(32f);
+
+                // Obtener el tamaño de la página
+                var pageSize = document.PageSize;
+
+                // Calcular la escala para ajustar la imagen al ancho de la página, manteniendo la relación de aspecto
+                float pageWidth = pageSize.Width - document.LeftMargin - document.RightMargin;
+                float pageHeight = pageSize.Height - document.TopMargin - document.BottomMargin;
+                float scaleX = pageWidth / png.Width;
+                float scaleY = pageHeight / png.Height;
+                float scale = Math.Min(scaleX, scaleY);
+
+                // Aplicar la escala a la imagen
+                png.ScalePercent(scale * 100);
+
+                // Centrar la imagen
                 png.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+
+                // Añadir la imagen al documento
                 document.Add(png);
             }
 
@@ -240,7 +263,18 @@ namespace CASAHOGAR
                 tabla.AddCell(celda9);
             }
             document.Add(tabla);
-            
+
+            PdfPTable footer = new PdfPTable(1);
+            footer.TotalWidth = document.PageSize.Width - document.LeftMargin - document.RightMargin;
+            footer.DefaultCell.Border = iTextSharp.text.Rectangle.NO_BORDER;
+            footer.AddCell(new PdfPCell(new Phrase(DateTime.Now.ToString("dd/MM/yyyy"), FontFactory.GetFont("Arial", 8)))
+            {
+                Border = iTextSharp.text.Rectangle.NO_BORDER,
+                HorizontalAlignment = Element.ALIGN_RIGHT
+            });
+            footer.WriteSelectedRows(0, -1, document.LeftMargin, document.BottomMargin - 10, writer.DirectContent);
+
+
             document.Close();
             Process prc = new System.Diagnostics.Process();
             prc.StartInfo.FileName = FileName;
@@ -257,42 +291,6 @@ namespace CASAHOGAR
 
         private void dgvVentas_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            //string conectionString;
-            //conectionString = Conexion();
-            //// Obtengo el ID de la venta editada.
-            //int idVenta = Convert.ToInt32(dgvVentas.Rows[e.RowIndex].Cells["ID Venta"].Value);
-            //// Obtengo los nuevos valores editados.
-            //int idProducto = Convert.ToInt32(dgvVentas.Rows[e.RowIndex].Cells["ID Producto"].Value);
-            //int cantidadVendida = Convert.ToInt32(dgvVentas.Rows[e.RowIndex].Cells["Cantidad Vendida"].Value.ToString());
-            //decimal montoPagado = Convert.ToDecimal(dgvVentas.Rows[e.RowIndex].Cells["Monto Pagado"].Value.ToString());
-            //DateTime fechaVenta = Convert.ToDateTime(dgvVentas.Rows[e.RowIndex].Cells["Fecha de Venta"].Value.ToString());
-
-            //// Actualizo la base de datos con los nuevos valores de la venta.
-            //try
-            //{
-            //    // Establezco una conexión con la base de datos.
-            //    using (SqlConnection connection = new SqlConnection(conectionString))
-            //    {
-            //        connection.Open();
-            //        // Construyo la consulta SQL para actualizar los datos de la venta.
-            //        string query = "UPDATE Ventas SET idProducto = @IdProducto, cantidadVendida = @CantidadVendida, montoPagado = @MontoPagado, fechaVenta = @FechaVenta WHERE idVenta = @IdVenta";
-            //        SqlCommand command = new SqlCommand(query, connection);
-            //        command.Parameters.AddWithValue("@IdVenta", idVenta);
-            //        command.Parameters.AddWithValue("@IdProducto", idProducto);
-            //        command.Parameters.AddWithValue("@CantidadVendida", cantidadVendida);
-            //        command.Parameters.AddWithValue("@MontoPagado", montoPagado);
-            //        command.Parameters.AddWithValue("@FechaVenta", fechaVenta);
-            //        // Ejecuto la consulta.
-            //        command.ExecuteNonQuery();
-
-            //        MessageBox.Show("Datos de la venta actualizados correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    // Muestro un mensaje de error en caso de que ocurra una excepción durante la actualización.
-            //    MessageBox.Show("Error al actualizar los datos de la venta: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
         }
 
 
@@ -301,7 +299,23 @@ namespace CASAHOGAR
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             CasaHogar datos = new CasaHogar();
-            datos.BuscarVenta(dateTimePicker1,dgvVentas);
+            DataTable resultados = datos.VistaVentasPorDia2(dateTimePicker1.Value.Date);
+
+            if (resultados != null)
+            {
+                if (resultados.Rows.Count > 0)
+                {
+                    dgvVentas.DataSource = resultados;
+                }
+                else
+                {
+                    MessageBox.Show("No se encontraron ventas para la fecha seleccionada.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Error al obtener los datos.");
+            }
         }
 
         private void btnMostrar_Click(object sender, EventArgs e)
