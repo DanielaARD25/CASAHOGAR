@@ -14,7 +14,7 @@ namespace CASAHOGAR
     {
         public string Conexion()
         {
-            string connectionString = @"Data Source=DESKTOP-R5CDQ7N\CASAHOGARANGELES;Initial Catalog=CASAHOGAR;Integrated Security=True";
+            string connectionString = @"Data Source=THE-MARAUDERS-M\TBD_DARD_23;Initial Catalog=CASAHOGAR;Integrated Security=True";
             return connectionString;
         }
 
